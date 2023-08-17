@@ -337,7 +337,7 @@
             },
             "editorMode": "code",
             "exemplar": false,
-            "expr": "label_replace(gatewayapi_gatewayclass_info, \"gatewayclass_name\", \"$1\", \"name\", \"(.*)\") * on(gatewayclass_name) group_left() (sum by(gatewayclass_name) (gatewayapi_gateway_info))",
+            "expr": "sum by(gatewayclass_name) (gatewayapi_gateway_info)",
             "format": "table",
             "instant": true,
             "legendFormat": "",
@@ -352,9 +352,8 @@
             "options": {
               "include": {
                 "names": [
-                  "customresource_version",
-                  "name",
-                  "Value"
+                  "Value",
+                  "gatewayclass_name"
                 ]
               }
             }
@@ -371,6 +370,7 @@
                 "Value": "# Instances",
                 "customresource_kind": "Kind",
                 "customresource_version": "Version",
+                "gatewayclass_name": "Name",
                 "name": "Name",
                 "namespace": "Namespace"
               }
@@ -1067,73 +1067,6 @@
           "type": "prometheus",
           "uid": "${DS_THANOS-QUERY}"
         },
-        "description": "Total number of attached routes across all listeners",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 3,
-          "w": 2,
-          "x": 0,
-          "y": 14
-        },
-        "id": 25,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "area",
-          "justifyMode": "auto",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "8.5.5",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "${DS_THANOS-QUERY}"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "sum(gatewayapi_gateway_status_listener_attached_routes)",
-            "instant": true,
-            "range": false,
-            "refId": "A"
-          }
-        ],
-        "title": "Att. Routes",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${DS_THANOS-QUERY}"
-        },
         "description": "Total number of listeners across all Gateways",
         "fieldConfig": {
           "defaults": {
@@ -1160,7 +1093,7 @@
         "gridPos": {
           "h": 3,
           "w": 2,
-          "x": 2,
+          "x": 0,
           "y": 14
         },
         "id": 24,
@@ -1194,6 +1127,73 @@
           }
         ],
         "title": "Listeners",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_THANOS-QUERY}"
+        },
+        "description": "Total number of attached routes across all listeners",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 2,
+          "x": 2,
+          "y": 14
+        },
+        "id": 25,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_THANOS-QUERY}"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "sum(gatewayapi_gateway_status_listener_attached_routes)",
+            "instant": true,
+            "range": false,
+            "refId": "A"
+          }
+        ],
+        "title": "Att. Routes",
         "type": "stat"
       },
       {
@@ -2491,6 +2491,6 @@
     "timezone": "",
     "title": "Gateway API State",
     "uid": "DXkFcMRSz",
-    "version": 9,
+    "version": 1,
     "weekStart": ""
   }
