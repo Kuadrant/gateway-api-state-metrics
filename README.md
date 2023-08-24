@@ -22,15 +22,17 @@ The kustomization config does the following:
 and the various Gateway API resources in the `gateway.networking.k8s.io` apiGroup
 - changes the kube-state-metrics image to a version that supports CustomResourceState and has various issues fixed.
 
-An example Grafana dashboard is available at [./dashboard.json](./dashboard.json).
-You can import it and modify it as needed.
-The dashboard is divided into 3 rows, for GatewayClasses, Gateways and HTTPRoutes.
+An set of Grafana dashboards are available in [./dashboards](./dashboards).
+You can import them directly into Grafana and modify as needed.
+The dashboards are divided by resources (GatewayClasses, Gateways and HTTPRoutes),
+with variables for filtering, and links to drill down from a GatewayClass to a
+Gateway to a HTTPRoute.
 
-<img src="dashboard_gatewayclass_row.png" alt="dashboard_gatewayclass_row" width="800"/>
+<img src="gatewayclasses.png" alt="gatewayclasses" width="800"/>
 
-<img src="dashboard_gateway_row.png" alt="dashboard_gateway_row" width="800"/>
+<img src="gateways.png" alt="gateways" width="800"/>
 
-<img src="dashboard_httproute_row.png" alt="dashboard_httproute_row" width="800"/>
+<img src="httproutes.png" alt="httproutes" width="800"/>
 
 
 ## Metrics
