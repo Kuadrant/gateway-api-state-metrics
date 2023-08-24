@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Grafana dashboards as configmaps
+configMapGenerator:
+- name: grafana-gatewayclasses
+  namespace: monitoring
+  files:
+  - ./gatewayclasses.json
+- name: grafana-gateways
+  namespace: monitoring
+  files:
+  - ./gateways.json
+- name: grafana-httproutes
+  namespace: monitoring
+  files:
+  - ./httproutes.json

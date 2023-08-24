@@ -13,7 +13,9 @@ For easier consumption via kustomize, a [./kustomization.yaml](./kustomization.y
 is available that generates a ConfigMap named `custom-resource-state` with the
 CustomResourceState data in a key called `custom-resource-state.yaml`.
 
-An example of how to use this with kube-promethues in shown in [./kustomization_kube-prometheus-example.yaml](./kustomization_kube-prometheus-example.yaml)
+## Kube Prometheus Example
+
+An example of how to use this with kube-promethues in shown in [./examples/kube-prometheus](./examples/kube-prometheus)
 The kustomization config does the following:
 
 - mounts the ConfigMap as a volume in the kube-state-metrics Deployment
@@ -22,7 +24,9 @@ The kustomization config does the following:
 and the various Gateway API resources in the `gateway.networking.k8s.io` apiGroup
 - changes the kube-state-metrics image to a version that supports CustomResourceState and has various issues fixed.
 
-An set of Grafana dashboards are available in [./dashboards](./dashboards).
+## Dashboards
+
+An set of Grafana dashboards are available in [./examples/dashboards](./examples/dashboards).
 You can import them directly into Grafana and modify as needed.
 The dashboards are divided by resources (GatewayClasses, Gateways and HTTPRoutes),
 with variables for filtering, and links to drill down from a GatewayClass to a

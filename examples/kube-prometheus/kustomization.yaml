@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - github.com/prometheus-operator/kube-prometheus?ref=release-0.11
   - github.com/david-martin/gateway-api-state-metrics?ref=main
+  - ../dashboards
 
 patchesJson6902:
   - target:
@@ -18,4 +19,10 @@ patchesJson6902:
       kind: ClusterRole
       name: kube-state-metrics
     path: ksm_clusterrole_patch.yaml
-
+# Patch grafana deployment to include dashboard configmaps
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: grafana
+    path: grafana_deployment_patch.yaml

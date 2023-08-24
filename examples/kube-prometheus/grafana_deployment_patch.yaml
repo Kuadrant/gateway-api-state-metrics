@@ -1,0 +1,36 @@
+- op: add
+  path: /spec/template/spec/volumes/-
+  value:
+    name: grafana-gatewayclasses
+    configMap:
+     defaultMode: 420
+     name: grafana-gatewayclasses
+- op: add
+  path: /spec/template/spec/volumes/-
+  value:
+    name: grafana-gateways
+    configMap:
+     defaultMode: 420
+     name: grafana-gateways
+- op: add
+  path: /spec/template/spec/volumes/-
+  value:
+    name: grafana-httproutes
+    configMap:
+     defaultMode: 420
+     name: grafana-httproutes
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts/-
+  value:
+    name: grafana-gatewayclasses
+    mountPath: /grafana-dashboard-definitions/0/grafana-gatewayclasses
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts/-
+  value:
+    name: grafana-gateways
+    mountPath: /grafana-dashboard-definitions/0/grafana-gateways
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts/-
+  value:
+    name: grafana-httproutes
+    mountPath: /grafana-dashboard-definitions/0/grafana-httproutes
