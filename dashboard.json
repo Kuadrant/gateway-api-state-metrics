@@ -2,22 +2,6 @@
     "annotations": {
       "list": [
         {
-          "builtIn": 1,
-          "datasource": {
-            "type": "grafana",
-            "uid": "-- Grafana --"
-          },
-          "enable": true,
-          "hide": true,
-          "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts",
-          "target": {
-            "limit": 100,
-            "matchAny": false,
-            "tags": [],
-            "type": "dashboard"
-          },
-          "type": "dashboard"
         }
       ]
     },
@@ -43,8 +27,8 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "P8D9ADF90DB2E3ECF"
+            "type": "prometheus",
+            "uid": "$datasource"
         },
         "description": "Total number of GatewayClasses across all clusters",
         "fieldConfig": {
@@ -93,10 +77,6 @@
         "pluginVersion": "8.5.5",
         "targets": [
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "P8D9ADF90DB2E3ECF"
-            },
             "editorMode": "code",
             "exemplar": false,
             "expr": "count(gatewayapi_gatewayclass_info)",
@@ -110,8 +90,8 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "P8D9ADF90DB2E3ECF"
+            "type": "prometheus",
+            "uid": "$datasource"
         },
         "description": "Total GatewayClasses with an Accepted state of True",
         "fieldConfig": {
@@ -160,10 +140,6 @@
         "pluginVersion": "8.5.5",
         "targets": [
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "P8D9ADF90DB2E3ECF"
-            },
             "editorMode": "code",
             "exemplar": false,
             "expr": "count(gatewayapi_gatewayclass_status{type=\"Accepted\"} > 0)",
@@ -177,8 +153,8 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "P8D9ADF90DB2E3ECF"
+            "type": "prometheus",
+            "uid": "$datasource"
         },
         "description": "",
         "fieldConfig": {
@@ -242,10 +218,6 @@
         "pluginVersion": "8.5.5",
         "targets": [
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "P8D9ADF90DB2E3ECF"
-            },
             "editorMode": "code",
             "exemplar": false,
             "expr": "gatewayapi_gatewayclass_created",
@@ -309,8 +281,8 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "P8D9ADF90DB2E3ECF"
+            "type": "prometheus",
+            "uid": "$datasource"
         },
         "description": "",
         "fieldConfig": {
@@ -361,10 +333,6 @@
         "pluginVersion": "8.5.5",
         "targets": [
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "P8D9ADF90DB2E3ECF"
-            },
             "editorMode": "code",
             "exemplar": false,
             "expr": "sum by(gatewayclass_name) (gatewayapi_gateway_info)",
@@ -424,8 +392,8 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "P8D9ADF90DB2E3ECF"
+            "type": "prometheus",
+            "uid": "$datasource"
         },
         "description": "Total number of Gateways across all namespaces",
         "fieldConfig": {
@@ -474,10 +442,6 @@
         "pluginVersion": "8.5.5",
         "targets": [
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "P8D9ADF90DB2E3ECF"
-            },
             "editorMode": "code",
             "exemplar": false,
             "expr": "count(gatewayapi_gateway_info)",
@@ -491,8 +455,8 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "P8D9ADF90DB2E3ECF"
+            "type": "prometheus",
+            "uid": "$datasource"
         },
         "description": "Number of Gateways not in an Accepted and Programmed state",
         "fieldConfig": {
@@ -541,10 +505,6 @@
         "pluginVersion": "8.5.5",
         "targets": [
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "P8D9ADF90DB2E3ECF"
-            },
             "editorMode": "code",
             "exemplar": false,
             "expr": "count((gatewayapi_gateway_status{type=\"Accepted\"} == 0) or (gatewayapi_gateway_status{type=\"Programmed\"} == 0)) or vector(0)",
@@ -558,8 +518,8 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "P8D9ADF90DB2E3ECF"
+            "type": "prometheus",
+            "uid": "$datasource"
         },
         "description": "",
         "fieldConfig": {
@@ -660,10 +620,6 @@
         "pluginVersion": "8.5.5",
         "targets": [
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "P8D9ADF90DB2E3ECF"
-            },
             "editorMode": "code",
             "exemplar": false,
             "expr": "gatewayapi_gateway_created * on(name, namespace, instance) group_right gatewayapi_gateway_info",
@@ -738,8 +694,8 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "P8D9ADF90DB2E3ECF"
+            "type": "prometheus",
+            "uid": "$datasource"
         },
         "description": "",
         "fieldConfig": {
@@ -888,10 +844,6 @@
         "pluginVersion": "8.5.5",
         "targets": [
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "P8D9ADF90DB2E3ECF"
-            },
             "editorMode": "code",
             "exemplar": false,
             "expr": "gatewayapi_gateway_listener_info",
@@ -960,8 +912,8 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "P8D9ADF90DB2E3ECF"
+            "type": "prometheus",
+            "uid": "$datasource"
         },
         "description": "Total Gateways with an Accepted state of True",
         "fieldConfig": {
@@ -1010,10 +962,6 @@
         "pluginVersion": "8.5.5",
         "targets": [
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "P8D9ADF90DB2E3ECF"
-            },
             "editorMode": "code",
             "exemplar": false,
             "expr": "count(gatewayapi_gateway_status{type=\"Accepted\"} > 0)",
@@ -1027,8 +975,8 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "P8D9ADF90DB2E3ECF"
+            "type": "prometheus",
+            "uid": "$datasource"
         },
         "description": "Total Gateways with a Programmed state of True",
         "fieldConfig": {
@@ -1077,10 +1025,6 @@
         "pluginVersion": "8.5.5",
         "targets": [
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "P8D9ADF90DB2E3ECF"
-            },
             "editorMode": "code",
             "exemplar": false,
             "expr": "count(gatewayapi_gateway_status{type=\"Programmed\"} > 0)",
@@ -1094,8 +1038,8 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "P8D9ADF90DB2E3ECF"
+            "type": "prometheus",
+            "uid": "$datasource"
         },
         "description": "Total number of listeners across all Gateways",
         "fieldConfig": {
@@ -1144,10 +1088,6 @@
         "pluginVersion": "8.5.5",
         "targets": [
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "P8D9ADF90DB2E3ECF"
-            },
             "editorMode": "code",
             "exemplar": false,
             "expr": "count(gatewayapi_gateway_listener_info)",
@@ -1161,8 +1101,8 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "P8D9ADF90DB2E3ECF"
+            "type": "prometheus",
+            "uid": "$datasource"
         },
         "description": "Total number of attached routes across all listeners",
         "fieldConfig": {
@@ -1211,10 +1151,6 @@
         "pluginVersion": "8.5.5",
         "targets": [
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "P8D9ADF90DB2E3ECF"
-            },
             "editorMode": "code",
             "exemplar": false,
             "expr": "sum(gatewayapi_gateway_status_listener_attached_routes)",
@@ -1228,8 +1164,8 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "P8D9ADF90DB2E3ECF"
+            "type": "prometheus",
+            "uid": "$datasource"
         },
         "description": "",
         "fieldConfig": {
@@ -1378,10 +1314,6 @@
         "pluginVersion": "8.5.5",
         "targets": [
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "P8D9ADF90DB2E3ECF"
-            },
             "editorMode": "code",
             "exemplar": false,
             "expr": "gatewayapi_gateway_status_address_info",
@@ -1448,8 +1380,8 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "P8D9ADF90DB2E3ECF"
+            "type": "prometheus",
+            "uid": "$datasource"
         },
         "description": "",
         "fieldConfig": {
@@ -1574,10 +1506,6 @@
         "pluginVersion": "8.5.5",
         "targets": [
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "P8D9ADF90DB2E3ECF"
-            },
             "editorMode": "code",
             "exemplar": false,
             "expr": "gatewayapi_gateway_status_listener_attached_routes",
@@ -1655,8 +1583,8 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "P8D9ADF90DB2E3ECF"
+            "type": "prometheus",
+            "uid": "$datasource"
         },
         "description": "Total number of HTTPRoutes across all namespaces",
         "fieldConfig": {
@@ -1705,10 +1633,6 @@
         "pluginVersion": "8.5.5",
         "targets": [
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "P8D9ADF90DB2E3ECF"
-            },
             "editorMode": "code",
             "exemplar": false,
             "expr": "count(gatewayapi_httproute_created)",
@@ -1722,8 +1646,8 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "P8D9ADF90DB2E3ECF"
+            "type": "prometheus",
+            "uid": "$datasource"
         },
         "description": "Total number of parents (e.g. Gateways) targeted by HTTPRoutes",
         "fieldConfig": {
@@ -1772,10 +1696,6 @@
         "pluginVersion": "8.5.5",
         "targets": [
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "P8D9ADF90DB2E3ECF"
-            },
             "editorMode": "code",
             "exemplar": false,
             "expr": "count(gatewayapi_httproute_parent_info)",
@@ -1789,8 +1709,8 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "P8D9ADF90DB2E3ECF"
+            "type": "prometheus",
+            "uid": "$datasource"
         },
         "description": "",
         "fieldConfig": {
@@ -1854,10 +1774,6 @@
         "pluginVersion": "8.5.5",
         "targets": [
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "P8D9ADF90DB2E3ECF"
-            },
             "editorMode": "code",
             "exemplar": false,
             "expr": "gatewayapi_httproute_created",
@@ -1921,8 +1837,8 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "P8D9ADF90DB2E3ECF"
+            "type": "prometheus",
+            "uid": "$datasource"
         },
         "description": "",
         "fieldConfig": {
@@ -2107,10 +2023,6 @@
         "pluginVersion": "8.5.5",
         "targets": [
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "P8D9ADF90DB2E3ECF"
-            },
             "editorMode": "code",
             "exemplar": false,
             "expr": "gatewayapi_httproute_parent_info",
@@ -2181,8 +2093,8 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "P8D9ADF90DB2E3ECF"
+            "type": "prometheus",
+            "uid": "$datasource"
         },
         "description": "Total number of parents (e.g. Gateways) attached to HTTPRoutes",
         "fieldConfig": {
@@ -2231,10 +2143,6 @@
         "pluginVersion": "8.5.5",
         "targets": [
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "P8D9ADF90DB2E3ECF"
-            },
             "editorMode": "code",
             "exemplar": false,
             "expr": "count(gatewayapi_httproute_status_parent_info)",
@@ -2248,8 +2156,8 @@
       },
       {
         "datasource": {
-          "type": "prometheus",
-          "uid": "P8D9ADF90DB2E3ECF"
+            "type": "prometheus",
+            "uid": "$datasource"
         },
         "description": "",
         "fieldConfig": {
@@ -2434,10 +2342,6 @@
         "pluginVersion": "8.5.5",
         "targets": [
           {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "P8D9ADF90DB2E3ECF"
-            },
             "editorMode": "code",
             "exemplar": false,
             "expr": "gatewayapi_httproute_status_parent_info",
@@ -2511,10 +2415,27 @@
     "style": "dark",
     "tags": [],
     "templating": {
-      "list": []
+      "list": [
+        {
+            "current": {
+                "text": "default",
+                "value": "default"
+            },
+            "hide": 0,
+            "label": "Data Source",
+            "name": "datasource",
+            "options": [
+
+            ],
+            "query": "prometheus",
+            "refresh": 1,
+            "regex": "",
+            "type": "datasource"
+        }
+      ]
     },
     "time": {
-      "from": "now-6h",
+      "from": "now-1h",
       "to": "now"
     },
     "timepicker": {},
