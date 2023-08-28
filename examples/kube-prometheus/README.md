@@ -20,8 +20,18 @@ kustomize build . | docker run --rm -i ryane/kfilt -x kind=CustomResourceDefinit
 To access the dashboards in Grafana, use the port-forward command:
 
 ```bash
+kubectl wait --timeout=5m -n monitoring deployment/grafana --for=condition=Available
 kubectl -n monitoring port-forward service/grafana 3000:3000 &
 ```
 
 Then navigate to http://localhost:3000
-The Gateway API State dashboards will be available in the 'General' folder.
+The Gateway API State dashboards will be available in the 'Default' folder.
+
+To access the prometheus UI, use this port-forward command:
+
+```bash
+kubectl -n monitoring port-forward service/prometheus-k8s 9090:9090 &
+```
+
+Then navigate to http://localhost:9090
+You should see some example Gateway API alerts in the 'Alerts' tab.
