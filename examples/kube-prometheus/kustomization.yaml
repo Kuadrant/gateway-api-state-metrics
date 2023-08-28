@@ -5,6 +5,7 @@ resources:
   - github.com/prometheus-operator/kube-prometheus?ref=release-0.11
   - github.com/david-martin/gateway-api-state-metrics?ref=main
   - ../dashboards
+  - ../rules
 
 patchesJson6902:
   - target:

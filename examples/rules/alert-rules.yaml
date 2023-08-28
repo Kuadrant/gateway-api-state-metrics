@@ -1,0 +1,27 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: gateway-api-rules
+  namespace: monitoring
+spec:
+  groups:
+  - name: gateway-api.rules
+    rules:
+    - alert: UnhealthyGateway
+      annotations:
+        description: Gateway {{ $labels.namespace }}/{{$labels.name}} has an unhealthy status
+        summary: Either the Accepted or Programmed status is not True
+      expr: |
+        (gatewayapi_gateway_status{type="Accepted"} == 0) or (gatewayapi_gateway_status{type="Programmed"} == 0)
+      for: 10m
+      labels:
+        severity: critical
+    - alert: InsecureHTTPListener
+      annotations:
+        description: Gateway {{ $labels.namespace }}/{{$labels.name}} has an insecure listener {{$labels.protocol}}/{{$labels.port}}
+        summary: Listeners must use HTTPS
+      expr: |
+        gatewayapi_gateway_listener_info{protocol="HTTP"}
+      for: 10m
+      labels:
+        severity: critical

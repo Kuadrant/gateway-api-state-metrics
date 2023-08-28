@@ -23,10 +23,12 @@ The kustomization config does the following:
 - patches the `kube-state-metrics` ClusterRole with permissions for `customresourcedefinitions`
 and the various Gateway API resources in the `gateway.networking.k8s.io` apiGroup
 - changes the kube-state-metrics image to a version that supports CustomResourceState and has various issues fixed.
+- includes example Grafana dashboards
+- includes example Prometheus Alert rules
 
 ## Dashboards
 
-An set of Grafana dashboards are available in [./examples/dashboards](./examples/dashboards).
+A set of Grafana dashboards are available in [./examples/dashboards](./examples/dashboards).
 You can import them directly into Grafana and modify as needed.
 The dashboards are divided by resources (GatewayClasses, Gateways and HTTPRoutes),
 with variables for filtering, and links to drill down from a GatewayClass to a
@@ -38,6 +40,10 @@ Gateway to a HTTPRoute.
 
 <img src="httproutes.png" alt="httproutes" width="800"/>
 
+## Alerts
+
+A set of example Alerts are available in [./examples/rules](./examples/rules).
+You can create the PrometheusRule resource directly or modify it as needed.
 
 ## Metrics
 
