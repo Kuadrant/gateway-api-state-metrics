@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
   - github.com/prometheus-operator/kube-prometheus?ref=release-0.11
-  - github.com/kuadrant/gateway-api-state-metrics?ref=main
+  - github.com/kuadrant/gateway-api-state-metrics?ref=0.1.0
   - ../dashboards
   - ../rules
 
