@@ -1,4 +1,4 @@
-module github.com/david-martin/gateway-api-state-metrics
+module github.com/kuadrant/gateway-api-state-metrics
 
 go 1.20
 
