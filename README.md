@@ -28,16 +28,20 @@ and the various Gateway API resources in the `gateway.networking.k8s.io` apiGrou
 
 ## Dashboards
 
-A set of Grafana dashboards are available in [./examples/dashboards](./examples/dashboards).
+A set of Grafana dashboards are available in [./examples/dashboards](./examples/dashboards)
+and on [grafana.com](https://grafana.com/grafana/dashboards/?search=Gateway+API+State)
 You can import them directly into Grafana and modify as needed.
 The dashboards are divided by resources (GatewayClasses, Gateways and HTTPRoutes),
 with variables for filtering, and links to drill down from a GatewayClass to a
 Gateway to a HTTPRoute.
 
+https://grafana.com/grafana/dashboards/19432
 <img src="gatewayclasses.png" alt="gatewayclasses" width="800"/>
 
+https://grafana.com/grafana/dashboards/19433
 <img src="gateways.png" alt="gateways" width="800"/>
 
+https://grafana.com/grafana/dashboards/19434
 <img src="httproutes.png" alt="httproutes" width="800"/>
 
 ## Alerts
