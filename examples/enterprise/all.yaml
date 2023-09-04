@@ -1,0 +1,3274 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: istio-system
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: www
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cdn
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tos
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: analytics
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: jira
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vpn
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: support
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: docs
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: auth
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: accounts
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: payments
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: logs
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ldap
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: auth-internal
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mysql
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: postgres
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mongodb
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: subscriptions
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mail
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: chat
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: payroll
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vault
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: consultancytools
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: salestools
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: hr
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: intranet
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dashboards
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: metrics
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nexus
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: messaging
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ci
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: signing
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: argo
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: environments
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: registry
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: git
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: files
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: GatewayClass
+metadata:
+  name: istio
+spec:
+  controllerName: istio.io/gateway-controller
+status:
+  conditions:
+  - lastTransitionTime: "2023-08-16T22:13:42Z"
+    message: Handled by istio.io/gateway-controller
+    observedGeneration: 1
+    reason: Accepted
+    status: "True"
+    type: Accepted
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: external
+  namespace: istio-system
+spec:
+  gatewayClassName: istio
+  listeners:
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: www.example.com
+    name: www
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: www.example.com
+        namespace: www
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: cdn.example.com
+    name: cdn
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: cdn.example.com
+        namespace: cdn
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: tos.example.com
+    name: tos
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: tos.example.com
+        namespace: tos
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: analytics.example.com
+    name: analytics
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: analytics.example.com
+        namespace: analytics
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: jira.example.com
+    name: jira
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: jira.example.com
+        namespace: jira
+      mode: Terminate 
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: vpn.example.com
+    name: vpn
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: vpn.example.com
+        namespace: vpn
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: support.example.com
+    name: support
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: support.example.com
+        namespace: support
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: docs.example.com
+    name: docs
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: docs.example.com
+        namespace: docs
+      mode: Terminate 
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: auth.example.com
+    name: auth
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: auth.example.com
+        namespace: auth
+      mode: Terminate 
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: accounts.example.com
+    name: accounts
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: accounts.example.com
+        namespace: accounts
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: payments.example.com 
+    name: payments
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: payments.example.com 
+        namespace: payments
+      mode: Terminate
+status:
+  addresses:
+  - type: IPAddress
+    value: 172.16.0.1
+  - type: IPAddress
+    value: 172.16.0.2
+  - type: IPAddress
+    value: 172.16.0.3
+  - type: IPAddress
+    value: 172.16.0.4
+  conditions:
+  - lastTransitionTime: "2023-08-21T22:53:08Z"
+    message: The Gateway has been scheduled by Istio
+    observedGeneration: 1
+    reason: Accepted
+    status: "True"
+    type: Accepted
+  - lastTransitionTime: "2023-08-23T07:58:01Z"
+    message: Address assigned to the Gateway
+    observedGeneration: 1
+    reason: Programmed
+    status: "True"
+    type: Programmed
+  listeners:
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: www
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: cdn
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: tos
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: analytics
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: jira
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: vpn
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: support
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: docs
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: auth
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: accounts
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: payments
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: www
+  namespace: www
+spec:
+  hostnames:
+  - www.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: external
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: www-frontend
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: www-backend
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /api
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: external
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: cdn
+  namespace: cdn
+spec:
+  hostnames:
+  - cdn.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: external
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: cdn-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: external
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: tos
+  namespace: tos
+spec:
+  hostnames:
+  - tos.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: external
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: tos-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: external
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: analytics
+  namespace: analytics
+spec:
+  hostnames:
+  - analytics.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: external
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: analytics-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: external
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: jira
+  namespace: jira
+spec:
+  hostnames:
+  - jira.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: external
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: jira-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: external
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: vpn
+  namespace: vpn
+spec:
+  hostnames:
+  - vpn.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: external
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: vpn-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: external
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: support
+  namespace: support
+spec:
+  hostnames:
+  - support.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: external
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: support-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: external
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: docs
+  namespace: docs
+spec:
+  hostnames:
+  - docs.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: external
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: docs-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: external
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: auth
+  namespace: auth
+spec:
+  hostnames:
+  - auth.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: external
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: auth-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: external
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: accounts
+  namespace: accounts
+spec:
+  hostnames:
+  - accounts.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: external
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: accounts-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: external
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: payments
+  namespace: payments
+spec:
+  hostnames:
+  - payments.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: external
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: payments-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: external
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: internal
+  namespace: istio-system
+spec:
+  gatewayClassName: istio
+  listeners:
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: ldap.internal.example.com
+    name: ldap
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: ldap.internal.example.com
+        namespace: ldap
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: auth.internal.example.com
+    name: auth
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: auth.internal.example.com
+        namespace: auth-internal
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: mysql.internal.example.com
+    name: mysql
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: mysql.internal.example.com
+        namespace: mysql
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: postgres.internal.example.com
+    name: postgres
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: postgres.internal.example.com
+        namespace: postgres
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: mongodb.internal.example.com
+    name: mongodb
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: mongodb.internal.example.com
+        namespace: mongodb
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: subscriptions.internal.example.com
+    name: subscriptions
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: subscriptions.internal.example.com
+        namespace: subscriptions
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: mail.internal.example.com
+    name: mail
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: mail.internal.example.com
+        namespace: mail
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: chat.internal.example.com
+    name: chat
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: chat.internal.example.com
+        namespace: chat
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: payroll.internal.example.com
+    name: payroll
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: payroll.internal.example.com
+        namespace: payroll
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: vault.internal.example.com
+    name: vault
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: vault.internal.example.com
+        namespace: vault
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: consultancytools.internal.example.com
+    name: consultancytools
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: consultancytools.internal.example.com
+        namespace: consultancytools
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: salestools.internal.example.com
+    name: salestools
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: salestools.internal.example.com
+        namespace: salestools
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: hr.internal.example.com
+    name: hr
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: hr.internal.example.com
+        namespace: hr
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: intranet.internal.example.com
+    name: intranet
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: intranet.internal.example.com
+        namespace: intranet
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: dashboards.internal.example.com
+    name: dashboards
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: dashboards.internal.example.com
+        namespace: dashboards
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: metrics.internal.example.com
+    name: metrics
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: metrics.internal.example.com
+        namespace: metrics
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: logs.internal.example.com
+    name: logs
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: logs.internal.example.com
+        namespace: logs
+      mode: Terminate
+status:
+  addresses:
+  - type: IPAddress
+    value: 10.0.0.1
+  - type: IPAddress
+    value: 10.0.0.2
+  - type: IPAddress
+    value: 10.0.0.3
+  - type: IPAddress
+    value: 10.0.0.4
+  conditions:
+  - lastTransitionTime: "2023-08-21T22:53:08Z"
+    message: The Gateway has been scheduled by Istio
+    observedGeneration: 1
+    reason: Accepted
+    status: "True"
+    type: Accepted
+  - lastTransitionTime: "2023-08-23T07:58:01Z"
+    message: Address assigned to the Gateway
+    observedGeneration: 1
+    reason: Programmed
+    status: "True"
+    type: Programmed
+  listeners:
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: ldap
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: auth
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: mysql
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: postgres
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: mongodb
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: subscriptions
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: mail
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: chat
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: payroll
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: vault
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: consultancytools
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: salestools
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: hr
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: intranet
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: dashboards
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: metrics
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: logs
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: ldap
+  namespace: ldap
+spec:
+  hostnames:
+  - ldap.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: ldap-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: auth
+  namespace: auth-internal
+spec:
+  hostnames:
+  - auth.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: auth-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: mysql
+  namespace: mysql
+spec:
+  hostnames:
+  - mysql.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: mysql-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: postgres
+  namespace: postgres
+spec:
+  hostnames:
+  - postgres.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: postgres-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: mongodb
+  namespace: mongodb
+spec:
+  hostnames:
+  - mongodb.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: mongodb-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: subscriptions
+  namespace: subscriptions
+spec:
+  hostnames:
+  - subscriptions.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: subscriptions-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: mail
+  namespace: mail
+spec:
+  hostnames:
+  - mail.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: mail-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: chat
+  namespace: chat
+spec:
+  hostnames:
+  - chat.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: chat-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: payroll
+  namespace: payroll
+spec:
+  hostnames:
+  - payroll.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: payroll-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: vault
+  namespace: vault
+spec:
+  hostnames:
+  - vault.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: vault-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: consultancytools
+  namespace: consultancytools
+spec:
+  hostnames:
+  - consultancytools.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: consultancytools-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: salestools
+  namespace: salestools
+spec:
+  hostnames:
+  - salestools.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: salestools-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: hr
+  namespace: hr
+spec:
+  hostnames:
+  - hr.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: hr-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: intranet
+  namespace: intranet
+spec:
+  hostnames:
+  - intranet.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: intranet-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: dashboards
+  namespace: dashboards
+spec:
+  hostnames:
+  - dashboards.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: dashboards-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: metrics
+  namespace: metrics
+spec:
+  hostnames:
+  - metrics.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: metrics-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: logs
+  namespace: logs
+spec:
+  hostnames:
+  - logs.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: logs-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: internal-dev
+  namespace: istio-system
+spec:
+  gatewayClassName: istio
+  listeners:
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: nexus.dev.example.com
+    name: nexus
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: nexus.dev.example.com
+        namespace: nexus
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: messaging.dev.example.com
+    name: messaging
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: messaging.dev.example.com
+        namespace: messaging
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: ci.dev.example.com
+    name: ci
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: ci.dev.example.com
+        namespace: ci
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: signing.dev.example.com
+    name: signing
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: signing.dev.example.com
+        namespace: signing
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: argo.dev.example.com
+    name: argo
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: argo.dev.example.com
+        namespace: argo
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: environments.dev.example.com
+    name: environments
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: environments.dev.example.com
+        namespace: environments
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: registry.dev.example.com
+    name: registry
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: registry.dev.example.com
+        namespace: registry
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: git.dev.example.com
+    name: git
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: git.dev.example.com
+        namespace: git
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: All
+    hostname: files.dev.example.com
+    name: files
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: files.dev.example.com
+        namespace: files
+      mode: Terminate
+status:
+  addresses:
+  - type: IPAddress
+    value: 10.20.0.1
+  - type: IPAddress
+    value: 10.20.0.2
+  - type: IPAddress
+    value: 10.20.0.3
+  - type: IPAddress
+    value: 10.20.0.4
+  conditions:
+  - lastTransitionTime: "2023-08-21T22:53:08Z"
+    message: The Gateway has been scheduled by Istio
+    observedGeneration: 1
+    reason: Accepted
+    status: "True"
+    type: Accepted
+  - lastTransitionTime: "2023-08-23T07:58:01Z"
+    message: Address assigned to the Gateway
+    observedGeneration: 1
+    reason: Programmed
+    status: "True"
+    type: Programmed
+  listeners:
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: nexus
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: messaging
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: ci
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: signing
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: argo
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: environments
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: registry
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: git
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+  - attachedRoutes: 1
+    conditions: 
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2023-08-21T22:53:08Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    name: files
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: nexus
+  namespace: nexus
+spec:
+  hostnames:
+  - nexus.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal-dev
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: nexus-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal-dev
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: messaging
+  namespace: messaging
+spec:
+  hostnames:
+  - messaging.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal-dev
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: messaging-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal-dev
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: ci
+  namespace: ci
+spec:
+  hostnames:
+  - ci.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal-dev
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: ci-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal-dev
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: signing
+  namespace: signing
+spec:
+  hostnames:
+  - signing.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal-dev
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: signing-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal-dev
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: argo
+  namespace: argo
+spec:
+  hostnames:
+  - argo.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal-dev
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: argo-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal-dev
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: environments
+  namespace: environments
+spec:
+  hostnames:
+  - environments.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal-dev
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: environments-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal-dev
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: registry
+  namespace: registry
+spec:
+  hostnames:
+  - registry.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal-dev
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: registry-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal-dev
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: git
+  namespace: git
+spec:
+  hostnames:
+  - git.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal-dev
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: git-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal-dev
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: files
+  namespace: files
+spec:
+  hostnames:
+  - files.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal-dev
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: files-svc
+      port: 8080
+      weight: 1
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal-dev
+      namespace: istio-system
+---
