@@ -76,9 +76,10 @@ kubectl create -f ./all.yaml
 kubectl replace --subresource=status -f ./all.yaml
 kustomize build ../kube-prometheus | docker run --rm -i ryane/kfilt -i kind=CustomResourceDefinition | kubectl apply --server-side -f -
 kustomize build ../kube-prometheus | docker run --rm -i ryane/kfilt -x kind=CustomResourceDefinition | kubectl apply -f -
-kubectl wait --timeout=5m -n monitoring deployment/grafana --for=condition=Available
-kubectl -n monitoring port-forward service/grafana 3000:3000 &
-kubectl -n monitoring port-forward service/prometheus-k8s 9090:9090 &
+kubectl -n monitoring wait --timeout=5m deployment/grafana --for=condition=Available
+kubectl -n monitoring port-forward service/grafana 3000:3000 > /dev/null &
+kubectl -n monitoring rollout status --watch --timeout=5m statefulset/prometheus-k8s
+kubectl -n monitoring port-forward service/prometheus-k8s 9090:9090 > /dev/null &
 ```
 
 Access grafana at http://localhost:3000 and prometheus at http://localhost:9090
