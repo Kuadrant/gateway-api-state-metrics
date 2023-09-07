@@ -126,6 +126,14 @@ spec:
             labelsFromPath:
               type: ["type"]
             valueFrom: ["status"]
+      - name: "status_supported_features"
+        help: "List of supported features for the GatewayClass"
+        each:
+          type: Info
+          info:
+            path: [status, supportedFeatures]
+            labelsFromPath:
+              features: []
     - groupVersionKind:
         group: gateway.networking.k8s.io
         kind: "HTTPRoute"
