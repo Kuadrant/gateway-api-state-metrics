@@ -71,12 +71,11 @@ There are 3 Gateways with various services attached.
 
 ```bash
 kind create cluster
-kubectl create -f ../../config/gateway-api/crd/standard/
+kubectl create -f ../../gateway-api/crd/standard/
 kubectl create -f ./all.yaml
 kubectl replace --subresource=status -f ./all.yaml
 kubectl apply --server-side -f ../kube-prometheus/bundle_crd.yaml
 kubectl apply -f ../kube-prometheus/bundle.yaml
-
 kubectl -n monitoring wait --timeout=5m deployment/grafana --for=condition=Available
 kubectl -n monitoring port-forward service/grafana 3000:3000 > /dev/null &
 kubectl -n monitoring rollout status --watch --timeout=5m statefulset/prometheus-k8s
