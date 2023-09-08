@@ -4,7 +4,7 @@ The resources in this directory are meant as an example set of Gateways and vari
 other Gateway resources (e.g. HTTPRoute) that make up an example enterprise
 company.
 
-The enterprise builds and sells support & consulatancy services for a popular
+The enterprise builds and sells support & consultancy services for a popular
 software stack. It consists of the following departments and people:
 
 - Internal engineering team (1000 staff) that maintains
@@ -37,7 +37,7 @@ There are 3 Gateways with various services attached.
 - accounts system (customer portal) accounts.example.com
 - payments system payments.example.com
 
-2. An internal Gateway with services pimarily for employees and running the company
+2. An internal Gateway with services primarily for employees and running the company
 
 - LDAP ldap.internal.example.com
 - Internal authN auth.internal.example.com
@@ -47,7 +47,7 @@ There are 3 Gateways with various services attached.
 - Messaging (rocket chat) chat.internal.example.com
 - Payroll payroll.internal.example.com
 - Credential management (vault) vault.internal.example.com
-- Consulatancy docs/tools (int/vpn) consultancytools.internal.example.com
+- Consultancy docs/tools (int/vpn) consultancytools.internal.example.com
 - Sales & branding docs/images/tools (int/vpn) salestools.internal.example.com
 - HR/workforce site hr.internal.example.com
 - Intranet/info intranet.internal.example.com
