@@ -106,6 +106,29 @@ func testGatewayClasses(t *testing.T, metrics map[string][][]string) {
 	expectEqual(t, gatewayClass1Status1Labels["customresource_version"], "v1beta1", "gatewayapi_gatewayclass_status__1 customresource_version")
 	expectEqual(t, gatewayClass1Status1Labels["name"], "testgatewayclass1", "gatewayapi_gatewayclass_status__1 name")
 	expectEqual(t, gatewayClass1Status1Labels["type"], "Accepted", "gatewayapi_gatewayclass_status__1 type")
+
+	//gatewayapi_gatewayclass_status_supported_features
+	gatewayClassStatusSupportedFeatures := metrics["gatewayapi_gatewayclass_status_supported_features"]
+	gatewayClass1StatusSupportedFeatures1 := gatewayClassStatusSupportedFeatures[0]
+	expectEqual(t, gatewayClass1StatusSupportedFeatures1[3], "1", "gatewayapi_gatewayclass_status_supported_features__1 value")
+	gatewayClass1StatusSupportedFeatures1Labels := parseLabels(string(gatewayClass1StatusSupportedFeatures1[2]))
+	expectEqual(t, gatewayClass1StatusSupportedFeatures1Labels["customresource_group"], "gateway.networking.k8s.io", "gatewayapi_gatewayclass_status_supported_features__1 customresource_group")
+	expectEqual(t, gatewayClass1StatusSupportedFeatures1Labels["customresource_kind"], "GatewayClass", "gatewayapi_gatewayclass_status_supported_features__1 customresource_kind")
+	expectEqual(t, gatewayClass1StatusSupportedFeatures1Labels["customresource_version"], "v1beta1", "gatewayapi_gatewayclass_status_supported_features__1 customresource_version")
+	expectEqual(t, gatewayClass1StatusSupportedFeatures1Labels["name"], "testgatewayclass1", "gatewayapi_gatewayclass_status_supported_features__1 name")
+
+	expectedFeatures := map[int]string{
+		0: "HTTPRoute",
+		1: "HTTPRouteHostRewrite",
+		2: "HTTPRoutePortRedirect",
+		3: "HTTPRouteQueryParamMatching",
+	}
+
+	for i, feature := range gatewayClassStatusSupportedFeatures {
+		featureInfo := parseLabels(string(feature[0]))
+		featureName := featureInfo["features"]
+		expectEqual(t, featureName, expectedFeatures[i], "gatewayapi_gatewayclass_status_supported_features__"+strconv.Itoa(i)+" features")
+	}
 }
 
 func testGateways(t *testing.T, metrics map[string][][]string) {
