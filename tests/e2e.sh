@@ -43,7 +43,7 @@ function finish() {
     echo "calling cleanup function"
     # kill kubectl proxy in background
     kill %1 || true
-    kubectl delete -f examples/kube-state-metrics/ || true
+    kubectl delete -f config/examples/kube-state-metrics/ || true
     kubectl delete -f tests/manifests/ || true
 }
 
@@ -132,17 +132,17 @@ trap finish EXIT
 kubectl create -f ./config/gateway-api/crd/standard/
 
 # create gateway-api customresourcestatemetrics configmap
-kubectl create configmap custom-resource-state --from-file=./custom-resource-state.yaml --dry-run=client -o yaml | kubectl -n kube-system apply -f -
+kubectl create configmap custom-resource-state --from-file=./config/default/custom-resource-state.yaml --dry-run=client -o yaml | kubectl -n kube-system apply -f -
 
 # set up kube-state-metrics manifests
-kubectl create -f ./examples/kube-state-metrics/service-account.yaml
+kubectl create -f ./config/examples/kube-state-metrics/service-account.yaml
 
-kubectl create -f ./examples/kube-state-metrics/cluster-role.yaml
-kubectl create -f ./examples/kube-state-metrics/cluster-role-binding.yaml
+kubectl create -f ./config/examples/kube-state-metrics/cluster-role.yaml
+kubectl create -f ./config/examples/kube-state-metrics/cluster-role-binding.yaml
 
-kubectl create -f ./examples/kube-state-metrics/deployment.yaml
+kubectl create -f ./config/examples/kube-state-metrics/deployment.yaml
 
-kubectl create -f ./examples/kube-state-metrics/service.yaml
+kubectl create -f ./config/examples/kube-state-metrics/service.yaml
 
 # Create test Gateway API resources
 kubectl create -f ./tests/manifests/

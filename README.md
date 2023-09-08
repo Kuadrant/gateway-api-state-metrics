@@ -7,7 +7,7 @@ To use the CustomResourceState, see the [configuration information](https://gith
 configure an existing or separate kube-state-metrics instance with a custom
 resource configuration.
 
-The CustomResourceState is available at [./custom-resource-state.yaml](./custom-resource-state.yaml)
+The CustomResourceState is available at [./config/default/custom-resource-state.yaml](./config/default/custom-resource-state.yaml)
 
 For easier consumption via kustomize, a [./kustomization.yaml](./kustomization.yaml)
 is available that generates a ConfigMap named `custom-resource-state` with the
@@ -15,7 +15,7 @@ CustomResourceState data in a key called `custom-resource-state.yaml`.
 
 ## Kube Prometheus Example
 
-An example of how to use this with kube-promethues in shown in [./examples/kube-prometheus](./examples/kube-prometheus)
+An example of how to use this with kube-promethues in shown in [./config/examples/kube-prometheus](./config/examples/kube-prometheus)
 The kustomization config does the following:
 
 - mounts the ConfigMap as a volume in the kube-state-metrics Deployment
@@ -28,7 +28,7 @@ and the various Gateway API resources in the `gateway.networking.k8s.io` apiGrou
 
 ## Dashboards
 
-A set of Grafana dashboards are available in [./examples/dashboards](./examples/dashboards)
+A set of Grafana dashboards are available in [./config/examples/dashboards](./config/examples/dashboards)
 and on [grafana.com](https://grafana.com/grafana/dashboards/?search=Gateway+API+State)
 You can import them directly into Grafana and modify as needed.
 The dashboards are divided by resources (GatewayClasses, Gateways and HTTPRoutes),
@@ -46,7 +46,7 @@ https://grafana.com/grafana/dashboards/19434
 
 ## Alerts
 
-A set of example Alerts are available in [./examples/rules](./examples/rules).
+A set of example Alerts are available in [./config/examples/rules](./config/examples/rules).
 You can create the PrometheusRule resource directly or modify it as needed.
 
 ## Metrics
