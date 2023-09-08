@@ -8,13 +8,13 @@ First, apply the various monitoring CustomResourceDefinitions, giving them time
 to reconcile fully:
 
 ```bash
-kustomize build . | docker run --rm -i ryane/kfilt -i kind=CustomResourceDefinition | kubectl apply --server-side -f -
+kubectl apply --server-side -f ./bundle_crd.yaml
 ```
 
 Then apply the full set of monitoring stack resources:
 
 ```bash
-kustomize build . | docker run --rm -i ryane/kfilt -x kind=CustomResourceDefinition | kubectl apply -f -
+kubectl apply -f ./bundle.yaml
 ```
 
 To access the dashboards in Grafana, use the port-forward command:
@@ -30,6 +30,7 @@ The Gateway API State dashboards will be available in the 'Default' folder.
 To access the prometheus UI, use this port-forward command:
 
 ```bash
+kubectl -n monitoring rollout status --watch --timeout=5m statefulset/prometheus-k8s
 kubectl -n monitoring port-forward service/prometheus-k8s 9090:9090 &
 ```
 
