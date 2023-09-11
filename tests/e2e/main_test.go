@@ -82,6 +82,10 @@ func TestGatewayMetricsAvailable(t *testing.T) {
 	testGatewayClasses(t, gatewayapiMetrics)
 	testGateways(t, gatewayapiMetrics)
 	testHTTPRoutes(t, gatewayapiMetrics)
+	testGRPCRoutes(t, gatewayapiMetrics)
+	testTCPRoute(t, gatewayapiMetrics)
+	testUDPRoute(t, gatewayapiMetrics)
+	testTLSRoute(t, gatewayapiMetrics)
 }
 
 func testGatewayClasses(t *testing.T, metrics map[string][][]string) {
@@ -279,6 +283,202 @@ func testHTTPRoutes(t *testing.T, metrics map[string][][]string) {
 	expectEqual(t, httproute1ParentStatusInfo1Labels["parent_kind"], "Gateway", "gatewayapi_httproute_status_parent_info__1 parent_kind")
 	expectEqual(t, httproute1ParentStatusInfo1Labels["parent_namespace"], "default", "gatewayapi_httproute_status_parent_info__1 parent_namespace")
 	expectEqual(t, httproute1ParentStatusInfo1Labels["parent_name"], "testgateway1", "gatewayapi_httproute_status_parent_info__1 parent_name")
+}
+
+func testGRPCRoutes(t *testing.T, metrics map[string][][]string) {
+	// gatewayapi_grpcroute_created
+	grpcrouteCreated := metrics["gatewayapi_grpcroute_created"]
+	grpcroute1Created := grpcrouteCreated[0]
+	expectValidTimestampInPast(t, grpcroute1Created[3], "gatewayapi_grpcroute_created__1 value")
+	grpcroute1CreatedLabels := parseLabels(string(grpcroute1Created[2]))
+	expectEqual(t, grpcroute1CreatedLabels["customresource_group"], "gateway.networking.k8s.io", "gatewayapi_grpcroute_created__1 customresource_group")
+	expectEqual(t, grpcroute1CreatedLabels["customresource_kind"], "GRPCRoute", "gatewayapi_grpcroute_created__1 customresource_kind")
+	expectEqual(t, grpcroute1CreatedLabels["customresource_version"], "v1alpha2", "gatewayapi_grpcroute_created__1 customresource_version")
+	expectEqual(t, grpcroute1CreatedLabels["name"], "testgrpcroute1", "gatewayapi_grpcroute_created__1 name")
+	expectEqual(t, grpcroute1CreatedLabels["namespace"], "default", "gatewayapi_grpcroute_created__1 namespace")
+
+	//gatewayapi_grpcroute_hostname_info
+	grpcrouteHostnameInfo := metrics["gatewayapi_grpcroute_hostname_info"]
+	grpcroute1HostnameInfo1 := grpcrouteHostnameInfo[0]
+	expectEqual(t, grpcroute1HostnameInfo1[3], "1", "gatewayapi_grpcroute_hostname_info__1 value")
+	grpcroute1HostnameInfo1Labels := parseLabels(string(grpcroute1HostnameInfo1[2]))
+	expectEqual(t, grpcroute1HostnameInfo1Labels["customresource_group"], "gateway.networking.k8s.io", "gatewayapi_grpcroute_hostname_info__1 customresource_group")
+	expectEqual(t, grpcroute1HostnameInfo1Labels["customresource_kind"], "GRPCRoute", "gatewayapi_grpcroute_hostname_info__1 customresource_kind")
+	expectEqual(t, grpcroute1HostnameInfo1Labels["customresource_version"], "v1alpha2", "gatewayapi_grpcroute_hostname_info__1 customresource_version")
+	expectEqual(t, grpcroute1HostnameInfo1Labels["name"], "testgrpcroute1", "gatewayapi_grpcroute_hostname_info__1 name")
+	expectEqual(t, grpcroute1HostnameInfo1Labels["namespace"], "default", "gatewayapi_grpcroute_hostname_info__1 namespace")
+	expectEqual(t, grpcroute1HostnameInfo1Labels["hostname"], "test1.example.com", "gatewayapi_grpcroute_hostname_info__1 hostname")
+
+	//gatewayapi_grpcroute_parent_info
+	grpcrouteParentInfo := metrics["gatewayapi_grpcroute_parent_info"]
+	grpcroute1ParentInfo1 := grpcrouteParentInfo[0]
+	expectEqual(t, grpcroute1ParentInfo1[3], "1", "gatewayapi_grpcroute_parent_info__1 value")
+	grpcroute1ParentInfo1Labels := parseLabels(string(grpcroute1ParentInfo1[2]))
+	expectEqual(t, grpcroute1ParentInfo1Labels["customresource_group"], "gateway.networking.k8s.io", "gatewayapi_grpcroute_parent_info__1 customresource_group")
+	expectEqual(t, grpcroute1ParentInfo1Labels["customresource_kind"], "GRPCRoute", "gatewayapi_grpcroute_parent_info__1 customresource_kind")
+	expectEqual(t, grpcroute1ParentInfo1Labels["customresource_version"], "v1alpha2", "gatewayapi_grpcroute_parent_info__1 customresource_version")
+	expectEqual(t, grpcroute1ParentInfo1Labels["name"], "testgrpcroute1", "gatewayapi_grpcroute_parent_info__1 name")
+	expectEqual(t, grpcroute1ParentInfo1Labels["namespace"], "default", "gatewayapi_grpcroute_parent_info__1 namespace")
+	expectEqual(t, grpcroute1ParentInfo1Labels["parent_group"], "gateway.networking.k8s.io", "gatewayapi_grpcroute_parent_info__1 parent_group")
+	expectEqual(t, grpcroute1ParentInfo1Labels["parent_kind"], "Gateway", "gatewayapi_grpcroute_parent_info__1 parent_kind")
+	expectEqual(t, grpcroute1ParentInfo1Labels["parent_namespace"], "default", "gatewayapi_grpcroute_parent_info__1 parent_namespace")
+	expectEqual(t, grpcroute1ParentInfo1Labels["parent_name"], "testgateway1", "gatewayapi_grpcroute_parent_info__1 parent_name")
+
+	//gatewayapi_grpcroute_status_parent_info
+	grpcrouteParentStatusInfo := metrics["gatewayapi_grpcroute_status_parent_info"]
+	grpcroute1ParentStatusInfo1 := grpcrouteParentStatusInfo[0]
+	expectEqual(t, grpcroute1ParentStatusInfo1[3], "1", "gatewayapi_grpcroute_status_parent_info__1 value")
+	grpcroute1ParentStatusInfo1Labels := parseLabels(string(grpcroute1ParentStatusInfo1[2]))
+	expectEqual(t, grpcroute1ParentStatusInfo1Labels["customresource_group"], "gateway.networking.k8s.io", "gatewayapi_grpcroute_status_parent_info__1 customresource_group")
+	expectEqual(t, grpcroute1ParentStatusInfo1Labels["customresource_kind"], "GRPCRoute", "gatewayapi_grpcroute_status_parent_info__1 customresource_kind")
+	expectEqual(t, grpcroute1ParentStatusInfo1Labels["customresource_version"], "v1alpha2", "gatewayapi_grpcroute_status_parent_info__1 customresource_version")
+	expectEqual(t, grpcroute1ParentStatusInfo1Labels["name"], "testgrpcroute1", "gatewayapi_grpcroute_status_parent_info__1 name")
+	expectEqual(t, grpcroute1ParentStatusInfo1Labels["namespace"], "default", "gatewayapi_grpcroute_status_parent_info__1 namespace")
+	expectEqual(t, grpcroute1ParentStatusInfo1Labels["parent_group"], "gateway.networking.k8s.io", "gatewayapi_grpcroute_status_parent_info__1 parent_group")
+	expectEqual(t, grpcroute1ParentStatusInfo1Labels["parent_kind"], "Gateway", "gatewayapi_grpcroute_status_parent_info__1 parent_kind")
+	expectEqual(t, grpcroute1ParentStatusInfo1Labels["parent_namespace"], "default", "gatewayapi_grpcroute_status_parent_info__1 parent_namespace")
+	expectEqual(t, grpcroute1ParentStatusInfo1Labels["parent_name"], "testgateway1", "gatewayapi_grpcroute_status_parent_info__1 parent_name")
+}
+
+func testTLSRoute(t *testing.T, metrics map[string][][]string) {
+	// gatewayapi_tlsroute_created
+	tlsrouteCreated := metrics["gatewayapi_tlsroute_created"]
+	tlsroute1Created := tlsrouteCreated[0]
+	expectValidTimestampInPast(t, tlsroute1Created[3], "gatewayapi_tlsroute_created__1 value")
+	tlsroute1CreatedLabels := parseLabels(string(tlsroute1Created[2]))
+	expectEqual(t, tlsroute1CreatedLabels["customresource_group"], "gateway.networking.k8s.io", "gatewayapi_tlsroute_created__1 customresource_group")
+	expectEqual(t, tlsroute1CreatedLabels["customresource_kind"], "TLSRoute", "gatewayapi_tlsroute_created__1 customresource_kind")
+	expectEqual(t, tlsroute1CreatedLabels["customresource_version"], "v1alpha2", "gatewayapi_tlsroute_created__1 customresource_version")
+	expectEqual(t, tlsroute1CreatedLabels["name"], "testtlsroute1", "gatewayapi_tlsroute_created__1 name")
+	expectEqual(t, tlsroute1CreatedLabels["namespace"], "default", "gatewayapi_tlsroute_created__1 namespace")
+
+	//gatewayapi_tlsroute_hostname_info
+	tlsrouteHostnameInfo := metrics["gatewayapi_tlsroute_hostname_info"]
+	tlsroute1HostnameInfo1 := tlsrouteHostnameInfo[0]
+	expectEqual(t, tlsroute1HostnameInfo1[3], "1", "gatewayapi_tlsroute_hostname_info__1 value")
+	tlsroute1HostnameInfo1Labels := parseLabels(string(tlsroute1HostnameInfo1[2]))
+	expectEqual(t, tlsroute1HostnameInfo1Labels["customresource_group"], "gateway.networking.k8s.io", "gatewayapi_tlsroute_hostname_info__1 customresource_group")
+	expectEqual(t, tlsroute1HostnameInfo1Labels["customresource_kind"], "TLSRoute", "gatewayapi_tlsroute_hostname_info__1 customresource_kind")
+	expectEqual(t, tlsroute1HostnameInfo1Labels["customresource_version"], "v1alpha2", "gatewayapi_tlsroute_hostname_info__1 customresource_version")
+	expectEqual(t, tlsroute1HostnameInfo1Labels["name"], "testtlsroute1", "gatewayapi_tlsroute_hostname_info__1 name")
+	expectEqual(t, tlsroute1HostnameInfo1Labels["namespace"], "default", "gatewayapi_tlsroute_hostname_info__1 namespace")
+	expectEqual(t, tlsroute1HostnameInfo1Labels["hostname"], "test1.example.com", "gatewayapi_tlsroute_hostname_info__1 hostname")
+
+	//gatewayapi_tlsroute_parent_info
+	tlsrouteParentInfo := metrics["gatewayapi_tlsroute_parent_info"]
+	tlsroute1ParentInfo1 := tlsrouteParentInfo[0]
+	expectEqual(t, tlsroute1ParentInfo1[3], "1", "gatewayapi_tlsroute_parent_info__1 value")
+	tlsroute1ParentInfo1Labels := parseLabels(string(tlsroute1ParentInfo1[2]))
+	expectEqual(t, tlsroute1ParentInfo1Labels["customresource_group"], "gateway.networking.k8s.io", "gatewayapi_tlsroute_parent_info__1 customresource_group")
+	expectEqual(t, tlsroute1ParentInfo1Labels["customresource_kind"], "TLSRoute", "gatewayapi_tlsroute_parent_info__1 customresource_kind")
+	expectEqual(t, tlsroute1ParentInfo1Labels["customresource_version"], "v1alpha2", "gatewayapi_tlsroute_parent_info__1 customresource_version")
+	expectEqual(t, tlsroute1ParentInfo1Labels["name"], "testtlsroute1", "gatewayapi_tlsroute_parent_info__1 name")
+	expectEqual(t, tlsroute1ParentInfo1Labels["namespace"], "default", "gatewayapi_tlsroute_parent_info__1 namespace")
+	expectEqual(t, tlsroute1ParentInfo1Labels["parent_group"], "gateway.networking.k8s.io", "gatewayapi_tlsroute_parent_info__1 parent_group")
+	expectEqual(t, tlsroute1ParentInfo1Labels["parent_kind"], "Gateway", "gatewayapi_tlsroute_parent_info__1 parent_kind")
+	expectEqual(t, tlsroute1ParentInfo1Labels["parent_namespace"], "default", "gatewayapi_tlsroute_parent_info__1 parent_namespace")
+	expectEqual(t, tlsroute1ParentInfo1Labels["parent_name"], "testgateway1", "gatewayapi_tlsroute_parent_info__1 parent_name")
+
+	//gatewayapi_tlsroute_status_parent_info
+	tlsrouteParentStatusInfo := metrics["gatewayapi_tlsroute_status_parent_info"]
+	tlsroute1ParentStatusInfo1 := tlsrouteParentStatusInfo[0]
+	expectEqual(t, tlsroute1ParentStatusInfo1[3], "1", "gatewayapi_tlsroute_status_parent_info__1 value")
+	tlsroute1ParentStatusInfo1Labels := parseLabels(string(tlsroute1ParentStatusInfo1[2]))
+	expectEqual(t, tlsroute1ParentStatusInfo1Labels["customresource_group"], "gateway.networking.k8s.io", "gatewayapi_tlsroute_status_parent_info__1 customresource_group")
+	expectEqual(t, tlsroute1ParentStatusInfo1Labels["customresource_kind"], "TLSRoute", "gatewayapi_tlsroute_status_parent_info__1 customresource_kind")
+	expectEqual(t, tlsroute1ParentStatusInfo1Labels["customresource_version"], "v1alpha2", "gatewayapi_tlsroute_status_parent_info__1 customresource_version")
+	expectEqual(t, tlsroute1ParentStatusInfo1Labels["name"], "testtlsroute1", "gatewayapi_tlsroute_status_parent_info__1 name")
+	expectEqual(t, tlsroute1ParentStatusInfo1Labels["namespace"], "default", "gatewayapi_tlsroute_status_parent_info__1 namespace")
+	expectEqual(t, tlsroute1ParentStatusInfo1Labels["parent_group"], "gateway.networking.k8s.io", "gatewayapi_tlsroute_status_parent_info__1 parent_group")
+	expectEqual(t, tlsroute1ParentStatusInfo1Labels["parent_kind"], "Gateway", "gatewayapi_tlsroute_status_parent_info__1 parent_kind")
+	expectEqual(t, tlsroute1ParentStatusInfo1Labels["parent_namespace"], "default", "gatewayapi_tlsroute_status_parent_info__1 parent_namespace")
+	expectEqual(t, tlsroute1ParentStatusInfo1Labels["parent_name"], "testgateway1", "gatewayapi_tlsroute_status_parent_info__1 parent_name")
+}
+
+func testTCPRoute(t *testing.T, metrics map[string][][]string) {
+	// gatewayapi_tcproute_created
+	tcprouteCreated := metrics["gatewayapi_tcproute_created"]
+	tcproute1Created := tcprouteCreated[0]
+	expectValidTimestampInPast(t, tcproute1Created[3], "gatewayapi_tcproute_created__1 value")
+	tcproute1CreatedLabels := parseLabels(string(tcproute1Created[2]))
+	expectEqual(t, tcproute1CreatedLabels["customresource_group"], "gateway.networking.k8s.io", "gatewayapi_tcproute_created__1 customresource_group")
+	expectEqual(t, tcproute1CreatedLabels["customresource_kind"], "TCPRoute", "gatewayapi_tcproute_created__1 customresource_kind")
+	expectEqual(t, tcproute1CreatedLabels["customresource_version"], "v1alpha2", "gatewayapi_tcproute_created__1 customresource_version")
+	expectEqual(t, tcproute1CreatedLabels["name"], "testtcproute1", "gatewayapi_tcproute_created__1 name")
+	expectEqual(t, tcproute1CreatedLabels["namespace"], "default", "gatewayapi_tcproute_created__1 namespace")
+
+	//gatewayapi_tcproute_parent_info
+	tcprouteParentInfo := metrics["gatewayapi_tcproute_parent_info"]
+	tcproute1ParentInfo1 := tcprouteParentInfo[0]
+	expectEqual(t, tcproute1ParentInfo1[3], "1", "gatewayapi_tcproute_parent_info__1 value")
+	tcproute1ParentInfo1Labels := parseLabels(string(tcproute1ParentInfo1[2]))
+	expectEqual(t, tcproute1ParentInfo1Labels["customresource_group"], "gateway.networking.k8s.io", "gatewayapi_tcproute_parent_info__1 customresource_group")
+	expectEqual(t, tcproute1ParentInfo1Labels["customresource_kind"], "TCPRoute", "gatewayapi_tcproute_parent_info__1 customresource_kind")
+	expectEqual(t, tcproute1ParentInfo1Labels["customresource_version"], "v1alpha2", "gatewayapi_tcproute_parent_info__1 customresource_version")
+	expectEqual(t, tcproute1ParentInfo1Labels["name"], "testtcproute1", "gatewayapi_tcproute_parent_info__1 name")
+	expectEqual(t, tcproute1ParentInfo1Labels["namespace"], "default", "gatewayapi_tcproute_parent_info__1 namespace")
+	expectEqual(t, tcproute1ParentInfo1Labels["parent_group"], "gateway.networking.k8s.io", "gatewayapi_tcproute_parent_info__1 parent_group")
+	expectEqual(t, tcproute1ParentInfo1Labels["parent_kind"], "Gateway", "gatewayapi_tcproute_parent_info__1 parent_kind")
+	expectEqual(t, tcproute1ParentInfo1Labels["parent_namespace"], "default", "gatewayapi_tcproute_parent_info__1 parent_namespace")
+	expectEqual(t, tcproute1ParentInfo1Labels["parent_name"], "testgateway1", "gatewayapi_tcproute_parent_info__1 parent_name")
+
+	//gatewayapi_tcproute_status_parent_info
+	tcprouteParentStatusInfo := metrics["gatewayapi_tcproute_status_parent_info"]
+	tcproute1ParentStatusInfo1 := tcprouteParentStatusInfo[0]
+	expectEqual(t, tcproute1ParentStatusInfo1[3], "1", "gatewayapi_tcproute_status_parent_info__1 value")
+	tcproute1ParentStatusInfo1Labels := parseLabels(string(tcproute1ParentStatusInfo1[2]))
+	expectEqual(t, tcproute1ParentStatusInfo1Labels["customresource_group"], "gateway.networking.k8s.io", "gatewayapi_tcproute_status_parent_info__1 customresource_group")
+	expectEqual(t, tcproute1ParentStatusInfo1Labels["customresource_kind"], "TCPRoute", "gatewayapi_tcproute_status_parent_info__1 customresource_kind")
+	expectEqual(t, tcproute1ParentStatusInfo1Labels["customresource_version"], "v1alpha2", "gatewayapi_tcproute_status_parent_info__1 customresource_version")
+	expectEqual(t, tcproute1ParentStatusInfo1Labels["name"], "testtcproute1", "gatewayapi_tcproute_status_parent_info__1 name")
+	expectEqual(t, tcproute1ParentStatusInfo1Labels["namespace"], "default", "gatewayapi_tcproute_status_parent_info__1 namespace")
+	expectEqual(t, tcproute1ParentStatusInfo1Labels["parent_group"], "gateway.networking.k8s.io", "gatewayapi_tcproute_status_parent_info__1 parent_group")
+	expectEqual(t, tcproute1ParentStatusInfo1Labels["parent_kind"], "Gateway", "gatewayapi_tcproute_status_parent_info__1 parent_kind")
+	expectEqual(t, tcproute1ParentStatusInfo1Labels["parent_namespace"], "default", "gatewayapi_tcproute_status_parent_info__1 parent_namespace")
+	expectEqual(t, tcproute1ParentStatusInfo1Labels["parent_name"], "testgateway1", "gatewayapi_tcproute_status_parent_info__1 parent_name")
+}
+
+func testUDPRoute(t *testing.T, metrics map[string][][]string) {
+	// gatewayapi_udproute_created
+	udprouteCreated := metrics["gatewayapi_udproute_created"]
+	udproute1Created := udprouteCreated[0]
+	expectValidTimestampInPast(t, udproute1Created[3], "gatewayapi_udproute_created__1 value")
+	udproute1CreatedLabels := parseLabels(string(udproute1Created[2]))
+	expectEqual(t, udproute1CreatedLabels["customresource_group"], "gateway.networking.k8s.io", "gatewayapi_udproute_created__1 customresource_group")
+	expectEqual(t, udproute1CreatedLabels["customresource_kind"], "UDPRoute", "gatewayapi_udproute_created__1 customresource_kind")
+	expectEqual(t, udproute1CreatedLabels["customresource_version"], "v1alpha2", "gatewayapi_udproute_created__1 customresource_version")
+	expectEqual(t, udproute1CreatedLabels["name"], "testudproute1", "gatewayapi_udproute_created__1 name")
+	expectEqual(t, udproute1CreatedLabels["namespace"], "default", "gatewayapi_udproute_created__1 namespace")
+
+	//gatewayapi_udproute_parent_info
+	udprouteParentInfo := metrics["gatewayapi_udproute_parent_info"]
+	udproute1ParentInfo1 := udprouteParentInfo[0]
+	expectEqual(t, udproute1ParentInfo1[3], "1", "gatewayapi_udproute_parent_info__1 value")
+	udproute1ParentInfo1Labels := parseLabels(string(udproute1ParentInfo1[2]))
+	expectEqual(t, udproute1ParentInfo1Labels["customresource_group"], "gateway.networking.k8s.io", "gatewayapi_udproute_parent_info__1 customresource_group")
+	expectEqual(t, udproute1ParentInfo1Labels["customresource_kind"], "UDPRoute", "gatewayapi_udproute_parent_info__1 customresource_kind")
+	expectEqual(t, udproute1ParentInfo1Labels["customresource_version"], "v1alpha2", "gatewayapi_udproute_parent_info__1 customresource_version")
+	expectEqual(t, udproute1ParentInfo1Labels["name"], "testudproute1", "gatewayapi_udproute_parent_info__1 name")
+	expectEqual(t, udproute1ParentInfo1Labels["namespace"], "default", "gatewayapi_udproute_parent_info__1 namespace")
+	expectEqual(t, udproute1ParentInfo1Labels["parent_group"], "gateway.networking.k8s.io", "gatewayapi_udproute_parent_info__1 parent_group")
+	expectEqual(t, udproute1ParentInfo1Labels["parent_kind"], "Gateway", "gatewayapi_udproute_parent_info__1 parent_kind")
+	expectEqual(t, udproute1ParentInfo1Labels["parent_namespace"], "default", "gatewayapi_udproute_parent_info__1 parent_namespace")
+	expectEqual(t, udproute1ParentInfo1Labels["parent_name"], "testgateway1", "gatewayapi_udproute_parent_info__1 parent_name")
+
+	//gatewayapi_udproute_status_parent_info
+	udprouteParentStatusInfo := metrics["gatewayapi_udproute_status_parent_info"]
+	udproute1ParentStatusInfo1 := udprouteParentStatusInfo[0]
+	expectEqual(t, udproute1ParentStatusInfo1[3], "1", "gatewayapi_udproute_status_parent_info__1 value")
+	udproute1ParentStatusInfo1Labels := parseLabels(string(udproute1ParentStatusInfo1[2]))
+	expectEqual(t, udproute1ParentStatusInfo1Labels["customresource_group"], "gateway.networking.k8s.io", "gatewayapi_udproute_status_parent_info__1 customresource_group")
+	expectEqual(t, udproute1ParentStatusInfo1Labels["customresource_kind"], "UDPRoute", "gatewayapi_udproute_status_parent_info__1 customresource_kind")
+	expectEqual(t, udproute1ParentStatusInfo1Labels["customresource_version"], "v1alpha2", "gatewayapi_udproute_status_parent_info__1 customresource_version")
+	expectEqual(t, udproute1ParentStatusInfo1Labels["name"], "testudproute1", "gatewayapi_udproute_status_parent_info__1 name")
+	expectEqual(t, udproute1ParentStatusInfo1Labels["namespace"], "default", "gatewayapi_udproute_status_parent_info__1 namespace")
+	expectEqual(t, udproute1ParentStatusInfo1Labels["parent_group"], "gateway.networking.k8s.io", "gatewayapi_udproute_status_parent_info__1 parent_group")
+	expectEqual(t, udproute1ParentStatusInfo1Labels["parent_kind"], "Gateway", "gatewayapi_udproute_status_parent_info__1 parent_kind")
+	expectEqual(t, udproute1ParentStatusInfo1Labels["parent_namespace"], "default", "gatewayapi_udproute_status_parent_info__1 parent_namespace")
+	expectEqual(t, udproute1ParentStatusInfo1Labels["parent_name"], "testgateway1", "gatewayapi_udproute_status_parent_info__1 parent_name")
 }
 
 func parseLabels(labelsRaw string) map[string]string {

@@ -44989,4 +44989,3 @@ spec:
   policyTypes:
   - Egress
   - Ingress
-

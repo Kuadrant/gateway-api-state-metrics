@@ -188,6 +188,16 @@ kind: Namespace
 metadata:
   name: files
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: media
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: api
+---
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: GatewayClass
 metadata:
@@ -827,52 +837,6 @@ spec:
     - group: ""
       kind: Service
       name: jira-svc
-      port: 8080
-      weight: 1
-    matches:
-    - path:
-        type: PathPrefix
-        value: /
-status:
-  parents:
-  - conditions:
-    - lastTransitionTime: "2023-08-17T08:35:03Z"
-      message: Route was valid
-      observedGeneration: 1
-      reason: Accepted
-      status: "True"
-      type: Accepted
-    - lastTransitionTime: "2023-08-17T08:35:03Z"
-      message: All references resolved
-      observedGeneration: 1
-      reason: ResolvedRefs
-      status: "True"
-      type: ResolvedRefs
-    controllerName: istio.io/gateway-controller
-    parentRef:
-      group: gateway.networking.k8s.io
-      kind: Gateway
-      name: external
-      namespace: istio-system
----
-apiVersion: gateway.networking.k8s.io/v1beta1
-kind: HTTPRoute
-metadata:
-  name: vpn
-  namespace: vpn
-spec:
-  hostnames:
-  - vpn.example.com
-  parentRefs:
-  - group: gateway.networking.k8s.io
-    kind: Gateway
-    name: external
-    namespace: istio-system
-  rules:
-  - backendRefs:
-    - group: ""
-      kind: Service
-      name: vpn-svc
       port: 8080
       weight: 1
     matches:
@@ -2021,52 +1985,6 @@ status:
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: HTTPRoute
 metadata:
-  name: mail
-  namespace: mail
-spec:
-  hostnames:
-  - mail.internal.example.com
-  parentRefs:
-  - group: gateway.networking.k8s.io
-    kind: Gateway
-    name: internal
-    namespace: istio-system
-  rules:
-  - backendRefs:
-    - group: ""
-      kind: Service
-      name: mail-svc
-      port: 8080
-      weight: 1
-    matches:
-    - path:
-        type: PathPrefix
-        value: /
-status:
-  parents:
-  - conditions:
-    - lastTransitionTime: "2023-08-17T08:35:03Z"
-      message: Route was valid
-      observedGeneration: 1
-      reason: Accepted
-      status: "True"
-      type: Accepted
-    - lastTransitionTime: "2023-08-17T08:35:03Z"
-      message: All references resolved
-      observedGeneration: 1
-      reason: ResolvedRefs
-      status: "True"
-      type: ResolvedRefs
-    controllerName: istio.io/gateway-controller
-    parentRef:
-      group: gateway.networking.k8s.io
-      kind: Gateway
-      name: internal
-      namespace: istio-system
----
-apiVersion: gateway.networking.k8s.io/v1beta1
-kind: HTTPRoute
-metadata:
   name: chat
   namespace: chat
 spec:
@@ -3004,52 +2922,6 @@ status:
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: HTTPRoute
 metadata:
-  name: signing
-  namespace: signing
-spec:
-  hostnames:
-  - signing.internal.example.com
-  parentRefs:
-  - group: gateway.networking.k8s.io
-    kind: Gateway
-    name: internal-dev
-    namespace: istio-system
-  rules:
-  - backendRefs:
-    - group: ""
-      kind: Service
-      name: signing-svc
-      port: 8080
-      weight: 1
-    matches:
-    - path:
-        type: PathPrefix
-        value: /
-status:
-  parents:
-  - conditions:
-    - lastTransitionTime: "2023-08-17T08:35:03Z"
-      message: Route was valid
-      observedGeneration: 1
-      reason: Accepted
-      status: "True"
-      type: Accepted
-    - lastTransitionTime: "2023-08-17T08:35:03Z"
-      message: All references resolved
-      observedGeneration: 1
-      reason: ResolvedRefs
-      status: "True"
-      type: ResolvedRefs
-    controllerName: istio.io/gateway-controller
-    parentRef:
-      group: gateway.networking.k8s.io
-      kind: Gateway
-      name: internal-dev
-      namespace: istio-system
----
-apiVersion: gateway.networking.k8s.io/v1beta1
-kind: HTTPRoute
-metadata:
   name: argo
   namespace: argo
 spec:
@@ -3231,30 +3103,53 @@ status:
       name: internal-dev
       namespace: istio-system
 ---
-apiVersion: gateway.networking.k8s.io/v1beta1
-kind: HTTPRoute
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: GRPCRoute
 metadata:
-  name: files
-  namespace: files
+  name: api
+  namespace: api
 spec:
   hostnames:
-  - files.internal.example.com
+    - api.internal.example.com
   parentRefs:
   - group: gateway.networking.k8s.io
     kind: Gateway
     name: internal-dev
     namespace: istio-system
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      name: internal-dev
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TLSRoute
+metadata:
+  name: vpn
+  namespace: vpn
+spec:
+  hostnames:
+  - vpn.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: external
+    namespace: istio-system
   rules:
   - backendRefs:
     - group: ""
       kind: Service
-      name: files-svc
+      name: vpn-svc
       port: 8080
       weight: 1
-    matches:
-    - path:
-        type: PathPrefix
-        value: /
 status:
   parents:
   - conditions:
@@ -3274,6 +3169,200 @@ status:
     parentRef:
       group: gateway.networking.k8s.io
       kind: Gateway
+      name: external
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TLSRoute
+metadata:
+  name: signing
+  namespace: signing
+spec:
+  hostnames:
+  - signing.internal.example.com
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: external
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: signing-svc
+      port: 8080
+      weight: 1
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal-dev
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TCPRoute
+metadata:
+  name: files
+  namespace: files
+spec:
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal-dev
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: files-svc
+      port: 8080
+      weight: 1
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal-dev
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TCPRoute
+metadata:
+  name: mail
+  namespace: mail
+spec:
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: mail-svc
+      port: 8080
+      weight: 1
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TCPRoute
+metadata:
+  name: media
+  namespace: media
+spec:
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: media-svc
+      port: 8080
+      weight: 1
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: All references resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    controllerName: istio.io/gateway-controller
+    parentRef:
+      group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal
+      namespace: istio-system
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: UDPRoute
+metadata:
+  name: media
+  namespace: media
+spec:
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: internal-dev
+    namespace: istio-system
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: media-svc
+      port: 8080
+      weight: 1
+status:
+  parents:
+  - conditions:
+    - lastTransitionTime: "2023-08-17T08:35:03Z"
+      message: Route was valid
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    controllerName: istio.io/gateway-controller
+    parentRef:
       name: internal-dev
       namespace: istio-system
 ---

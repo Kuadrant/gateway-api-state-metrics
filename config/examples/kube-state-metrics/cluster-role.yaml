@@ -139,6 +139,10 @@ rules:
   - gateways
   - gatewayclasses
   - httproutes
+  - grpcroutes
+  - tcproutes
+  - tlsroutes
+  - udproutes
   verbs:
   - list
   - watch
