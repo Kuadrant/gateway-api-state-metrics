@@ -2,4 +2,8 @@ resources:
 - crd/standard/gateway.networking.k8s.io_gatewayclasses.yaml
 - crd/standard/gateway.networking.k8s.io_gateways.yaml
 - crd/standard/gateway.networking.k8s.io_httproutes.yaml
+- crd/standard/gateway.networking.k8s.io_grpcroutes.yaml
+- crd/standard/gateway.networking.k8s.io_tcproutes.yaml
+- crd/standard/gateway.networking.k8s.io_tlsroutes.yaml
+- crd/standard/gateway.networking.k8s.io_udproutes.yaml
 # From https://github.com/kubernetes-sigs/gateway-api/blob/v0.6.2/config/crd/kustomization.yaml
