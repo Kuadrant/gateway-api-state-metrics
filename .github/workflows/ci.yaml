@@ -39,3 +39,20 @@ jobs:
     - name: End-to-end tests
       run: |
         make test
+        
+  check-bundles:
+    name: check-bundles
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+    - name: Download Kustomize
+      run: |
+        curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
+        mv kustomize /usr/local/bin/
+    - name: Compare Bundles
+      run: |
+          if ! make compare-bundles; then
+            echo "::error:: Bundles comparison failed. Please run 'make generate-bundles' and check in changes."
+            exit 1
+          fi
