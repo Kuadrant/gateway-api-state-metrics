@@ -173,6 +173,12 @@ gatewayapi_gatewayclass_deleted{name="<GATEWAYCLASS_NAME>"} 1690879977
 gatewayapi_gatewayclass_status{name="<GATEWAYCLASS_NAME>",type="<Accepted>"} 1
 ```
 
+#### gatewayapi_gatewayclass_status_supported_features
+
+```
+gatewayapi_gatewayclass_status_supported_features{name="<GATEWAYCLASS_NAME>",features="<FeatureX>"}
+```
+
 ### HTTPRoute metrics
 
 **NOTE** There is no `_info` label for HTTPRoute as no additional information is available to show outside of what's already in below metrics.
@@ -221,6 +227,177 @@ gatewayapi_httproute_parent_info{name="<HTTPROUTE_NAME>",namespace="<NAMESPACE>"
 ```
 gatewayapi_httproute_status_parent_info{name="<HTTPROUTE_NAME>",namespace="<NAMESPACE>",parent_group="<PARENT_GROUP>",parent_kind="<PARENT_KIND>",parent_name="<PARENT_NAME>",parent_namespace="<PARENT_NAMESPACE>"}
 ```
+
+### GRPCRoute metrics
+
+#### gatewayapi_grpcroute_labels
+
+Kubernetes labels converted to Prometheus labels, Gauge
+```
+gatewayapi_grpcroute_labels{name="<GRPCRoute_NAME>",namespace="<NAMESPACE>",grpcroute_LABEL_NAME="<grpcroute_LABEL_VALUE>"} 1
+```
+
+#### gatewayapi_grpcroute_created
+
+Unix creation timestamp in seconds, Gauge
+```
+gatewayapi_grpcroute_created{name="<GRPCRoute_NAME>",namespace="<NAMESPACE>"} 1690879977
+```
+
+#### gatewayapi_grpcroute_deleted
+
+Unix deletion timestamp in seconds, Gauge
+```
+gatewayapi_grpcroute_deleted{name="<GRPCRoute_NAME>",namespace="<NAMESPACE>"} 1690879977
+```
+
+#### gatewayapi_grpcroute_hostname_info
+
+[Hostnames](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1beta1.Hostname) to match against the HTTP Host header, Gauge
+
+```
+gatewayapi_grpcroute_hostname_info{name="<GRPCRoute_NAME>",namespace="<NAMESPACE>",hostname="<HOSTNAME>"}
+```
+
+#### gatewayapi_grpcroute_parent_info
+
+[Parent References](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1beta1.ParentReference) that the route wants to be attached to, Gauge
+
+```
+gatewayapi_grpcroute_parent_info{name="<GRPCRoute_NAME>",namespace="<NAMESPACE>",parent_group="<PARENT_GROUP>",parent_kind="<PARENT_KIND>",parent_name="<PARENT_NAME>",parent_namespace="<PARENT_NAMESPACE>"}
+```
+
+#### gatewayapi_grpcroute_status_parent_info
+
+[Parent References](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1beta1.ParentReference) that the route *is* attached to based on the status, Gauge
+
+```
+gatewayapi_grpcroute_status_parent_info{name="<GRPCRoute_NAME>",namespace="<NAMESPACE>",parent_group="<PARENT_GROUP>",parent_kind="<PARENT_KIND>",parent_name="<PARENT_NAME>",parent_namespace="<PARENT_NAMESPACE>"}
+```
+
+### TCPRoute metrics
+
+#### gatewayapi_tcproute_labels
+
+Kubernetes labels converted to Prometheus labels, Gauge
+```
+gatewayapi_tcproute_labels{name="<TCPRoute_NAME>",namespace="<NAMESPACE>",tcproute_LABEL_NAME="<tcproute_LABEL_VALUE>"} 1
+```
+
+#### gatewayapi_tcproute_created
+
+Unix creation timestamp in seconds, Gauge
+```
+gatewayapi_tcproute_created{name="<TCPRoute_NAME>",namespace="<NAMESPACE>"} 1690879977
+```
+
+#### gatewayapi_tcproute_deleted
+
+Unix deletion timestamp in seconds, Gauge
+```
+gatewayapi_tcproute_deleted{name="<TCPRoute_NAME>",namespace="<NAMESPACE>"} 1690879977
+```
+
+#### gatewayapi_tcproute_parent_info
+
+[Parent References](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1beta1.ParentReference) that the route wants to be attached to, Gauge
+
+```
+gatewayapi_tcproute_parent_info{name="<TCPRoute_NAME>",namespace="<NAMESPACE>",parent_group="<PARENT_GROUP>",parent_kind="<PARENT_KIND>",parent_name="<PARENT_NAME>",parent_namespace="<PARENT_NAMESPACE>"}
+```
+
+#### gatewayapi_tcproute_status_parent_info
+
+[Parent References](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1beta1.ParentReference) that the route *is* attached to based on the status, Gauge
+
+```
+gatewayapi_tcproute_status_parent_info{name="<TCPRoute_NAME>",namespace="<NAMESPACE>",parent_group="<PARENT_GROUP>",parent_kind="<PARENT_KIND>",parent_name="<PARENT_NAME>",parent_namespace="<PARENT_NAMESPACE>"}
+```
+
+### TLSRoute metrics
+
+#### gatewayapi_tlsroute_labels
+
+Kubernetes labels converted to Prometheus labels, Gauge
+```
+gatewayapi_tlsroute_labels{name="<TLSRoute_NAME>",namespace="<NAMESPACE>",tlsroute_LABEL_NAME="<tlsroute_LABEL_VALUE>"} 1
+```
+
+#### gatewayapi_tlsroute_created
+
+Unix creation timestamp in seconds, Gauge
+```
+gatewayapi_tlsroute_created{name="<TLSRoute_NAME>",namespace="<NAMESPACE>"} 1690879977
+```
+
+#### gatewayapi_tlsroute_deleted
+
+Unix deletion timestamp in seconds, Gauge
+```
+gatewayapi_tlsroute_deleted{name="<TLSRoute_NAME>",namespace="<NAMESPACE>"} 1690879977
+```
+
+#### gatewayapi_tlsroute_hostname_info
+
+[Hostnames](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1beta1.Hostname) to match against the HTTP Host header, Gauge
+
+```
+gatewayapi_tlsroute_hostname_info{name="<TLSRoute_NAME>",namespace="<NAMESPACE>",hostname="<HOSTNAME>"}
+```
+
+#### gatewayapi_tlsroute_parent_info
+
+[Parent References](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1beta1.ParentReference) that the route wants to be attached to, Gauge
+
+```
+gatewayapi_tlsroute_parent_info{name="<TLSRoute_NAME>",namespace="<NAMESPACE>",parent_group="<PARENT_GROUP>",parent_kind="<PARENT_KIND>",parent_name="<PARENT_NAME>",parent_namespace="<PARENT_NAMESPACE>"}
+```
+
+#### gatewayapi_tlsroute_status_parent_info
+
+[Parent References](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1beta1.ParentReference) that the route *is* attached to based on the status, Gauge
+
+```
+gatewayapi_tlsroute_status_parent_info{name="<TLSRoute_NAME>",namespace="<NAMESPACE>",parent_group="<PARENT_GROUP>",parent_kind="<PARENT_KIND>",parent_name="<PARENT_NAME>",parent_namespace="<PARENT_NAMESPACE>"}
+```
+
+### UDPRoute metrics
+
+#### gatewayapi_udproute_labels
+
+Kubernetes labels converted to Prometheus labels, Gauge
+```
+gatewayapi_udproute_labels{name="<UDPRoute_NAME>",namespace="<NAMESPACE>",udproute_LABEL_NAME="<udproute_LABEL_VALUE>"} 1
+```
+
+#### gatewayapi_udproute_created
+
+Unix creation timestamp in seconds, Gauge
+```
+gatewayapi_udproute_created{name="<UDPRoute_NAME>",namespace="<NAMESPACE>"} 1690879977
+```
+
+#### gatewayapi_udproute_deleted
+
+Unix deletion timestamp in seconds, Gauge
+```
+gatewayapi_udproute_deleted{name="<UDPRoute_NAME>",namespace="<NAMESPACE>"} 1690879977
+```
+
+#### gatewayapi_udproute_parent_info
+
+[Parent References](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1beta1.ParentReference) that the route wants to be attached to, Gauge
+
+```
+gatewayapi_udproute_parent_info{name="<UDPRoute_NAME>",namespace="<NAMESPACE>",parent_group="<PARENT_GROUP>",parent_kind="<PARENT_KIND>",parent_name="<PARENT_NAME>",parent_namespace="<PARENT_NAMESPACE>"}
+```
+
+#### gatewayapi_udproute_status_parent_info
+
+[Parent References](https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io/v1beta1.ParentReference) that the route *is* attached to based on the status, Gauge
+
+```
+gatewayapi_udproute_status_parent_info{name="<UDPRoute_NAME>",namespace="<NAMESPACE>",parent_group="<PARENT_GROUP>",parent_kind="<PARENT_KIND>",parent_name="<PARENT_NAME>",parent_namespace="<PARENT_NAMESPACE>"}
 
 ## Contributing
 
