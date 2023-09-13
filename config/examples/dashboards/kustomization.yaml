@@ -15,3 +15,19 @@ configMapGenerator:
   namespace: monitoring
   files:
   - ./httproutes.json
+- name: grafana-grpcroutes
+  namespace: monitoring
+  files:
+  - ./grpcroutes.json
+- name: grafana-tlsroutes
+  namespace: monitoring
+  files:
+  - ./tlsroutes.json
+- name: grafana-tcproutes
+  namespace: monitoring
+  files:
+  - ./tcproutes.json
+- name: grafana-udproutes
+  namespace: monitoring
+  files:
+  - ./udproutes.json
