@@ -37879,162 +37879,693 @@ metadata:
 ---
 apiVersion: v1
 data:
-  gatewayclasses.json: "{\n  \"__inputs\": [],\n  \"__elements\": [],\n  \"__requires\":
-    [\n    {\n      \"type\": \"grafana\",\n      \"id\": \"grafana\",\n      \"name\":
-    \"Grafana\",\n      \"version\": \"8.5.5\"\n    },\n    {\n      \"type\": \"datasource\",\n
-    \     \"id\": \"prometheus\",\n      \"name\": \"Prometheus\",\n      \"version\":
-    \"1.0.0\"\n    },\n    {\n      \"type\": \"panel\",\n      \"id\": \"stat\",\n
-    \     \"name\": \"Stat\",\n      \"version\": \"\"\n    },\n    {\n      \"type\":
-    \"panel\",\n      \"id\": \"table\",\n      \"name\": \"Table\",\n      \"version\":
-    \"\"\n    }\n  ],\n  \"annotations\": {\n    \"list\": [\n      {\n        \"builtIn\":
-    1,\n        \"datasource\": {\n          \"type\": \"grafana\",\n          \"uid\":
-    \"-- Grafana --\"\n        },\n        \"enable\": true,\n        \"hide\": true,\n
-    \       \"iconColor\": \"rgba(0, 211, 255, 1)\",\n        \"name\": \"Annotations
-    & Alerts\",\n        \"target\": {\n          \"limit\": 100,\n          \"matchAny\":
-    false,\n          \"tags\": [],\n          \"type\": \"dashboard\"\n        },\n
-    \       \"type\": \"dashboard\"\n      },\n      {}\n    ]\n  },\n  \"editable\":
-    true,\n  \"fiscalYearStartMonth\": 0,\n  \"graphTooltip\": 0,\n  \"id\": null,\n
-    \ \"iteration\": 1692886841224,\n  \"links\": [\n    {\n      \"asDropdown\":
-    false,\n      \"icon\": \"external link\",\n      \"includeVars\": true,\n      \"keepTime\":
-    true,\n      \"tags\": [\n        \"gateway-api-state\"\n      ],\n      \"targetBlank\":
-    false,\n      \"title\": \"Gateway Dashboards\",\n      \"tooltip\": \"\",\n      \"type\":
-    \"dashboards\",\n      \"url\": \"\"\n    }\n  ],\n  \"liveNow\": false,\n  \"panels\":
-    [\n    {\n      \"collapsed\": false,\n      \"gridPos\": {\n        \"h\": 1,\n
-    \       \"w\": 24,\n        \"x\": 0,\n        \"y\": 0\n      },\n      \"id\":
-    14,\n      \"panels\": [],\n      \"title\": \"Gateway Classes\",\n      \"type\":
-    \"row\"\n    },\n    {\n      \"datasource\": {\n        \"type\": \"prometheus\",\n
-    \       \"uid\": \"$datasource\"\n      },\n      \"description\": \"Total number
-    of GatewayClasses across all clusters\",\n      \"fieldConfig\": {\n        \"defaults\":
-    {\n          \"color\": {\n            \"mode\": \"thresholds\"\n          },\n
-    \         \"mappings\": [],\n          \"thresholds\": {\n            \"mode\":
-    \"absolute\",\n            \"steps\": [\n              {\n                \"color\":
-    \"green\",\n                \"value\": null\n              },\n              {\n
-    \               \"color\": \"red\",\n                \"value\": 80\n              }\n
-    \           ]\n          }\n        },\n        \"overrides\": []\n      },\n
-    \     \"gridPos\": {\n        \"h\": 3,\n        \"w\": 2,\n        \"x\": 0,\n
-    \       \"y\": 1\n      },\n      \"id\": 20,\n      \"options\": {\n        \"colorMode\":
-    \"value\",\n        \"graphMode\": \"area\",\n        \"justifyMode\": \"auto\",\n
-    \       \"orientation\": \"auto\",\n        \"reduceOptions\": {\n          \"calcs\":
-    [\n            \"lastNotNull\"\n          ],\n          \"fields\": \"\",\n          \"values\":
-    false\n        },\n        \"textMode\": \"auto\"\n      },\n      \"pluginVersion\":
-    \"8.5.5\",\n      \"targets\": [\n        {\n          \"datasource\": {\n            \"type\":
-    \"prometheus\",\n            \"uid\": \"$datasource\"\n          },\n          \"editorMode\":
-    \"code\",\n          \"exemplar\": false,\n          \"expr\": \"count(gatewayapi_gatewayclass_info)\",\n
-    \         \"instant\": true,\n          \"range\": false,\n          \"refId\":
-    \"A\"\n        }\n      ],\n      \"title\": \"Total\",\n      \"type\": \"stat\"\n
-    \   },\n    {\n      \"datasource\": {\n        \"type\": \"prometheus\",\n        \"uid\":
-    \"$datasource\"\n      },\n      \"description\": \"Total GatewayClasses with
-    an Accepted state of True\",\n      \"fieldConfig\": {\n        \"defaults\":
-    {\n          \"color\": {\n            \"mode\": \"thresholds\"\n          },\n
-    \         \"mappings\": [],\n          \"thresholds\": {\n            \"mode\":
-    \"absolute\",\n            \"steps\": [\n              {\n                \"color\":
-    \"green\",\n                \"value\": null\n              },\n              {\n
-    \               \"color\": \"red\",\n                \"value\": 80\n              }\n
-    \           ]\n          }\n        },\n        \"overrides\": []\n      },\n
-    \     \"gridPos\": {\n        \"h\": 3,\n        \"w\": 2,\n        \"x\": 2,\n
-    \       \"y\": 1\n      },\n      \"id\": 31,\n      \"options\": {\n        \"colorMode\":
-    \"value\",\n        \"graphMode\": \"area\",\n        \"justifyMode\": \"auto\",\n
-    \       \"orientation\": \"auto\",\n        \"reduceOptions\": {\n          \"calcs\":
-    [\n            \"lastNotNull\"\n          ],\n          \"fields\": \"\",\n          \"values\":
-    false\n        },\n        \"textMode\": \"auto\"\n      },\n      \"pluginVersion\":
-    \"8.5.5\",\n      \"targets\": [\n        {\n          \"datasource\": {\n            \"type\":
-    \"prometheus\",\n            \"uid\": \"$datasource\"\n          },\n          \"editorMode\":
-    \"code\",\n          \"exemplar\": false,\n          \"expr\": \"count(gatewayapi_gatewayclass_status{type=\\\"Accepted\\\"}
-    > 0)\",\n          \"instant\": true,\n          \"range\": false,\n          \"refId\":
-    \"A\"\n        }\n      ],\n      \"title\": \"Accepted\",\n      \"type\": \"stat\"\n
-    \   },\n    {\n      \"datasource\": {\n        \"type\": \"prometheus\",\n        \"uid\":
-    \"$datasource\"\n      },\n      \"description\": \"\",\n      \"fieldConfig\":
-    {\n        \"defaults\": {\n          \"color\": {\n            \"mode\": \"thresholds\"\n
-    \         },\n          \"custom\": {\n            \"align\": \"auto\",\n            \"displayMode\":
-    \"auto\",\n            \"inspect\": false\n          },\n          \"mappings\":
-    [],\n          \"thresholds\": {\n            \"mode\": \"absolute\",\n            \"steps\":
-    [\n              {\n                \"color\": \"green\",\n                \"value\":
-    null\n              },\n              {\n                \"color\": \"red\",\n
-    \               \"value\": 80\n              }\n            ]\n          },\n
-    \         \"unit\": \"none\"\n        },\n        \"overrides\": [\n          {\n
-    \           \"matcher\": {\n              \"id\": \"byName\",\n              \"options\":
-    \"Created At\"\n            },\n            \"properties\": [\n              {\n
-    \               \"id\": \"unit\",\n                \"value\": \"dateTimeAsIso\"\n
-    \             }\n            ]\n          }\n        ]\n      },\n      \"gridPos\":
-    {\n        \"h\": 6,\n        \"w\": 10,\n        \"x\": 4,\n        \"y\": 1\n
-    \     },\n      \"id\": 4,\n      \"options\": {\n        \"footer\": {\n          \"fields\":
-    \"\",\n          \"reducer\": [\n            \"sum\"\n          ],\n          \"show\":
-    false\n        },\n        \"showHeader\": true\n      },\n      \"pluginVersion\":
-    \"8.5.5\",\n      \"targets\": [\n        {\n          \"datasource\": {\n            \"type\":
-    \"prometheus\",\n            \"uid\": \"$datasource\"\n          },\n          \"editorMode\":
-    \"code\",\n          \"exemplar\": false,\n          \"expr\": \"gatewayapi_gatewayclass_created\",\n
-    \         \"format\": \"table\",\n          \"instant\": true,\n          \"legendFormat\":
-    \"\",\n          \"range\": false,\n          \"refId\": \"A\"\n        }\n      ],\n
-    \     \"title\": \"GatewayClasses\",\n      \"transformations\": [\n        {\n
-    \         \"id\": \"filterFieldsByName\",\n          \"options\": {\n            \"include\":
-    {\n              \"names\": [\n                \"customresource_version\",\n                \"name\",\n
-    \               \"Value\"\n              ]\n            }\n          }\n        },\n
-    \       {\n          \"id\": \"calculateField\",\n          \"options\": {\n            \"alias\":
-    \"Created At\",\n            \"binary\": {\n              \"left\": \"Value\",\n
-    \             \"operator\": \"*\",\n              \"reducer\": \"sum\",\n              \"right\":
-    \"1000\"\n            },\n            \"mode\": \"binary\",\n            \"reduce\":
-    {\n              \"reducer\": \"sum\"\n            },\n            \"replaceFields\":
-    false\n          }\n        },\n        {\n          \"id\": \"organize\",\n          \"options\":
-    {\n            \"excludeByName\": {\n              \"Value\": true,\n              \"customresource_kind\":
-    true\n            },\n            \"indexByName\": {},\n            \"renameByName\":
-    {\n              \"Value\": \"Created\",\n              \"customresource_kind\":
-    \"Kind\",\n              \"customresource_version\": \"Version\",\n              \"name\":
-    \"Name\",\n              \"namespace\": \"Namespace\"\n            }\n          }\n
-    \       }\n      ],\n      \"type\": \"table\"\n    },\n    {\n      \"datasource\":
-    {\n        \"type\": \"prometheus\",\n        \"uid\": \"$datasource\"\n      },\n
-    \     \"description\": \"\",\n      \"fieldConfig\": {\n        \"defaults\":
-    {\n          \"color\": {\n            \"mode\": \"thresholds\"\n          },\n
-    \         \"custom\": {\n            \"align\": \"auto\",\n            \"displayMode\":
-    \"auto\",\n            \"inspect\": false\n          },\n          \"links\":
-    [],\n          \"mappings\": [],\n          \"thresholds\": {\n            \"mode\":
-    \"absolute\",\n            \"steps\": [\n              {\n                \"color\":
-    \"green\",\n                \"value\": null\n              },\n              {\n
-    \               \"color\": \"red\",\n                \"value\": 80\n              }\n
-    \           ]\n          },\n          \"unit\": \"none\"\n        },\n        \"overrides\":
-    [\n          {\n            \"matcher\": {\n              \"id\": \"byName\",\n
-    \             \"options\": \"Name\"\n            },\n            \"properties\":
-    [\n              {\n                \"id\": \"links\",\n                \"value\":
-    [\n                  {\n                    \"title\": \"Gateway Details\",\n
-    \                   \"url\": \"/d/gatewayapigateways/gateway-api-state-gateways?var-gateway=${__value.text}\uFEFF\uFEFF\uFEFF\uFEFF\uFEFF\"\n
-    \                 }\n                ]\n              },\n              {\n                \"id\":
-    \"custom.displayMode\",\n                \"value\": \"color-text\"\n              }\n
-    \           ]\n          }\n        ]\n      },\n      \"gridPos\": {\n        \"h\":
-    6,\n        \"w\": 10,\n        \"x\": 14,\n        \"y\": 1\n      },\n      \"id\":
-    10,\n      \"options\": {\n        \"footer\": {\n          \"fields\": \"\",\n
-    \         \"reducer\": [\n            \"sum\"\n          ],\n          \"show\":
-    false\n        },\n        \"showHeader\": true\n      },\n      \"pluginVersion\":
-    \"8.5.5\",\n      \"targets\": [\n        {\n          \"datasource\": {\n            \"type\":
-    \"prometheus\",\n            \"uid\": \"$datasource\"\n          },\n          \"editorMode\":
-    \"code\",\n          \"exemplar\": false,\n          \"expr\": \"gatewayapi_gateway_info\",\n
-    \         \"format\": \"table\",\n          \"instant\": true,\n          \"legendFormat\":
-    \"\",\n          \"range\": false,\n          \"refId\": \"A\"\n        }\n      ],\n
-    \     \"title\": \"Gateways (by GatewayClass)\",\n      \"transformations\": [\n
-    \       {\n          \"id\": \"filterFieldsByName\",\n          \"options\": {\n
-    \           \"include\": {\n              \"names\": [\n                \"gatewayclass_name\",\n
-    \               \"name\",\n                \"namespace\"\n              ]\n            }\n
-    \         }\n        },\n        {\n          \"id\": \"organize\",\n          \"options\":
-    {\n            \"excludeByName\": {\n              \"Value\": false,\n              \"customresource_kind\":
-    true\n            },\n            \"indexByName\": {\n              \"Value\":
-    3,\n              \"gatewayclass_name\": 2,\n              \"name\": 0,\n              \"namespace\":
-    1\n            },\n            \"renameByName\": {\n              \"Value\": \"#
-    Instances\",\n              \"customresource_kind\": \"Kind\",\n              \"customresource_version\":
-    \"Version\",\n              \"gatewayclass_name\": \"GatewayClass\",\n              \"name\":
-    \"Name\",\n              \"namespace\": \"Namespace\"\n            }\n          }\n
-    \       }\n      ],\n      \"type\": \"table\"\n    }\n  ],\n  \"schemaVersion\":
-    36,\n  \"style\": \"dark\",\n  \"tags\": [\n    \"gateway-api\",\n    \"gateway-api-state\"\n
-    \ ],\n  \"templating\": {\n    \"list\": [\n      {\n        \"current\": {\n
-    \         \"selected\": false,\n          \"text\": \"prometheus\",\n          \"value\":
-    \"prometheus\"\n        },\n        \"hide\": 0,\n        \"includeAll\": false,\n
-    \       \"label\": \"Data Source\",\n        \"multi\": false,\n        \"name\":
-    \"datasource\",\n        \"options\": [],\n        \"query\": \"prometheus\",\n
-    \       \"queryValue\": \"\",\n        \"refresh\": 1,\n        \"regex\": \"\",\n
-    \       \"skipUrlSync\": false,\n        \"type\": \"datasource\"\n      }\n    ]\n
-    \ },\n  \"time\": {\n    \"from\": \"now-1h\",\n    \"to\": \"now\"\n  },\n  \"timepicker\":
-    {},\n  \"timezone\": \"\",\n  \"title\": \"Gateway API State / GatewayClasses\",\n
-    \ \"uid\": \"gatewayapigatewayclass\",\n  \"version\": 1,\n  \"weekStart\": \"\"\n}"
+  gatewayclasses.json: |-
+    {
+      "__inputs": [],
+      "__elements": [],
+      "__requires": [
+        {
+          "type": "grafana",
+          "id": "grafana",
+          "name": "Grafana",
+          "version": "8.5.5"
+        },
+        {
+          "type": "datasource",
+          "id": "prometheus",
+          "name": "Prometheus",
+          "version": "1.0.0"
+        },
+        {
+          "type": "panel",
+          "id": "stat",
+          "name": "Stat",
+          "version": ""
+        },
+        {
+          "type": "panel",
+          "id": "table",
+          "name": "Table",
+          "version": ""
+        }
+      ],
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": {
+              "type": "grafana",
+              "uid": "-- Grafana --"
+            },
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "target": {
+              "limit": 100,
+              "matchAny": false,
+              "tags": [],
+              "type": "dashboard"
+            },
+            "type": "dashboard"
+          },
+          {}
+        ]
+      },
+      "editable": true,
+      "fiscalYearStartMonth": 0,
+      "graphTooltip": 0,
+      "iteration": 1694697359281,
+      "links": [
+        {
+          "asDropdown": false,
+          "icon": "external link",
+          "includeVars": true,
+          "keepTime": true,
+          "tags": [
+            "gateway-api-state"
+          ],
+          "targetBlank": false,
+          "title": "Gateway Dashboards",
+          "tooltip": "",
+          "type": "dashboards",
+          "url": ""
+        }
+      ],
+      "liveNow": false,
+      "panels": [
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 0
+          },
+          "id": 14,
+          "panels": [],
+          "title": "Gateway Classes",
+          "type": "row"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "Total number of GatewayClasses across all clusters",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 2,
+            "x": 0,
+            "y": 1
+          },
+          "id": 20,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "count(gatewayapi_gatewayclass_info)",
+              "instant": true,
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Total",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "Total GatewayClasses with an Accepted state of True",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 2,
+            "x": 2,
+            "y": 1
+          },
+          "id": 31,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "count(gatewayapi_gatewayclass_status{type=\"Accepted\"} > 0)",
+              "instant": true,
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Accepted",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Created At"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "dateTimeAsIso"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 4,
+            "y": 1
+          },
+          "id": 4,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "gatewayapi_gatewayclass_created",
+              "format": "table",
+              "instant": true,
+              "legendFormat": "",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "GatewayClasses",
+          "transformations": [
+            {
+              "id": "filterFieldsByName",
+              "options": {
+                "include": {
+                  "names": [
+                    "customresource_version",
+                    "name",
+                    "Value"
+                  ]
+                }
+              }
+            },
+            {
+              "id": "calculateField",
+              "options": {
+                "alias": "Created At",
+                "binary": {
+                  "left": "Value",
+                  "operator": "*",
+                  "reducer": "sum",
+                  "right": "1000"
+                },
+                "mode": "binary",
+                "reduce": {
+                  "reducer": "sum"
+                },
+                "replaceFields": false
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Value": true,
+                  "customresource_kind": true
+                },
+                "indexByName": {},
+                "renameByName": {
+                  "Value": "Created",
+                  "customresource_kind": "Kind",
+                  "customresource_version": "Version",
+                  "name": "Name",
+                  "namespace": "Namespace"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "links": [],
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Name"
+                },
+                "properties": [
+                  {
+                    "id": "links",
+                    "value": [
+                      {
+                        "title": "Gateway Details",
+                        "url": "/d/gatewayapigateways/gateway-api-state-gateways?var-gateway=${__value.text}"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "custom.displayMode",
+                    "value": "color-text"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 14,
+            "y": 1
+          },
+          "id": 10,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "gatewayapi_gateway_info",
+              "format": "table",
+              "instant": true,
+              "legendFormat": "",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Gateways (by GatewayClass)",
+          "transformations": [
+            {
+              "id": "filterFieldsByName",
+              "options": {
+                "include": {
+                  "names": [
+                    "gatewayclass_name",
+                    "name",
+                    "namespace"
+                  ]
+                }
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Value": false,
+                  "customresource_kind": true
+                },
+                "indexByName": {
+                  "Value": 3,
+                  "gatewayclass_name": 2,
+                  "name": 0,
+                  "namespace": 1
+                },
+                "renameByName": {
+                  "Value": "# Instances",
+                  "customresource_kind": "Kind",
+                  "customresource_version": "Version",
+                  "gatewayclass_name": "GatewayClass",
+                  "name": "Name",
+                  "namespace": "Namespace"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 333
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 20,
+            "x": 4,
+            "y": 7
+          },
+          "id": 33,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${datasource}"
+              },
+              "editorMode": "code",
+              "expr": "gatewayapi_gatewayclass_status_supported_features{name=\"$gatewayclass\"}",
+              "legendFormat": "__auto",
+              "range": true,
+              "refId": "A"
+            }
+          ],
+          "title": "Supported Features (by GatewayClass)",
+          "transformations": [
+            {
+              "id": "reduce",
+              "options": {
+                "includeTimeField": false,
+                "labelsToFields": true,
+                "mode": "seriesToRows",
+                "reducers": [
+                  "last"
+                ]
+              }
+            },
+            {
+              "id": "filterFieldsByName",
+              "options": {
+                "include": {
+                  "names": [
+                    "features",
+                    "name"
+                  ]
+                }
+              }
+            },
+            {
+              "id": "groupBy",
+              "options": {
+                "fields": {
+                  "features": {
+                    "aggregations": [
+                      "allValues"
+                    ],
+                    "operation": "aggregate"
+                  },
+                  "name": {
+                    "aggregations": [],
+                    "operation": "groupby"
+                  }
+                }
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {},
+                "indexByName": {},
+                "renameByName": {
+                  "features (allValues)": "Features",
+                  "name": "GatewayClass"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        }
+      ],
+      "schemaVersion": 36,
+      "style": "dark",
+      "tags": [
+        "gateway-api",
+        "gateway-api-state"
+      ],
+      "templating": {
+        "list": [
+          {
+            "current": {
+              "selected": false,
+              "text": "prometheus",
+              "value": "prometheus"
+            },
+            "hide": 0,
+            "includeAll": false,
+            "label": "Data Source",
+            "multi": false,
+            "name": "datasource",
+            "options": [],
+            "query": "prometheus",
+            "queryValue": "",
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "type": "datasource"
+          },
+          {
+            "current": {
+              "selected": true,
+              "text": "istio",
+              "value": "istio"
+            },
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${datasource}"
+            },
+            "definition": "label_values(gatewayapi_gatewayclass_info, name)",
+            "hide": 0,
+            "includeAll": false,
+            "multi": false,
+            "name": "gatewayclass",
+            "options": [],
+            "query": {
+              "query": "label_values(gatewayapi_gatewayclass_info, name)",
+              "refId": "StandardVariableQuery"
+            },
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "sort": 0,
+            "type": "query"
+          }
+        ]
+      },
+      "time": {
+        "from": "now-1h",
+        "to": "now"
+      },
+      "timepicker": {},
+      "timezone": "",
+      "title": "Gateway API State / GatewayClasses",
+      "uid": "gatewayapigatewayclass",
+      "version": 1,
+      "weekStart": ""
+    }
 kind: ConfigMap
 metadata:
-  name: grafana-gatewayclasses-d86gm989fh
+  name: grafana-gatewayclasses-d8d6fd4fd8
   namespace: monitoring
 
 ---
@@ -38096,8 +38627,7 @@ data:
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 0,
-      "id": null,
-      "iteration": 1692886865020,
+      "iteration": 1694614167005,
       "links": [
         {
           "asDropdown": false,
@@ -39489,6 +40019,578 @@ data:
             }
           ],
           "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Name"
+                },
+                "properties": [
+                  {
+                    "id": "links",
+                    "value": [
+                      {
+                        "title": "GRPCRoute Details",
+                        "url": "/d/gatewayapigrpcroutes/gateway-api-state-grpcroutes?var-grpcroute=${__value.text}"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "custom.displayMode",
+                    "value": "color-text"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 14,
+            "y": 13
+          },
+          "id": 32,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "gatewayapi_grpcroute_parent_info{parent_kind=\"Gateway\",parent_name=~\"${gateway}\"}",
+              "format": "table",
+              "instant": true,
+              "legendFormat": "",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "GRPCRoutes (by Gateway)",
+          "transformations": [
+            {
+              "id": "filterFieldsByName",
+              "options": {
+                "include": {
+                  "names": [
+                    "name",
+                    "namespace",
+                    "parent_name"
+                  ]
+                }
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Value": false
+                },
+                "indexByName": {
+                  "Value": 9,
+                  "customresource_kind": 0,
+                  "customresource_version": 1,
+                  "hostname": 5,
+                  "listener_name": 4,
+                  "name": 2,
+                  "namespace": 3,
+                  "port": 6,
+                  "protocol": 7,
+                  "tls_mode": 8
+                },
+                "renameByName": {
+                  "Value": "# Attached Routes",
+                  "customresource_kind": "Kind",
+                  "customresource_version": "Version",
+                  "hostname": "Hostname",
+                  "listener_name": "Listener Name",
+                  "name": "Name",
+                  "namespace": "Namespace",
+                  "parent_kind": "",
+                  "parent_name": "Gateway",
+                  "port": "Port",
+                  "prometheus": "",
+                  "protocol": "Protocol",
+                  "tls_mode": "TLS Mode"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Name"
+                },
+                "properties": [
+                  {
+                    "id": "links",
+                    "value": [
+                      {
+                        "title": "TLSRoute Details",
+                        "url": "/d/gatewayapitlsroutes/gateway-api-state-tlsroutes?var-tlsroute=${__value.text}"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "custom.displayMode",
+                    "value": "color-text"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 4,
+            "y": 19
+          },
+          "id": 35,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "gatewayapi_tlsroute_parent_info{parent_kind=\"Gateway\",parent_name=~\"${gateway}\"}",
+              "format": "table",
+              "instant": true,
+              "legendFormat": "",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "TLSRoutes (by Gateway)",
+          "transformations": [
+            {
+              "id": "filterFieldsByName",
+              "options": {
+                "include": {
+                  "names": [
+                    "name",
+                    "namespace",
+                    "parent_name"
+                  ]
+                }
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Value": false
+                },
+                "indexByName": {
+                  "Value": 9,
+                  "customresource_kind": 0,
+                  "customresource_version": 1,
+                  "hostname": 5,
+                  "listener_name": 4,
+                  "name": 2,
+                  "namespace": 3,
+                  "port": 6,
+                  "protocol": 7,
+                  "tls_mode": 8
+                },
+                "renameByName": {
+                  "Value": "# Attached Routes",
+                  "customresource_kind": "Kind",
+                  "customresource_version": "Version",
+                  "hostname": "Hostname",
+                  "listener_name": "Listener Name",
+                  "name": "Name",
+                  "namespace": "Namespace",
+                  "parent_kind": "",
+                  "parent_name": "Gateway",
+                  "port": "Port",
+                  "prometheus": "",
+                  "protocol": "Protocol",
+                  "tls_mode": "TLS Mode"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Name"
+                },
+                "properties": [
+                  {
+                    "id": "links",
+                    "value": [
+                      {
+                        "title": "TCPRoute Details",
+                        "url": "/d/gatewayapitcproutes/gateway-api-state-tcproutes?var-tcproute=${__value.text}"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "custom.displayMode",
+                    "value": "color-text"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 14,
+            "y": 19
+          },
+          "id": 33,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "gatewayapi_tcproute_parent_info{parent_kind=\"Gateway\",parent_name=~\"${gateway}\"}",
+              "format": "table",
+              "instant": true,
+              "legendFormat": "",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "TCPRoutes (by Gateway)",
+          "transformations": [
+            {
+              "id": "filterFieldsByName",
+              "options": {
+                "include": {
+                  "names": [
+                    "name",
+                    "namespace",
+                    "parent_name"
+                  ]
+                }
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Value": false
+                },
+                "indexByName": {
+                  "Value": 9,
+                  "customresource_kind": 0,
+                  "customresource_version": 1,
+                  "hostname": 5,
+                  "listener_name": 4,
+                  "name": 2,
+                  "namespace": 3,
+                  "port": 6,
+                  "protocol": 7,
+                  "tls_mode": 8
+                },
+                "renameByName": {
+                  "Value": "# Attached Routes",
+                  "customresource_kind": "Kind",
+                  "customresource_version": "Version",
+                  "hostname": "Hostname",
+                  "listener_name": "Listener Name",
+                  "name": "Name",
+                  "namespace": "Namespace",
+                  "parent_kind": "",
+                  "parent_name": "Gateway",
+                  "port": "Port",
+                  "prometheus": "",
+                  "protocol": "Protocol",
+                  "tls_mode": "TLS Mode"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Name"
+                },
+                "properties": [
+                  {
+                    "id": "links",
+                    "value": [
+                      {
+                        "title": "UCPRoute Details",
+                        "url": "/d/gatewayapiudproutes/gateway-api-state-udproutes?var-udproute=${__value.text}"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "custom.displayMode",
+                    "value": "color-text"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 4,
+            "y": 25
+          },
+          "id": 34,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "gatewayapi_udproute_parent_info{parent_kind=\"Gateway\",parent_name=~\"${gateway}\"}",
+              "format": "table",
+              "instant": true,
+              "legendFormat": "",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "UDPRoutes (by Gateway)",
+          "transformations": [
+            {
+              "id": "filterFieldsByName",
+              "options": {
+                "include": {
+                  "names": [
+                    "name",
+                    "namespace",
+                    "parent_name"
+                  ]
+                }
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Value": false
+                },
+                "indexByName": {
+                  "Value": 9,
+                  "customresource_kind": 0,
+                  "customresource_version": 1,
+                  "hostname": 5,
+                  "listener_name": 4,
+                  "name": 2,
+                  "namespace": 3,
+                  "port": 6,
+                  "protocol": 7,
+                  "tls_mode": 8
+                },
+                "renameByName": {
+                  "Value": "# Attached Routes",
+                  "customresource_kind": "Kind",
+                  "customresource_version": "Version",
+                  "hostname": "Hostname",
+                  "listener_name": "Listener Name",
+                  "name": "Name",
+                  "namespace": "Namespace",
+                  "parent_kind": "",
+                  "parent_name": "Gateway",
+                  "port": "Port",
+                  "prometheus": "",
+                  "protocol": "Protocol",
+                  "tls_mode": "TLS Mode"
+                }
+              }
+            }
+          ],
+          "type": "table"
         }
       ],
       "schemaVersion": 36,
@@ -39555,7 +40657,1020 @@ data:
     }
 kind: ConfigMap
 metadata:
-  name: grafana-gateways-m4252k9dbm
+  name: grafana-gateways-k49b97kmbg
+  namespace: monitoring
+
+---
+apiVersion: v1
+data:
+  grpcroutes.json: |-
+    {
+      "__inputs": [],
+      "__elements": [],
+      "__requires": [
+        {
+          "type": "grafana",
+          "id": "grafana",
+          "name": "Grafana",
+          "version": "8.5.5"
+        },
+        {
+          "type": "datasource",
+          "id": "prometheus",
+          "name": "Prometheus",
+          "version": "1.0.0"
+        },
+        {
+          "type": "panel",
+          "id": "stat",
+          "name": "Stat",
+          "version": ""
+        },
+        {
+          "type": "panel",
+          "id": "table",
+          "name": "Table",
+          "version": ""
+        }
+      ],
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": {
+              "type": "grafana",
+              "uid": "-- Grafana --"
+            },
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "target": {
+              "limit": 100,
+              "matchAny": false,
+              "tags": [],
+              "type": "dashboard"
+            },
+            "type": "dashboard"
+          },
+          {}
+        ]
+      },
+      "editable": true,
+      "fiscalYearStartMonth": 0,
+      "graphTooltip": 0,
+      "id": null,
+      "iteration": 1692886893094,
+      "links": [
+        {
+          "asDropdown": false,
+          "icon": "dashboard",
+          "includeVars": true,
+          "keepTime": true,
+          "tags": [
+            "gateway-api-state"
+          ],
+          "targetBlank": false,
+          "title": "Gateway Dashboards",
+          "tooltip": "",
+          "type": "dashboards",
+          "url": ""
+        }
+      ],
+      "liveNow": false,
+      "panels": [
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 0
+          },
+          "id": 18,
+          "panels": [],
+          "title": "GRPCRoutes",
+          "type": "row"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "Total number of GRPCRoutes across all namespaces",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 2,
+            "x": 0,
+            "y": 1
+          },
+          "id": 27,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "count(gatewayapi_grpcroute_created{name=~\"${grpcroute}\"})",
+              "instant": true,
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Total",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "Total number of parents (e.g. Gateways) targeted by GRPCRoutes",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 2,
+            "x": 2,
+            "y": 1
+          },
+          "id": 28,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "count(gatewayapi_grpcroute_parent_info{name=~\"${grpcroute}\"})",
+              "instant": true,
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Tar. Parents",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Created At"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "dateTimeAsIso"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 4,
+            "y": 1
+          },
+          "id": 3,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "gatewayapi_grpcroute_created{name=~\"${grpcroute}\"}",
+              "format": "table",
+              "instant": true,
+              "legendFormat": "",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "GRPCRoutes",
+          "transformations": [
+            {
+              "id": "filterFieldsByName",
+              "options": {
+                "include": {
+                  "names": [
+                    "customresource_version",
+                    "name",
+                    "namespace",
+                    "Value"
+                  ]
+                }
+              }
+            },
+            {
+              "id": "calculateField",
+              "options": {
+                "alias": "Created At",
+                "binary": {
+                  "left": "Value",
+                  "operator": "*",
+                  "reducer": "sum",
+                  "right": "1000"
+                },
+                "mode": "binary",
+                "reduce": {
+                  "reducer": "sum"
+                },
+                "replaceFields": false
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Value": true
+                },
+                "indexByName": {},
+                "renameByName": {
+                  "Value": "Created",
+                  "customresource_kind": "Kind",
+                  "customresource_version": "Version",
+                  "name": "Name",
+                  "namespace": "Namespace"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Created At"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "dateTimeAsIso"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Kind"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 108
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Version"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 85
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Listener Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 119
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Hostname"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 163
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Port"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 59
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Protocol"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 104
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 98
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Parent Kind"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 103
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Parent Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 118
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Namespace"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 124
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 14,
+            "y": 1
+          },
+          "id": 11,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "gatewayapi_grpcroute_parent_info{name=~\"${grpcroute}\"}",
+              "format": "table",
+              "instant": true,
+              "legendFormat": "",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "GRPCRoute *targeted* Parent References",
+          "transformations": [
+            {
+              "id": "filterFieldsByName",
+              "options": {
+                "include": {
+                  "names": [
+                    "customresource_version",
+                    "name",
+                    "namespace",
+                    "parent_kind",
+                    "parent_name",
+                    "parent_namespace"
+                  ]
+                }
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Value": true
+                },
+                "indexByName": {
+                  "Value": 9,
+                  "customresource_kind": 0,
+                  "customresource_version": 1,
+                  "hostname": 5,
+                  "listener_name": 4,
+                  "name": 2,
+                  "namespace": 3,
+                  "port": 6,
+                  "protocol": 7,
+                  "tls_mode": 8
+                },
+                "renameByName": {
+                  "Value": "",
+                  "customresource_kind": "Kind",
+                  "customresource_version": "Version",
+                  "hostname": "Hostname",
+                  "listener_name": "Listener Name",
+                  "name": "Name",
+                  "namespace": "Namespace",
+                  "parent_kind": "Parent Kind",
+                  "parent_name": "Parent Name",
+                  "parent_namespace": "Parent Namespace",
+                  "port": "Port",
+                  "prometheus": "",
+                  "protocol": "Protocol",
+                  "tls_mode": "TLS Mode",
+                  "type": "Address Type",
+                  "value": "Address Value"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "Total number of parents (e.g. Gateways) attached to GRPCRoutes",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 2,
+            "x": 0,
+            "y": 4
+          },
+          "id": 29,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "count(gatewayapi_grpcroute_status_parent_info{name=~\"${grpcroute}\"})",
+              "instant": true,
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Att. Parents",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Created At"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "dateTimeAsIso"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Kind"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 108
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Version"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 85
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Listener Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 119
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Hostname"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 163
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Port"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 59
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Protocol"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 104
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 98
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Parent Kind"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 103
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Parent Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 118
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Namespace"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 124
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 4,
+            "y": 7
+          },
+          "id": 12,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "gatewayapi_grpcroute_status_parent_info{name=~\"${grpcroute}\"}",
+              "format": "table",
+              "instant": true,
+              "legendFormat": "",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "GRPCRoute *attached* Parent References",
+          "transformations": [
+            {
+              "id": "filterFieldsByName",
+              "options": {
+                "include": {
+                  "names": [
+                    "customresource_version",
+                    "name",
+                    "namespace",
+                    "parent_kind",
+                    "parent_name",
+                    "parent_namespace"
+                  ]
+                }
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Value": true
+                },
+                "indexByName": {
+                  "Value": 9,
+                  "customresource_kind": 0,
+                  "customresource_version": 1,
+                  "hostname": 5,
+                  "listener_name": 4,
+                  "name": 2,
+                  "namespace": 3,
+                  "port": 6,
+                  "protocol": 7,
+                  "tls_mode": 8
+                },
+                "renameByName": {
+                  "Value": "",
+                  "customresource_kind": "Kind",
+                  "customresource_version": "Version",
+                  "hostname": "Hostname",
+                  "listener_name": "Listener Name",
+                  "name": "Name",
+                  "namespace": "Namespace",
+                  "parent_kind": "Parent Kind",
+                  "parent_name": "Parent Name",
+                  "parent_namespace": "Parent Namespace",
+                  "port": "Port",
+                  "prometheus": "",
+                  "protocol": "Protocol",
+                  "tls_mode": "TLS Mode",
+                  "type": "Address Type",
+                  "value": "Address Value"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        }
+      ],
+      "schemaVersion": 36,
+      "style": "dark",
+      "tags": [
+        "gateway-api",
+        "gateway-api-state"
+      ],
+      "templating": {
+        "list": [
+          {
+            "current": {
+              "selected": false,
+              "text": "prometheus",
+              "value": "prometheus"
+            },
+            "hide": 0,
+            "includeAll": false,
+            "label": "Data Source",
+            "multi": false,
+            "name": "datasource",
+            "options": [],
+            "query": "prometheus",
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "type": "datasource"
+          },
+          {
+            "current": {},
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${datasource}"
+            },
+            "definition": "label_values(gatewayapi_grpcroute_created, name)",
+            "hide": 0,
+            "includeAll": true,
+            "label": "GRPCRoute",
+            "multi": true,
+            "name": "grpcroute",
+            "options": [],
+            "query": {
+              "query": "label_values(gatewayapi_grpcroute_created, name)",
+              "refId": "StandardVariableQuery"
+            },
+            "refresh": 1,
+            "regex": "/(.*)/",
+            "skipUrlSync": false,
+            "sort": 1,
+            "type": "query"
+          }
+        ]
+      },
+      "time": {
+        "from": "now-1h",
+        "to": "now"
+      },
+      "timepicker": {},
+      "timezone": "",
+      "title": "Gateway API State / GRPCRoutes",
+      "uid": "gatewayapigrpcroutes",
+      "version": 3,
+      "weekStart": ""
+    }
+kind: ConfigMap
+metadata:
+  name: grafana-grpcroutes-6925t54448
   namespace: monitoring
 
 ---
@@ -40573,6 +42688,3045 @@ metadata:
 
 ---
 apiVersion: v1
+data:
+  tcproutes.json: |-
+    {
+      "__inputs": [],
+      "__elements": [],
+      "__requires": [
+        {
+          "type": "grafana",
+          "id": "grafana",
+          "name": "Grafana",
+          "version": "8.5.5"
+        },
+        {
+          "type": "datasource",
+          "id": "prometheus",
+          "name": "Prometheus",
+          "version": "1.0.0"
+        },
+        {
+          "type": "panel",
+          "id": "stat",
+          "name": "Stat",
+          "version": ""
+        },
+        {
+          "type": "panel",
+          "id": "table",
+          "name": "Table",
+          "version": ""
+        }
+      ],
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": {
+              "type": "grafana",
+              "uid": "-- Grafana --"
+            },
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "target": {
+              "limit": 100,
+              "matchAny": false,
+              "tags": [],
+              "type": "dashboard"
+            },
+            "type": "dashboard"
+          },
+          {}
+        ]
+      },
+      "editable": true,
+      "fiscalYearStartMonth": 0,
+      "graphTooltip": 0,
+      "id": null,
+      "iteration": 1692886893094,
+      "links": [
+        {
+          "asDropdown": false,
+          "icon": "dashboard",
+          "includeVars": true,
+          "keepTime": true,
+          "tags": [
+            "gateway-api-state"
+          ],
+          "targetBlank": false,
+          "title": "Gateway Dashboards",
+          "tooltip": "",
+          "type": "dashboards",
+          "url": ""
+        }
+      ],
+      "liveNow": false,
+      "panels": [
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 0
+          },
+          "id": 18,
+          "panels": [],
+          "title": "TCPRoutes",
+          "type": "row"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "Total number of TCPRoutes across all namespaces",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 2,
+            "x": 0,
+            "y": 1
+          },
+          "id": 27,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "count(gatewayapi_tcproute_created{name=~\"${tcproute}\"})",
+              "instant": true,
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Total",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "Total number of parents (e.g. Gateways) targeted by TCPRoutes",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 2,
+            "x": 2,
+            "y": 1
+          },
+          "id": 28,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "count(gatewayapi_tcproute_parent_info{name=~\"${tcproute}\"})",
+              "instant": true,
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Tar. Parents",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Created At"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "dateTimeAsIso"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 4,
+            "y": 1
+          },
+          "id": 3,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "gatewayapi_tcproute_created{name=~\"${tcproute}\"}",
+              "format": "table",
+              "instant": true,
+              "legendFormat": "",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "TCPRoutes",
+          "transformations": [
+            {
+              "id": "filterFieldsByName",
+              "options": {
+                "include": {
+                  "names": [
+                    "customresource_version",
+                    "name",
+                    "namespace",
+                    "Value"
+                  ]
+                }
+              }
+            },
+            {
+              "id": "calculateField",
+              "options": {
+                "alias": "Created At",
+                "binary": {
+                  "left": "Value",
+                  "operator": "*",
+                  "reducer": "sum",
+                  "right": "1000"
+                },
+                "mode": "binary",
+                "reduce": {
+                  "reducer": "sum"
+                },
+                "replaceFields": false
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Value": true
+                },
+                "indexByName": {},
+                "renameByName": {
+                  "Value": "Created",
+                  "customresource_kind": "Kind",
+                  "customresource_version": "Version",
+                  "name": "Name",
+                  "namespace": "Namespace"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Created At"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "dateTimeAsIso"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Kind"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 108
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Version"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 85
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Listener Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 119
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Hostname"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 163
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Port"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 59
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Protocol"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 104
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 98
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Parent Kind"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 103
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Parent Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 118
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Namespace"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 124
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 14,
+            "y": 1
+          },
+          "id": 11,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "gatewayapi_tcproute_parent_info{name=~\"${tcproute}\"}",
+              "format": "table",
+              "instant": true,
+              "legendFormat": "",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "TCPRoute *targeted* Parent References",
+          "transformations": [
+            {
+              "id": "filterFieldsByName",
+              "options": {
+                "include": {
+                  "names": [
+                    "customresource_version",
+                    "name",
+                    "namespace",
+                    "parent_kind",
+                    "parent_name",
+                    "parent_namespace"
+                  ]
+                }
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Value": true
+                },
+                "indexByName": {
+                  "Value": 9,
+                  "customresource_kind": 0,
+                  "customresource_version": 1,
+                  "hostname": 5,
+                  "listener_name": 4,
+                  "name": 2,
+                  "namespace": 3,
+                  "port": 6,
+                  "protocol": 7,
+                  "tcp_mode": 8
+                },
+                "renameByName": {
+                  "Value": "",
+                  "customresource_kind": "Kind",
+                  "customresource_version": "Version",
+                  "hostname": "Hostname",
+                  "listener_name": "Listener Name",
+                  "name": "Name",
+                  "namespace": "Namespace",
+                  "parent_kind": "Parent Kind",
+                  "parent_name": "Parent Name",
+                  "parent_namespace": "Parent Namespace",
+                  "port": "Port",
+                  "prometheus": "",
+                  "protocol": "Protocol",
+                  "tcp_mode": "TCP Mode",
+                  "type": "Address Type",
+                  "value": "Address Value"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "Total number of parents (e.g. Gateways) attached to TCPRoutes",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 2,
+            "x": 0,
+            "y": 4
+          },
+          "id": 29,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "count(gatewayapi_tcproute_status_parent_info{name=~\"${tcproute}\"})",
+              "instant": true,
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Att. Parents",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Created At"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "dateTimeAsIso"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Kind"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 108
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Version"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 85
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Listener Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 119
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Hostname"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 163
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Port"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 59
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Protocol"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 104
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 98
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Parent Kind"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 103
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Parent Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 118
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Namespace"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 124
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 4,
+            "y": 7
+          },
+          "id": 12,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "gatewayapi_tcproute_status_parent_info{name=~\"${tcproute}\"}",
+              "format": "table",
+              "instant": true,
+              "legendFormat": "",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "TCPRoute *attached* Parent References",
+          "transformations": [
+            {
+              "id": "filterFieldsByName",
+              "options": {
+                "include": {
+                  "names": [
+                    "customresource_version",
+                    "name",
+                    "namespace",
+                    "parent_kind",
+                    "parent_name",
+                    "parent_namespace"
+                  ]
+                }
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Value": true
+                },
+                "indexByName": {
+                  "Value": 9,
+                  "customresource_kind": 0,
+                  "customresource_version": 1,
+                  "hostname": 5,
+                  "listener_name": 4,
+                  "name": 2,
+                  "namespace": 3,
+                  "port": 6,
+                  "protocol": 7,
+                  "tcp_mode": 8
+                },
+                "renameByName": {
+                  "Value": "",
+                  "customresource_kind": "Kind",
+                  "customresource_version": "Version",
+                  "hostname": "Hostname",
+                  "listener_name": "Listener Name",
+                  "name": "Name",
+                  "namespace": "Namespace",
+                  "parent_kind": "Parent Kind",
+                  "parent_name": "Parent Name",
+                  "parent_namespace": "Parent Namespace",
+                  "port": "Port",
+                  "prometheus": "",
+                  "protocol": "Protocol",
+                  "tcp_mode": "TCP Mode",
+                  "type": "Address Type",
+                  "value": "Address Value"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        }
+      ],
+      "schemaVersion": 36,
+      "style": "dark",
+      "tags": [
+        "gateway-api",
+        "gateway-api-state"
+      ],
+      "templating": {
+        "list": [
+          {
+            "current": {
+              "selected": false,
+              "text": "prometheus",
+              "value": "prometheus"
+            },
+            "hide": 0,
+            "includeAll": false,
+            "label": "Data Source",
+            "multi": false,
+            "name": "datasource",
+            "options": [],
+            "query": "prometheus",
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "type": "datasource"
+          },
+          {
+            "current": {},
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${datasource}"
+            },
+            "definition": "label_values(gatewayapi_tcproute_created, name)",
+            "hide": 0,
+            "includeAll": true,
+            "label": "TCPRoute",
+            "multi": true,
+            "name": "tcproute",
+            "options": [],
+            "query": {
+              "query": "label_values(gatewayapi_tcproute_created, name)",
+              "refId": "StandardVariableQuery"
+            },
+            "refresh": 1,
+            "regex": "/(.*)/",
+            "skipUrlSync": false,
+            "sort": 1,
+            "type": "query"
+          }
+        ]
+      },
+      "time": {
+        "from": "now-1h",
+        "to": "now"
+      },
+      "timepicker": {},
+      "timezone": "",
+      "title": "Gateway API State / TCPRoutes",
+      "uid": "gatewayapitcproutes",
+      "version": 3,
+      "weekStart": ""
+    }
+kind: ConfigMap
+metadata:
+  name: grafana-tcproutes-mfgd9ctmh2
+  namespace: monitoring
+
+---
+apiVersion: v1
+data:
+  tlsroutes.json: |-
+    {
+      "__inputs": [],
+      "__elements": [],
+      "__requires": [
+        {
+          "type": "grafana",
+          "id": "grafana",
+          "name": "Grafana",
+          "version": "8.5.5"
+        },
+        {
+          "type": "datasource",
+          "id": "prometheus",
+          "name": "Prometheus",
+          "version": "1.0.0"
+        },
+        {
+          "type": "panel",
+          "id": "stat",
+          "name": "Stat",
+          "version": ""
+        },
+        {
+          "type": "panel",
+          "id": "table",
+          "name": "Table",
+          "version": ""
+        }
+      ],
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": {
+              "type": "grafana",
+              "uid": "-- Grafana --"
+            },
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "target": {
+              "limit": 100,
+              "matchAny": false,
+              "tags": [],
+              "type": "dashboard"
+            },
+            "type": "dashboard"
+          },
+          {}
+        ]
+      },
+      "editable": true,
+      "fiscalYearStartMonth": 0,
+      "graphTooltip": 0,
+      "id": null,
+      "iteration": 1692886893094,
+      "links": [
+        {
+          "asDropdown": false,
+          "icon": "dashboard",
+          "includeVars": true,
+          "keepTime": true,
+          "tags": [
+            "gateway-api-state"
+          ],
+          "targetBlank": false,
+          "title": "Gateway Dashboards",
+          "tooltip": "",
+          "type": "dashboards",
+          "url": ""
+        }
+      ],
+      "liveNow": false,
+      "panels": [
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 0
+          },
+          "id": 18,
+          "panels": [],
+          "title": "TLSRoutes",
+          "type": "row"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "Total number of TLSRoutes across all namespaces",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 2,
+            "x": 0,
+            "y": 1
+          },
+          "id": 27,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "count(gatewayapi_tlsroute_created{name=~\"${tlsroute}\"})",
+              "instant": true,
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Total",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "Total number of parents (e.g. Gateways) targeted by TLSRoutes",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 2,
+            "x": 2,
+            "y": 1
+          },
+          "id": 28,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "count(gatewayapi_tlsroute_parent_info{name=~\"${tlsroute}\"})",
+              "instant": true,
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Tar. Parents",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Created At"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "dateTimeAsIso"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 4,
+            "y": 1
+          },
+          "id": 3,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "gatewayapi_tlsroute_created{name=~\"${tlsroute}\"}",
+              "format": "table",
+              "instant": true,
+              "legendFormat": "",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "TLSRoutes",
+          "transformations": [
+            {
+              "id": "filterFieldsByName",
+              "options": {
+                "include": {
+                  "names": [
+                    "customresource_version",
+                    "name",
+                    "namespace",
+                    "Value"
+                  ]
+                }
+              }
+            },
+            {
+              "id": "calculateField",
+              "options": {
+                "alias": "Created At",
+                "binary": {
+                  "left": "Value",
+                  "operator": "*",
+                  "reducer": "sum",
+                  "right": "1000"
+                },
+                "mode": "binary",
+                "reduce": {
+                  "reducer": "sum"
+                },
+                "replaceFields": false
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Value": true
+                },
+                "indexByName": {},
+                "renameByName": {
+                  "Value": "Created",
+                  "customresource_kind": "Kind",
+                  "customresource_version": "Version",
+                  "name": "Name",
+                  "namespace": "Namespace"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Created At"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "dateTimeAsIso"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Kind"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 108
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Version"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 85
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Listener Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 119
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Hostname"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 163
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Port"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 59
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Protocol"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 104
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 98
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Parent Kind"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 103
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Parent Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 118
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Namespace"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 124
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 14,
+            "y": 1
+          },
+          "id": 11,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "gatewayapi_tlsroute_parent_info{name=~\"${tlsroute}\"}",
+              "format": "table",
+              "instant": true,
+              "legendFormat": "",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "TLSRoute *targeted* Parent References",
+          "transformations": [
+            {
+              "id": "filterFieldsByName",
+              "options": {
+                "include": {
+                  "names": [
+                    "customresource_version",
+                    "name",
+                    "namespace",
+                    "parent_kind",
+                    "parent_name",
+                    "parent_namespace"
+                  ]
+                }
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Value": true
+                },
+                "indexByName": {
+                  "Value": 9,
+                  "customresource_kind": 0,
+                  "customresource_version": 1,
+                  "hostname": 5,
+                  "listener_name": 4,
+                  "name": 2,
+                  "namespace": 3,
+                  "port": 6,
+                  "protocol": 7,
+                  "tls_mode": 8
+                },
+                "renameByName": {
+                  "Value": "",
+                  "customresource_kind": "Kind",
+                  "customresource_version": "Version",
+                  "hostname": "Hostname",
+                  "listener_name": "Listener Name",
+                  "name": "Name",
+                  "namespace": "Namespace",
+                  "parent_kind": "Parent Kind",
+                  "parent_name": "Parent Name",
+                  "parent_namespace": "Parent Namespace",
+                  "port": "Port",
+                  "prometheus": "",
+                  "protocol": "Protocol",
+                  "tls_mode": "TLS Mode",
+                  "type": "Address Type",
+                  "value": "Address Value"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "Total number of parents (e.g. Gateways) attached to TLSRoutes",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 2,
+            "x": 0,
+            "y": 4
+          },
+          "id": 29,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "count(gatewayapi_tlsroute_status_parent_info{name=~\"${tlsroute}\"})",
+              "instant": true,
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Att. Parents",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Created At"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "dateTimeAsIso"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Kind"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 108
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Version"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 85
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Listener Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 119
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Hostname"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 163
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Port"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 59
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Protocol"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 104
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 98
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Parent Kind"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 103
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Parent Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 118
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Namespace"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 124
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 4,
+            "y": 7
+          },
+          "id": 12,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "gatewayapi_tlsroute_status_parent_info{name=~\"${tlsroute}\"}",
+              "format": "table",
+              "instant": true,
+              "legendFormat": "",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "TLSRoute *attached* Parent References",
+          "transformations": [
+            {
+              "id": "filterFieldsByName",
+              "options": {
+                "include": {
+                  "names": [
+                    "customresource_version",
+                    "name",
+                    "namespace",
+                    "parent_kind",
+                    "parent_name",
+                    "parent_namespace"
+                  ]
+                }
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Value": true
+                },
+                "indexByName": {
+                  "Value": 9,
+                  "customresource_kind": 0,
+                  "customresource_version": 1,
+                  "hostname": 5,
+                  "listener_name": 4,
+                  "name": 2,
+                  "namespace": 3,
+                  "port": 6,
+                  "protocol": 7,
+                  "tls_mode": 8
+                },
+                "renameByName": {
+                  "Value": "",
+                  "customresource_kind": "Kind",
+                  "customresource_version": "Version",
+                  "hostname": "Hostname",
+                  "listener_name": "Listener Name",
+                  "name": "Name",
+                  "namespace": "Namespace",
+                  "parent_kind": "Parent Kind",
+                  "parent_name": "Parent Name",
+                  "parent_namespace": "Parent Namespace",
+                  "port": "Port",
+                  "prometheus": "",
+                  "protocol": "Protocol",
+                  "tls_mode": "TLS Mode",
+                  "type": "Address Type",
+                  "value": "Address Value"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        }
+      ],
+      "schemaVersion": 36,
+      "style": "dark",
+      "tags": [
+        "gateway-api",
+        "gateway-api-state"
+      ],
+      "templating": {
+        "list": [
+          {
+            "current": {
+              "selected": false,
+              "text": "prometheus",
+              "value": "prometheus"
+            },
+            "hide": 0,
+            "includeAll": false,
+            "label": "Data Source",
+            "multi": false,
+            "name": "datasource",
+            "options": [],
+            "query": "prometheus",
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "type": "datasource"
+          },
+          {
+            "current": {},
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${datasource}"
+            },
+            "definition": "label_values(gatewayapi_tlsroute_created, name)",
+            "hide": 0,
+            "includeAll": true,
+            "label": "TLSRoute",
+            "multi": true,
+            "name": "tlsroute",
+            "options": [],
+            "query": {
+              "query": "label_values(gatewayapi_tlsroute_created, name)",
+              "refId": "StandardVariableQuery"
+            },
+            "refresh": 1,
+            "regex": "/(.*)/",
+            "skipUrlSync": false,
+            "sort": 1,
+            "type": "query"
+          }
+        ]
+      },
+      "time": {
+        "from": "now-1h",
+        "to": "now"
+      },
+      "timepicker": {},
+      "timezone": "",
+      "title": "Gateway API State / TLSRoutes",
+      "uid": "gatewayapitlsroutes",
+      "version": 3,
+      "weekStart": ""
+    }
+kind: ConfigMap
+metadata:
+  name: grafana-tlsroutes-66kkf8cdg2
+  namespace: monitoring
+
+---
+apiVersion: v1
+data:
+  udproutes.json: |-
+    {
+      "__inputs": [],
+      "__elements": [],
+      "__requires": [
+        {
+          "type": "grafana",
+          "id": "grafana",
+          "name": "Grafana",
+          "version": "8.5.5"
+        },
+        {
+          "type": "datasource",
+          "id": "prometheus",
+          "name": "Prometheus",
+          "version": "1.0.0"
+        },
+        {
+          "type": "panel",
+          "id": "stat",
+          "name": "Stat",
+          "version": ""
+        },
+        {
+          "type": "panel",
+          "id": "table",
+          "name": "Table",
+          "version": ""
+        }
+      ],
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": {
+              "type": "grafana",
+              "uid": "-- Grafana --"
+            },
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "target": {
+              "limit": 100,
+              "matchAny": false,
+              "tags": [],
+              "type": "dashboard"
+            },
+            "type": "dashboard"
+          },
+          {}
+        ]
+      },
+      "editable": true,
+      "fiscalYearStartMonth": 0,
+      "graphTooltip": 0,
+      "id": null,
+      "iteration": 1692886893094,
+      "links": [
+        {
+          "asDropdown": false,
+          "icon": "dashboard",
+          "includeVars": true,
+          "keepTime": true,
+          "tags": [
+            "gateway-api-state"
+          ],
+          "targetBlank": false,
+          "title": "Gateway Dashboards",
+          "tooltip": "",
+          "type": "dashboards",
+          "url": ""
+        }
+      ],
+      "liveNow": false,
+      "panels": [
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 0
+          },
+          "id": 18,
+          "panels": [],
+          "title": "UDPRoutes",
+          "type": "row"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "Total number of UDPRoutes across all namespaces",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 2,
+            "x": 0,
+            "y": 1
+          },
+          "id": 27,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "count(gatewayapi_udproute_created{name=~\"${udproute}\"})",
+              "instant": true,
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Total",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "Total number of parents (e.g. Gateways) targeted by UDPRoutes",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 2,
+            "x": 2,
+            "y": 1
+          },
+          "id": 28,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "count(gatewayapi_udproute_parent_info{name=~\"${udproute}\"})",
+              "instant": true,
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Tar. Parents",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Created At"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "dateTimeAsIso"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 4,
+            "y": 1
+          },
+          "id": 3,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "gatewayapi_udproute_created{name=~\"${udproute}\"}",
+              "format": "table",
+              "instant": true,
+              "legendFormat": "",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "UDPRoutes",
+          "transformations": [
+            {
+              "id": "filterFieldsByName",
+              "options": {
+                "include": {
+                  "names": [
+                    "customresource_version",
+                    "name",
+                    "namespace",
+                    "Value"
+                  ]
+                }
+              }
+            },
+            {
+              "id": "calculateField",
+              "options": {
+                "alias": "Created At",
+                "binary": {
+                  "left": "Value",
+                  "operator": "*",
+                  "reducer": "sum",
+                  "right": "1000"
+                },
+                "mode": "binary",
+                "reduce": {
+                  "reducer": "sum"
+                },
+                "replaceFields": false
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Value": true
+                },
+                "indexByName": {},
+                "renameByName": {
+                  "Value": "Created",
+                  "customresource_kind": "Kind",
+                  "customresource_version": "Version",
+                  "name": "Name",
+                  "namespace": "Namespace"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Created At"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "dateTimeAsIso"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Kind"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 108
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Version"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 85
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Listener Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 119
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Hostname"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 163
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Port"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 59
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Protocol"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 104
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 98
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Parent Kind"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 103
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Parent Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 118
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Namespace"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 124
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 14,
+            "y": 1
+          },
+          "id": 11,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "gatewayapi_udproute_parent_info{name=~\"${udproute}\"}",
+              "format": "table",
+              "instant": true,
+              "legendFormat": "",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "UDPRoute *targeted* Parent References",
+          "transformations": [
+            {
+              "id": "filterFieldsByName",
+              "options": {
+                "include": {
+                  "names": [
+                    "customresource_version",
+                    "name",
+                    "namespace",
+                    "parent_kind",
+                    "parent_name",
+                    "parent_namespace"
+                  ]
+                }
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Value": true
+                },
+                "indexByName": {
+                  "Value": 9,
+                  "customresource_kind": 0,
+                  "customresource_version": 1,
+                  "hostname": 5,
+                  "listener_name": 4,
+                  "name": 2,
+                  "namespace": 3,
+                  "port": 6,
+                  "protocol": 7,
+                  "udp_mode": 8
+                },
+                "renameByName": {
+                  "Value": "",
+                  "customresource_kind": "Kind",
+                  "customresource_version": "Version",
+                  "hostname": "Hostname",
+                  "listener_name": "Listener Name",
+                  "name": "Name",
+                  "namespace": "Namespace",
+                  "parent_kind": "Parent Kind",
+                  "parent_name": "Parent Name",
+                  "parent_namespace": "Parent Namespace",
+                  "port": "Port",
+                  "prometheus": "",
+                  "protocol": "Protocol",
+                  "udp_mode": "UDP Mode",
+                  "type": "Address Type",
+                  "value": "Address Value"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "Total number of parents (e.g. Gateways) attached to UDPRoutes",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 2,
+            "x": 0,
+            "y": 4
+          },
+          "id": 29,
+          "options": {
+            "colorMode": "value",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "count(gatewayapi_udproute_status_parent_info{name=~\"${udproute}\"})",
+              "instant": true,
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "Att. Parents",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Created At"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "dateTimeAsIso"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Kind"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 108
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Version"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 85
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Listener Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 119
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Hostname"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 163
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Port"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 59
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Protocol"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 104
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 98
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Parent Kind"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 103
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Parent Name"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 118
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Namespace"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 124
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 4,
+            "y": 7
+          },
+          "id": 12,
+          "options": {
+            "footer": {
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "8.5.5",
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "$datasource"
+              },
+              "editorMode": "code",
+              "exemplar": false,
+              "expr": "gatewayapi_udproute_status_parent_info{name=~\"${udproute}\"}",
+              "format": "table",
+              "instant": true,
+              "legendFormat": "",
+              "range": false,
+              "refId": "A"
+            }
+          ],
+          "title": "UDPRoute *attached* Parent References",
+          "transformations": [
+            {
+              "id": "filterFieldsByName",
+              "options": {
+                "include": {
+                  "names": [
+                    "customresource_version",
+                    "name",
+                    "namespace",
+                    "parent_kind",
+                    "parent_name",
+                    "parent_namespace"
+                  ]
+                }
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Value": true
+                },
+                "indexByName": {
+                  "Value": 9,
+                  "customresource_kind": 0,
+                  "customresource_version": 1,
+                  "hostname": 5,
+                  "listener_name": 4,
+                  "name": 2,
+                  "namespace": 3,
+                  "port": 6,
+                  "protocol": 7,
+                  "udp_mode": 8
+                },
+                "renameByName": {
+                  "Value": "",
+                  "customresource_kind": "Kind",
+                  "customresource_version": "Version",
+                  "hostname": "Hostname",
+                  "listener_name": "Listener Name",
+                  "name": "Name",
+                  "namespace": "Namespace",
+                  "parent_kind": "Parent Kind",
+                  "parent_name": "Parent Name",
+                  "parent_namespace": "Parent Namespace",
+                  "port": "Port",
+                  "prometheus": "",
+                  "protocol": "Protocol",
+                  "udp_mode": "UDP Mode",
+                  "type": "Address Type",
+                  "value": "Address Value"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        }
+      ],
+      "schemaVersion": 36,
+      "style": "dark",
+      "tags": [
+        "gateway-api",
+        "gateway-api-state"
+      ],
+      "templating": {
+        "list": [
+          {
+            "current": {
+              "selected": false,
+              "text": "prometheus",
+              "value": "prometheus"
+            },
+            "hide": 0,
+            "includeAll": false,
+            "label": "Data Source",
+            "multi": false,
+            "name": "datasource",
+            "options": [],
+            "query": "prometheus",
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "type": "datasource"
+          },
+          {
+            "current": {},
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${datasource}"
+            },
+            "definition": "label_values(gatewayapi_udproute_created, name)",
+            "hide": 0,
+            "includeAll": true,
+            "label": "UDPRoute",
+            "multi": true,
+            "name": "udproute",
+            "options": [],
+            "query": {
+              "query": "label_values(gatewayapi_udproute_created, name)",
+              "refId": "StandardVariableQuery"
+            },
+            "refresh": 1,
+            "regex": "/(.*)/",
+            "skipUrlSync": false,
+            "sort": 1,
+            "type": "query"
+          }
+        ]
+      },
+      "time": {
+        "from": "now-1h",
+        "to": "now"
+      },
+      "timepicker": {},
+      "timezone": "",
+      "title": "Gateway API State / UDPRoutes",
+      "uid": "gatewayapiudproutes",
+      "version": 3,
+      "weekStart": ""
+    }
+kind: ConfigMap
+metadata:
+  name: grafana-udproutes-64f4b97tfh
+  namespace: monitoring
+
+---
+apiVersion: v1
 kind: Secret
 metadata:
   labels:
@@ -41133,6 +46287,14 @@ spec:
           name: grafana-gateways
         - mountPath: /grafana-dashboard-definitions/0/grafana-httproutes
           name: grafana-httproutes
+        - mountPath: /grafana-dashboard-definitions/0/grafana-grpcroutes
+          name: grafana-grpcroutes
+        - mountPath: /grafana-dashboard-definitions/0/grafana-tlsroutes
+          name: grafana-tlsroutes
+        - mountPath: /grafana-dashboard-definitions/0/grafana-tcpcroutes
+          name: grafana-tcproutes
+        - mountPath: /grafana-dashboard-definitions/0/grafana-udproutes
+          name: grafana-udproutes
       nodeSelector:
         kubernetes.io/os: linux
       securityContext:
@@ -41229,16 +46391,32 @@ spec:
           secretName: grafana-config
       - configMap:
           defaultMode: 420
-          name: grafana-gatewayclasses-d86gm989fh
+          name: grafana-gatewayclasses-d8d6fd4fd8
         name: grafana-gatewayclasses
       - configMap:
           defaultMode: 420
-          name: grafana-gateways-m4252k9dbm
+          name: grafana-gateways-k49b97kmbg
         name: grafana-gateways
       - configMap:
           defaultMode: 420
           name: grafana-httproutes-g8ckm98t85
         name: grafana-httproutes
+      - configMap:
+          defaultMode: 420
+          name: grafana-grpcroutes-6925t54448
+        name: grafana-grpcroutes
+      - configMap:
+          defaultMode: 420
+          name: grafana-tlsroutes-66kkf8cdg2
+        name: grafana-tlsroutes
+      - configMap:
+          defaultMode: 420
+          name: grafana-tcproutes-mfgd9ctmh2
+        name: grafana-tcproutes
+      - configMap:
+          defaultMode: 420
+          name: grafana-udproutes-64f4b97tfh
+        name: grafana-udproutes
 
 ---
 apiVersion: apps/v1
