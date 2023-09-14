@@ -53,11 +53,12 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "iteration": 1694697359281,
+  "id": null,
+  "iteration": 1692886893094,
   "links": [
     {
       "asDropdown": false,
-      "icon": "external link",
+      "icon": "dashboard",
       "includeVars": true,
       "keepTime": true,
       "tags": [
@@ -80,9 +81,9 @@
         "x": 0,
         "y": 0
       },
-      "id": 14,
+      "id": 18,
       "panels": [],
-      "title": "Gateway Classes",
+      "title": "UDPRoutes",
       "type": "row"
     },
     {
@@ -90,7 +91,7 @@
         "type": "prometheus",
         "uid": "$datasource"
       },
-      "description": "Total number of GatewayClasses across all clusters",
+      "description": "Total number of UDPRoutes across all namespaces",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -119,7 +120,7 @@
         "x": 0,
         "y": 1
       },
-      "id": 20,
+      "id": 27,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -143,7 +144,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "count(gatewayapi_gatewayclass_info)",
+          "expr": "count(gatewayapi_udproute_created{name=~\"${udproute}\"})",
           "instant": true,
           "range": false,
           "refId": "A"
@@ -157,7 +158,7 @@
         "type": "prometheus",
         "uid": "$datasource"
       },
-      "description": "Total GatewayClasses with an Accepted state of True",
+      "description": "Total number of parents (e.g. Gateways) targeted by UDPRoutes",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -186,7 +187,7 @@
         "x": 2,
         "y": 1
       },
-      "id": 31,
+      "id": 28,
       "options": {
         "colorMode": "value",
         "graphMode": "area",
@@ -210,13 +211,13 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "count(gatewayapi_gatewayclass_status{type=\"Accepted\"} > 0)",
+          "expr": "count(gatewayapi_udproute_parent_info{name=~\"${udproute}\"})",
           "instant": true,
           "range": false,
           "refId": "A"
         }
       ],
-      "title": "Accepted",
+      "title": "Tar. Parents",
       "type": "stat"
     },
     {
@@ -272,7 +273,7 @@
         "x": 4,
         "y": 1
       },
-      "id": 4,
+      "id": 3,
       "options": {
         "footer": {
           "fields": "",
@@ -292,7 +293,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "gatewayapi_gatewayclass_created",
+          "expr": "gatewayapi_udproute_created{name=~\"${udproute}\"}",
           "format": "table",
           "instant": true,
           "legendFormat": "",
@@ -300,7 +301,7 @@
           "refId": "A"
         }
       ],
-      "title": "GatewayClasses",
+      "title": "UDPRoutes",
       "transformations": [
         {
           "id": "filterFieldsByName",
@@ -309,6 +310,7 @@
               "names": [
                 "customresource_version",
                 "name",
+                "namespace",
                 "Value"
               ]
             }
@@ -335,8 +337,7 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "Value": true,
-              "customresource_kind": true
+              "Value": true
             },
             "indexByName": {},
             "renameByName": {
@@ -367,7 +368,6 @@
             "displayMode": "auto",
             "inspect": false
           },
-          "links": [],
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -388,21 +388,132 @@
           {
             "matcher": {
               "id": "byName",
+              "options": "Created At"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "dateTimeAsIso"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Kind"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 108
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Version"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 85
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Listener Name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 119
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Hostname"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 163
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Port"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 59
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Protocol"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 104
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
               "options": "Name"
             },
             "properties": [
               {
-                "id": "links",
-                "value": [
-                  {
-                    "title": "Gateway Details",
-                    "url": "/d/gatewayapigateways/gateway-api-state-gateways?var-gateway=${__value.text}"
-                  }
-                ]
-              },
+                "id": "custom.width",
+                "value": 98
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Parent Kind"
+            },
+            "properties": [
               {
-                "id": "custom.displayMode",
-                "value": "color-text"
+                "id": "custom.width",
+                "value": 103
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Parent Name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 118
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Namespace"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 124
               }
             ]
           }
@@ -414,7 +525,7 @@
         "x": 14,
         "y": 1
       },
-      "id": 10,
+      "id": 11,
       "options": {
         "footer": {
           "fields": "",
@@ -423,7 +534,8 @@
           ],
           "show": false
         },
-        "showHeader": true
+        "showHeader": true,
+        "sortBy": []
       },
       "pluginVersion": "8.5.5",
       "targets": [
@@ -434,7 +546,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "gatewayapi_gateway_info",
+          "expr": "gatewayapi_udproute_parent_info{name=~\"${udproute}\"}",
           "format": "table",
           "instant": true,
           "legendFormat": "",
@@ -442,16 +554,19 @@
           "refId": "A"
         }
       ],
-      "title": "Gateways (by GatewayClass)",
+      "title": "UDPRoute *targeted* Parent References",
       "transformations": [
         {
           "id": "filterFieldsByName",
           "options": {
             "include": {
               "names": [
-                "gatewayclass_name",
+                "customresource_version",
                 "name",
-                "namespace"
+                "namespace",
+                "parent_kind",
+                "parent_name",
+                "parent_namespace"
               ]
             }
           }
@@ -460,22 +575,37 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "Value": false,
-              "customresource_kind": true
+              "Value": true
             },
             "indexByName": {
-              "Value": 3,
-              "gatewayclass_name": 2,
-              "name": 0,
-              "namespace": 1
+              "Value": 9,
+              "customresource_kind": 0,
+              "customresource_version": 1,
+              "hostname": 5,
+              "listener_name": 4,
+              "name": 2,
+              "namespace": 3,
+              "port": 6,
+              "protocol": 7,
+              "udp_mode": 8
             },
             "renameByName": {
-              "Value": "# Instances",
+              "Value": "",
               "customresource_kind": "Kind",
               "customresource_version": "Version",
-              "gatewayclass_name": "GatewayClass",
+              "hostname": "Hostname",
+              "listener_name": "Listener Name",
               "name": "Name",
-              "namespace": "Namespace"
+              "namespace": "Namespace",
+              "parent_kind": "Parent Kind",
+              "parent_name": "Parent Name",
+              "parent_namespace": "Parent Namespace",
+              "port": "Port",
+              "prometheus": "",
+              "protocol": "Protocol",
+              "udp_mode": "UDP Mode",
+              "type": "Address Type",
+              "value": "Address Value"
             }
           }
         }
@@ -485,8 +615,76 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "$datasource"
       },
+      "description": "Total number of parents (e.g. Gateways) attached to UDPRoutes",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 2,
+        "x": 0,
+        "y": 4
+      },
+      "id": 29,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.5.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "count(gatewayapi_udproute_status_parent_info{name=~\"${udproute}\"})",
+          "instant": true,
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "Att. Parents",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -510,18 +708,139 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "none"
         },
         "overrides": [
           {
             "matcher": {
               "id": "byName",
-              "options": "name"
+              "options": "Created At"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "dateTimeAsIso"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Kind"
             },
             "properties": [
               {
                 "id": "custom.width",
-                "value": 333
+                "value": 108
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Version"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 85
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Listener Name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 119
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Hostname"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 163
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Port"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 59
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Protocol"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 104
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 98
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Parent Kind"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 103
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Parent Name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 118
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Namespace"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 124
               }
             ]
           }
@@ -529,11 +848,11 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 20,
+        "w": 10,
         "x": 4,
         "y": 7
       },
-      "id": 33,
+      "id": 12,
       "options": {
         "footer": {
           "fields": "",
@@ -550,64 +869,70 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "gatewayapi_gatewayclass_status_supported_features{name=\"$gatewayclass\"}",
-          "legendFormat": "__auto",
-          "range": true,
+          "exemplar": false,
+          "expr": "gatewayapi_udproute_status_parent_info{name=~\"${udproute}\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "",
+          "range": false,
           "refId": "A"
         }
       ],
-      "title": "Supported Features (by GatewayClass)",
+      "title": "UDPRoute *attached* Parent References",
       "transformations": [
-        {
-          "id": "reduce",
-          "options": {
-            "includeTimeField": false,
-            "labelsToFields": true,
-            "mode": "seriesToRows",
-            "reducers": [
-              "last"
-            ]
-          }
-        },
         {
           "id": "filterFieldsByName",
           "options": {
             "include": {
               "names": [
-                "features",
-                "name"
+                "customresource_version",
+                "name",
+                "namespace",
+                "parent_kind",
+                "parent_name",
+                "parent_namespace"
               ]
-            }
-          }
-        },
-        {
-          "id": "groupBy",
-          "options": {
-            "fields": {
-              "features": {
-                "aggregations": [
-                  "allValues"
-                ],
-                "operation": "aggregate"
-              },
-              "name": {
-                "aggregations": [],
-                "operation": "groupby"
-              }
             }
           }
         },
         {
           "id": "organize",
           "options": {
-            "excludeByName": {},
-            "indexByName": {},
+            "excludeByName": {
+              "Value": true
+            },
+            "indexByName": {
+              "Value": 9,
+              "customresource_kind": 0,
+              "customresource_version": 1,
+              "hostname": 5,
+              "listener_name": 4,
+              "name": 2,
+              "namespace": 3,
+              "port": 6,
+              "protocol": 7,
+              "udp_mode": 8
+            },
             "renameByName": {
-              "features (allValues)": "Features",
-              "name": "GatewayClass"
+              "Value": "",
+              "customresource_kind": "Kind",
+              "customresource_version": "Version",
+              "hostname": "Hostname",
+              "listener_name": "Listener Name",
+              "name": "Name",
+              "namespace": "Namespace",
+              "parent_kind": "Parent Kind",
+              "parent_name": "Parent Name",
+              "parent_namespace": "Parent Namespace",
+              "port": "Port",
+              "prometheus": "",
+              "protocol": "Protocol",
+              "udp_mode": "UDP Mode",
+              "type": "Address Type",
+              "value": "Address Value"
             }
           }
         }
@@ -636,36 +961,32 @@
         "name": "datasource",
         "options": [],
         "query": "prometheus",
-        "queryValue": "",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
       },
       {
-        "current": {
-          "selected": true,
-          "text": "istio",
-          "value": "istio"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
           "uid": "${datasource}"
         },
-        "definition": "label_values(gatewayapi_gatewayclass_info, name)",
+        "definition": "label_values(gatewayapi_udproute_created, name)",
         "hide": 0,
-        "includeAll": false,
-        "multi": false,
-        "name": "gatewayclass",
+        "includeAll": true,
+        "label": "UDPRoute",
+        "multi": true,
+        "name": "udproute",
         "options": [],
         "query": {
-          "query": "label_values(gatewayapi_gatewayclass_info, name)",
+          "query": "label_values(gatewayapi_udproute_created, name)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
-        "regex": "",
+        "regex": "/(.*)/",
         "skipUrlSync": false,
-        "sort": 0,
+        "sort": 1,
         "type": "query"
       }
     ]
@@ -676,8 +997,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Gateway API State / GatewayClasses",
-  "uid": "gatewayapigatewayclass",
-  "version": 1,
+  "title": "Gateway API State / UDPRoutes",
+  "uid": "gatewayapiudproutes",
+  "version": 3,
   "weekStart": ""
 }

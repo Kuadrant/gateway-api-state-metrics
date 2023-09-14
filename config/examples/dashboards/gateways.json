@@ -53,8 +53,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": null,
-  "iteration": 1692886865020,
+  "iteration": 1694614167005,
   "links": [
     {
       "asDropdown": false,
@@ -1396,6 +1395,578 @@
         }
       ],
       "title": "HTTPRoutes (by Gateway)",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "name",
+                "namespace",
+                "parent_name"
+              ]
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Value": false
+            },
+            "indexByName": {
+              "Value": 9,
+              "customresource_kind": 0,
+              "customresource_version": 1,
+              "hostname": 5,
+              "listener_name": 4,
+              "name": 2,
+              "namespace": 3,
+              "port": 6,
+              "protocol": 7,
+              "tls_mode": 8
+            },
+            "renameByName": {
+              "Value": "# Attached Routes",
+              "customresource_kind": "Kind",
+              "customresource_version": "Version",
+              "hostname": "Hostname",
+              "listener_name": "Listener Name",
+              "name": "Name",
+              "namespace": "Namespace",
+              "parent_kind": "",
+              "parent_name": "Gateway",
+              "port": "Port",
+              "prometheus": "",
+              "protocol": "Protocol",
+              "tls_mode": "TLS Mode"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Name"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "GRPCRoute Details",
+                    "url": "/d/gatewayapigrpcroutes/gateway-api-state-grpcroutes?var-grpcroute=${__value.text}"
+                  }
+                ]
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 10,
+        "x": 14,
+        "y": 13
+      },
+      "id": 32,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.5.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "gatewayapi_grpcroute_parent_info{parent_kind=\"Gateway\",parent_name=~\"${gateway}\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "GRPCRoutes (by Gateway)",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "name",
+                "namespace",
+                "parent_name"
+              ]
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Value": false
+            },
+            "indexByName": {
+              "Value": 9,
+              "customresource_kind": 0,
+              "customresource_version": 1,
+              "hostname": 5,
+              "listener_name": 4,
+              "name": 2,
+              "namespace": 3,
+              "port": 6,
+              "protocol": 7,
+              "tls_mode": 8
+            },
+            "renameByName": {
+              "Value": "# Attached Routes",
+              "customresource_kind": "Kind",
+              "customresource_version": "Version",
+              "hostname": "Hostname",
+              "listener_name": "Listener Name",
+              "name": "Name",
+              "namespace": "Namespace",
+              "parent_kind": "",
+              "parent_name": "Gateway",
+              "port": "Port",
+              "prometheus": "",
+              "protocol": "Protocol",
+              "tls_mode": "TLS Mode"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Name"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "TLSRoute Details",
+                    "url": "/d/gatewayapitlsroutes/gateway-api-state-tlsroutes?var-tlsroute=${__value.text}"
+                  }
+                ]
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 10,
+        "x": 4,
+        "y": 19
+      },
+      "id": 35,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.5.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "gatewayapi_tlsroute_parent_info{parent_kind=\"Gateway\",parent_name=~\"${gateway}\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "TLSRoutes (by Gateway)",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "name",
+                "namespace",
+                "parent_name"
+              ]
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Value": false
+            },
+            "indexByName": {
+              "Value": 9,
+              "customresource_kind": 0,
+              "customresource_version": 1,
+              "hostname": 5,
+              "listener_name": 4,
+              "name": 2,
+              "namespace": 3,
+              "port": 6,
+              "protocol": 7,
+              "tls_mode": 8
+            },
+            "renameByName": {
+              "Value": "# Attached Routes",
+              "customresource_kind": "Kind",
+              "customresource_version": "Version",
+              "hostname": "Hostname",
+              "listener_name": "Listener Name",
+              "name": "Name",
+              "namespace": "Namespace",
+              "parent_kind": "",
+              "parent_name": "Gateway",
+              "port": "Port",
+              "prometheus": "",
+              "protocol": "Protocol",
+              "tls_mode": "TLS Mode"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Name"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "TCPRoute Details",
+                    "url": "/d/gatewayapitcproutes/gateway-api-state-tcproutes?var-tcproute=${__value.text}"
+                  }
+                ]
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 10,
+        "x": 14,
+        "y": 19
+      },
+      "id": 33,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.5.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "gatewayapi_tcproute_parent_info{parent_kind=\"Gateway\",parent_name=~\"${gateway}\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "TCPRoutes (by Gateway)",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "name",
+                "namespace",
+                "parent_name"
+              ]
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Value": false
+            },
+            "indexByName": {
+              "Value": 9,
+              "customresource_kind": 0,
+              "customresource_version": 1,
+              "hostname": 5,
+              "listener_name": 4,
+              "name": 2,
+              "namespace": 3,
+              "port": 6,
+              "protocol": 7,
+              "tls_mode": 8
+            },
+            "renameByName": {
+              "Value": "# Attached Routes",
+              "customresource_kind": "Kind",
+              "customresource_version": "Version",
+              "hostname": "Hostname",
+              "listener_name": "Listener Name",
+              "name": "Name",
+              "namespace": "Namespace",
+              "parent_kind": "",
+              "parent_name": "Gateway",
+              "port": "Port",
+              "prometheus": "",
+              "protocol": "Protocol",
+              "tls_mode": "TLS Mode"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Name"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "UCPRoute Details",
+                    "url": "/d/gatewayapiudproutes/gateway-api-state-udproutes?var-udproute=${__value.text}"
+                  }
+                ]
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 10,
+        "x": 4,
+        "y": 25
+      },
+      "id": 34,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.5.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "gatewayapi_udproute_parent_info{parent_kind=\"Gateway\",parent_name=~\"${gateway}\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "UDPRoutes (by Gateway)",
       "transformations": [
         {
           "id": "filterFieldsByName",
