@@ -410,6 +410,7 @@ gatewayapi_udproute_parent_info{name="<UDPRoute_NAME>",namespace="<NAMESPACE>",p
 
 ```
 gatewayapi_udproute_status_parent_info{name="<UDPRoute_NAME>",namespace="<NAMESPACE>",parent_group="<PARENT_GROUP>",parent_kind="<PARENT_KIND>",parent_name="<PARENT_NAME>",parent_namespace="<PARENT_NAMESPACE>"}
+```
 
 ## Contributing
 
