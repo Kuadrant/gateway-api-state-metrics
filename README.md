@@ -31,9 +31,9 @@ and the various Gateway API resources in the `gateway.networking.k8s.io` apiGrou
 A set of Grafana dashboards are available in [./config/examples/dashboards](./config/examples/dashboards)
 and on [grafana.com](https://grafana.com/grafana/dashboards/?search=Gateway+API+State)
 You can import them directly into Grafana and modify as needed.
-The dashboards are divided by resources (GatewayClasses, Gateways and HTTPRoutes),
+The dashboards are divided by resources (GatewayClasses, Gateways, HTTPRoutes, GRPCRoutes, TLSRoutes, TCPRoutes and UDPRoutes),
 with variables for filtering, and links to drill down from a GatewayClass to a
-Gateway to a HTTPRoute.
+Gateway to all the routes.
 
 https://grafana.com/grafana/dashboards/19432
 <img src="gatewayclasses.png" alt="gatewayclasses" width="800"/>
@@ -43,6 +43,18 @@ https://grafana.com/grafana/dashboards/19433
 
 https://grafana.com/grafana/dashboards/19434
 <img src="httproutes.png" alt="httproutes" width="800"/>
+
+https://grafana.com/grafana/dashboards/19570
+<img src="grpcroutes.png" alt="grpcroutes" width="800"/>
+
+https://grafana.com/grafana/dashboards/19572
+<img src="tlsroutes.png" alt="tlsroutes" width="800"/>
+
+https://grafana.com/grafana/dashboards/19571
+<img src="tcproutes.png" alt="tcproutes" width="800"/>
+
+https://grafana.com/grafana/dashboards/19573
+<img src="udproutes.png" alt="udproutes" width="800"/>
 
 ## Alerts
 
