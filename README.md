@@ -412,6 +412,23 @@ gatewayapi_udproute_parent_info{name="<UDPRoute_NAME>",namespace="<NAMESPACE>",p
 gatewayapi_udproute_status_parent_info{name="<UDPRoute_NAME>",namespace="<NAMESPACE>",parent_group="<PARENT_GROUP>",parent_kind="<PARENT_KIND>",parent_name="<PARENT_NAME>",parent_namespace="<PARENT_NAMESPACE>"}
 ```
 
+## Local dashboard development
+
+Dashboards are written in jsonnet, and use the [grafonnet library](https://github.com/grafana/grafonnet).
+Resulting dashboard json files are checked in.
+To generate dashboards, run `make generate-dashboards`.
+
+Local development can be done using a combination of automatic jsonnet execution
+and using the [grafana-operator](https://github.com/grafana-operator/grafana-operator)
+to automatically update dashboards in Grafana. This allows for a relatviely fast
+development loop where you can change a dashboard jsonnet file, save it, then
+see the changes automically in a browser.
+
+To set up the local development environment, run the following:
+```shell
+./hack/local_dev.sh
+```
+
 ## Contributing
 
 Contributions are welcome in the form of bugs, feature requests & pull requests.
