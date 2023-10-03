@@ -1,19 +1,9 @@
 local g = import 'lib/g.libsonnet';
 local gwapi = import 'lib/gwapi/gwapi.libsonnet';
+local var = import 'lib/gwapi/variables.libsonnet';
 
 gwapi.dashboard('GatewayClasses', 'gatewayapigatewayclass', [
-  g.dashboard.variable.query.new(
-    'gatewayclass',
-    {
-      query: 'label_values(gatewayapi_gatewayclass_info, name)',
-      refId: 'StandardVariableQuery',
-    },
-  )
-  + g.dashboard.variable.query.withRegex('')
-  + g.dashboard.variable.query.withDatasource('prometheus', '${datasource}')
-  + g.dashboard.variable.query.selectionOptions.withIncludeAll(true)
-  + g.dashboard.variable.query.selectionOptions.withMulti(true)
-  + g.dashboard.variable.query.generalOptions.withLabel('GatewayClass'),
+  var.gateways('gatewayclass', '', 'GatewayClass')
 ])
 + g.dashboard.withPanels([
   gwapi.row('Gateway Classes', 1, 24, 0, 0),
