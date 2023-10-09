@@ -412,6 +412,41 @@ gatewayapi_udproute_parent_info{name="<UDPRoute_NAME>",namespace="<NAMESPACE>",p
 gatewayapi_udproute_status_parent_info{name="<UDPRoute_NAME>",namespace="<NAMESPACE>",parent_group="<PARENT_GROUP>",parent_kind="<PARENT_KIND>",parent_name="<PARENT_NAME>",parent_namespace="<PARENT_NAMESPACE>"}
 ```
 
+## Local dashboard development
+
+Dashboards are written in jsonnet, and use the [grafonnet library](https://github.com/grafana/grafonnet).
+Resulting dashboard json files are checked in.
+To generate dashboards, run `make generate-dashboards`.
+
+Local development can be done using a combination of automatic jsonnet execution
+and using the [grafana-operator](https://github.com/grafana-operator/grafana-operator)
+to automatically update dashboards in Grafana. This allows for a relatviely fast
+development loop where you can change a dashboard jsonnet file, save it, then
+see the changes automically in a browser.
+
+To set up the local development environment, run the following:
+```shell
+./hack/local_dev.sh
+```
+
+## Grafonnet Development Guidelines
+
+### Experiment and Learn
+
+Grafonnet is a powerful tool, but it may not cover all scenarios in its documentation. If you encounter issues or roadblocks, don’t be afraid to experiment with different approaches. Learning through trial and error can often lead to better understanding and innovative solutions. Remember, every challenge is an opportunity to learn.
+
+### Use Grafana UI Reference
+
+Grafana’s user interface can be an invaluable reference when working with transformations and overrides in Grafonnet. If you’re unsure about how to implement a specific feature in Grafonnet, try creating it in the Grafana UI first. Then, export the dashboard as JSON. This exported JSON can serve as a reference for how to implement the same feature in Grafonnet.
+
+### Panel Abstraction and Reuse
+
+Consider creating abstract representations of panels that are used repeatedly across your dashboards. This not only helps avoid repetition but also ensures consistency in the layout and design of your panels.
+
+Abstraction can also make your code more readable and maintainable, especially when dealing with complex input patterns. When deciding whether to create a new abstraction or reuse an existing one, keep the “Don’t Repeat Yourself” (DRY) principle in mind. If you find yourself writing similar code for multiple panels, it might be time to consider abstraction.
+
+By following these guidelines, you can navigate Grafonnet development more effectively and efficiently. Remember, the goal is not just to create functional dashboards, but also to write clean, maintainable code that can be understood and modified by others.
+
 ## Contributing
 
 Contributions are welcome in the form of bugs, feature requests & pull requests.
