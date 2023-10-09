@@ -1,5 +1,6 @@
 local g = import '../g.libsonnet';
 local var = g.dashboard.variable;
+local table = g.panel.table;
 
 {
     datasource:
@@ -30,4 +31,19 @@ local var = g.dashboard.variable;
         + var.query.selectionOptions.withIncludeAll(true)
         + var.query.selectionOptions.withMulti(true)
         + var.query.generalOptions.withLabel(label),
+
+    withOverrides(fieldOverride):
+        table.standardOptions.withOverrides(
+            fieldOverride
+        ),
+
+    overrideNameWithProp(name, id, value):
+        table.fieldOverride.byName.new(name)
+        + table.fieldOverride.byName.withProperty(id, value),
+
+    overrideName(name):
+        table.fieldOverride.byName.new(name),
+
+    overrideProp(id, value):
+        table.fieldOverride.byName.withProperty(id, value),
 }

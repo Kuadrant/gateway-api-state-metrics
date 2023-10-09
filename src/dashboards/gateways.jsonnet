@@ -10,28 +10,14 @@ gwapi.dashboard('Gateways', 'gatewayapigateways', [
   gwapi.stat('Total', 3, 2, 0, 1, 'Total number of Gateways across all namespaces', 'count(gatewayapi_gateway_info{name=~"$gateway"})'),
   gwapi.stat('Unhealthy', 3, 2, 2, 1, 'Number of Gateways not in an Accepted and Programmed state', 'count((gatewayapi_gateway_status{name=~"$gateway",type="Accepted"} == 0) or (gatewayapi_gateway_status{name=~"$gateway",type="Programmed"} == 0)) or vector(0)'),
   gwapi.table('Gateways', 6, 10, 4, 1, 'gatewayapi_gateway_created{name=~"$gateway"} * on(name, namespace, instance) group_right gatewayapi_gateway_info{name=~"$gateway"}')
-  + g.panel.table.standardOptions.withOverrides([
-    g.panel.table.fieldOverride.byName.new('Created At')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'unit',
-      'dateTimeAsIso'
-    ),
-    g.panel.table.fieldOverride.byName.new('Kind')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.width',
-      '108'
-    ),
-    g.panel.table.fieldOverride.byName.new('Version')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.width',
-      '98'
-    ),
-    g.panel.table.fieldOverride.byName.new('Name')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.width',
-      '125'
-    ),
-  ])
+  + var.withOverrides(
+    [
+    var.overrideNameWithProp('Created At', 'unit', 'dateTimeAsIso'),
+    var.overrideNameWithProp('Kind', 'custom.width', '108'),
+    var.overrideNameWithProp('Version', 'custom.width', '98'),
+    var.overrideNameWithProp('Name', 'custom.width', '125'),
+    ],
+  )
   + g.panel.table.queryOptions.withTransformations([
     g.panel.table.transformation.withId('filterFieldsByName')
     + g.panel.table.transformation.withOptions({
@@ -78,48 +64,18 @@ gwapi.dashboard('Gateways', 'gatewayapigateways', [
     }),
   ]),
   gwapi.table('Gateway Listeners', 6, 10, 14, 1, 'gatewayapi_gateway_listener_info{name=~"$gateway"}')
-  + g.panel.table.standardOptions.withOverrides([
-    g.panel.table.fieldOverride.byName.new('Created At')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'unit',
-      'dateTimeAsIso'
-    ),
-    g.panel.table.fieldOverride.byName.new('Kind')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.width',
-      '108'
-    ),
-    g.panel.table.fieldOverride.byName.new('Version')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.width',
-      '94'
-    ),
-    g.panel.table.fieldOverride.byName.new('Listener Name')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.width',
-      '112'
-    ),
-    g.panel.table.fieldOverride.byName.new('Hostname')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.width',
-      '163'
-    ),
-    g.panel.table.fieldOverride.byName.new('Port')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.width',
-      '59'
-    ),
-    g.panel.table.fieldOverride.byName.new('Protocol')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.width',
-      '77'
-    ),
-    g.panel.table.fieldOverride.byName.new('Name')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.width',
-      '91'
-    ),
-  ])
+  + var.withOverrides(
+    [
+    var.overrideNameWithProp('Created At', 'unit', 'dateTimeAsIso'),
+    var.overrideNameWithProp('Kind', 'custom.width', '108'),
+    var.overrideNameWithProp('Version', 'custom.width', '94'),
+    var.overrideNameWithProp('Listener Name', 'custom.width', '112'),
+    var.overrideNameWithProp('Hostname', 'custom.width', '163'),
+    var.overrideNameWithProp('Port', 'custom.width', '59'),
+    var.overrideNameWithProp('Protocol', 'custom.width', '77'),
+    var.overrideNameWithProp('Name', 'custom.width', '91'),
+    ],
+  )
   + g.panel.table.queryOptions.withTransformations([
     g.panel.table.transformation.withId('filterFieldsByName')
     + g.panel.table.transformation.withOptions({
@@ -174,48 +130,18 @@ gwapi.dashboard('Gateways', 'gatewayapigateways', [
   gwapi.stat('Listeners', 3, 2, 0, 7, 'Total number of listeners across all Gateways', 'count(gatewayapi_gateway_listener_info{name=~"$gateway"})'),
   gwapi.stat('Att. Routes', 3, 2, 2, 7, 'Total number of attached routes across all listeners', 'sum(gatewayapi_gateway_status_listener_attached_routes{name=~"$gateway"})'),
   gwapi.table('Gateway Status Addresses', 6, 10, 4, 7, 'gatewayapi_gateway_status_address_info{name=~"$gateway"}')
-  + g.panel.table.standardOptions.withOverrides([
-    g.panel.table.fieldOverride.byName.new('Created At')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'unit',
-      'dateTimeAsIso'
-    ),
-    g.panel.table.fieldOverride.byName.new('Kind')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.width',
-      '108'
-    ),
-    g.panel.table.fieldOverride.byName.new('Version')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.width',
-      '94'
-    ),
-    g.panel.table.fieldOverride.byName.new('Listener Name')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.width',
-      '119'
-    ),
-    g.panel.table.fieldOverride.byName.new('Hostname')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.width',
-      '163'
-    ),
-    g.panel.table.fieldOverride.byName.new('Port')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.width',
-      '59'
-    ),
-    g.panel.table.fieldOverride.byName.new('Protocol')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.width',
-      '104'
-    ),
-    g.panel.table.fieldOverride.byName.new('Name')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.width',
-      '136'
-    ),
-  ])
+  + var.withOverrides(
+    [
+    var.overrideNameWithProp('Created At', 'unit', 'dateTimeAsIso'),
+    var.overrideNameWithProp('Kind', 'custom.width', '108'),
+    var.overrideNameWithProp('Version', 'custom.width', '94'),
+    var.overrideNameWithProp('Listener Name', 'custom.width', '119'),
+    var.overrideNameWithProp('Hostname', 'custom.width', '163'),
+    var.overrideNameWithProp('Port', 'custom.width', '59'),
+    var.overrideNameWithProp('Protocol', 'custom.width', '104'),
+    var.overrideNameWithProp('Name', 'custom.width', '136'),
+    ],
+  )
   + g.panel.table.queryOptions.withTransformations([
     g.panel.table.transformation.withId('filterFieldsByName')
     + g.panel.table.transformation.withOptions({
@@ -264,37 +190,14 @@ gwapi.dashboard('Gateways', 'gatewayapigateways', [
     }),
   ]),
   gwapi.table('Gateway Listener Status - Attached Routes', 6, 10, 14, 7, 'gatewayapi_gateway_status_listener_attached_routes{name=~"$gateway"}')
-  + g.panel.table.standardOptions.withOverrides([
-    g.panel.table.fieldOverride.byName.new('Created At')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'unit',
-      'dateTimeAsIso'
-    ),
-    g.panel.table.fieldOverride.byName.new('Kind')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.width',
-      '113'
-    ),
-    g.panel.table.fieldOverride.byName.new('Version')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.width',
-      '88'
-    ),
-    g.panel.table.fieldOverride.byName.new('Name')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.width',
-      '167'
-    ),
-    g.panel.table.fieldOverride.byName.new('Listener Name')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.width',
-      '167'
-    ),
-    g.panel.table.fieldOverride.byName.new('# Attached Routes')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.width',
-      '137'
-    ),
+  + var.withOverrides(
+    [
+    var.overrideNameWithProp('Created At', 'unit', 'dateTimeAsIso'),
+    var.overrideNameWithProp('Kind', 'custom.width', '113'),
+    var.overrideNameWithProp('Version', 'custom.width', '88'),
+    var.overrideNameWithProp('Name', 'custom.width', '167'),
+    var.overrideNameWithProp('Listener Name', 'custom.width', '167'),
+    var.overrideNameWithProp('# Attached Routes', 'custom.width', '137'),
   ])
   + g.panel.table.queryOptions.withTransformations([
     g.panel.table.transformation.withId('filterFieldsByName')

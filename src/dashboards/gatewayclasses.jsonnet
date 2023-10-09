@@ -10,12 +10,8 @@ gwapi.dashboard('GatewayClasses', 'gatewayapigatewayclass', [
   gwapi.stat('Total', 3, 2, 0, 1, 'Total number of GatewayClasses across all clusters', 'count(gatewayapi_gatewayclass_info)'),
   gwapi.stat('Accepted', 3, 2, 2, 1, 'Total GatewayClasses with an Accepted state of True', 'count(gatewayapi_gatewayclass_status{type="Accepted"} > 0)'),
   gwapi.table('GatewayClasses', 6, 10, 4, 1, 'gatewayapi_gatewayclass_created')
-  + g.panel.table.standardOptions.withOverrides([
-    g.panel.table.fieldOverride.byName.new('Created At')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'unit',
-      'dateTimeAsIso'
-    ),
+  + var.withOverrides([
+    var.overrideNameWithProp('Created At', 'unit', 'dateTimeAsIso')
   ])
   + g.panel.table.queryOptions.withTransformations([
     g.panel.table.transformation.withId('filterFieldsByName')
@@ -60,19 +56,15 @@ gwapi.dashboard('GatewayClasses', 'gatewayapigatewayclass', [
     }),
   ]),
   gwapi.table('Gateways (by GatewayClass)', 6, 10, 14, 1, 'gatewayapi_gateway_info')
-  + g.panel.table.standardOptions.withOverrides([
-    g.panel.table.fieldOverride.byName.new('Name')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'links',
-      [{
+  + var.withOverrides([
+    var.overrideName('Name')
+    + var.overrideProp('links', [
+      {
         title: 'Gateway Details',
         url: '/d/gatewayapigateways/gateway-api-state-gateways?var-gateway=${__value.text}',
-      }]
-    )
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.displayMode',
-      'color-text',
-    ),
+      }
+    ])
+    + var.overrideProp('custom.displayMode', 'color-text')
   ])
   + g.panel.table.queryOptions.withTransformations([
     g.panel.table.transformation.withId('filterFieldsByName')
@@ -108,12 +100,8 @@ gwapi.dashboard('GatewayClasses', 'gatewayapigatewayclass', [
     }),
   ]),
   gwapi.table('Supported Features (by GatewayClass)', 6, 20, 4, 7, 'gatewayapi_gatewayclass_status_supported_features{name="$gatewayclass"}')
-  + g.panel.table.standardOptions.withOverrides([
-    g.panel.table.fieldOverride.byName.new('name')
-    + g.panel.table.fieldOverride.byName.withProperty(
-      'custom.width',
-      333
-    ),
+  + var.withOverrides([
+    var.overrideNameWithProp('name', 'custom.width', 333)
   ])
   + g.panel.table.queryOptions.withTransformations([
     g.panel.table.transformation.withId('filterFieldsByName')
