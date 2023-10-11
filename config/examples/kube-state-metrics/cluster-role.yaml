@@ -143,6 +143,15 @@ rules:
   - tcproutes
   - tlsroutes
   - udproutes
+  - backendtlspolicies
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - "kuadrant.io"
+  resources:
+  - tlspolicies
+  - ratelimitpolicies
   verbs:
   - list
   - watch

@@ -490,6 +490,15 @@ rules:
   - tcproutes
   - tlsroutes
   - udproutes
+  - backendtlspolicies
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - kuadrant.io
+  resources:
+  - tlspolicies
+  - ratelimitpolicies
   verbs:
   - list
   - watch
@@ -1442,6 +1451,156 @@ data:
                   parent_namespace: ["parentRef", "namespace"]
                   parent_section_name: ["parentRef", "sectionName"]
                   parent_port: ["parentRef", "port"]
+        - groupVersionKind:
+            group: kuadrant.io
+            kind: "TLSPolicy"
+            version: "v1alpha1"
+          metricNamePrefix: gatewayapi_tlspolicy
+          labelsFromPath:
+            name:
+            - metadata
+            - name
+            namespace:
+            - metadata
+            - namespace
+          metrics:
+          - name: "labels"
+            help: "Kubernetes labels converted to Prometheus labels."
+            each:
+              type: Info
+              info:
+                path: [metadata]
+                labelsFromPath:
+                  "*": [labels]
+          - name: "created"
+            help: "created timestamp"
+            each:
+              type: Gauge
+              gauge:
+                path: [metadata, creationTimestamp]
+          - name: "deleted"
+            help: "deletion timestamp"
+            each:
+              type: Gauge
+              gauge:
+                path: [metadata, deletionTimestamp]
+          - name: "target_info"
+            help: "Target references that the tlspolicy wants to be attached to"
+            each:
+              type: Info
+              info:
+                path: [spec, targetRef]
+                labelsFromPath:
+                  target_group: ["group"]
+                  target_kind: ["kind"]
+                  target_name: ["name"]
+                  target_namespace: ["namespace"]
+          - name: "status"
+            help: "status condition"
+            each:
+              type: Gauge
+              gauge:
+                path: [status, conditions]
+                labelsFromPath:
+                  type: ["type"]
+                valueFrom: ["status"]
+        - groupVersionKind:
+            group: kuadrant.io
+            kind: "RateLimitPolicy"
+            version: "v1beta2"
+          metricNamePrefix: gatewayapi_ratelimitpolicy
+          labelsFromPath:
+            name:
+            - metadata
+            - name
+            namespace:
+            - metadata
+            - namespace
+          metrics:
+          - name: "labels"
+            help: "Kubernetes labels converted to Prometheus labels."
+            each:
+              type: Info
+              info:
+                path: [metadata]
+                labelsFromPath:
+                  "*": [labels]
+          - name: "created"
+            help: "created timestamp"
+            each:
+              type: Gauge
+              gauge:
+                path: [metadata, creationTimestamp]
+          - name: "deleted"
+            help: "deletion timestamp"
+            each:
+              type: Gauge
+              gauge:
+                path: [metadata, deletionTimestamp]
+          - name: "target_info"
+            help: "Target references that the tlspolicy wants to be attached to"
+            each:
+              type: Info
+              info:
+                path: [spec, targetRef]
+                labelsFromPath:
+                  target_group: ["group"]
+                  target_kind: ["kind"]
+                  target_name: ["name"]
+                  target_namespace: ["namespace"]
+          - name: "status"
+            help: "status condition"
+            each:
+              type: Gauge
+              gauge:
+                path: [status, conditions]
+                labelsFromPath:
+                  type: ["type"]
+                valueFrom: ["status"]
+        - groupVersionKind:
+            group: gateway.networking.k8s.io
+            kind: "BackendTLSPolicy"
+            version: "v1alpha2"
+          metricNamePrefix: gatewayapi_backendtlspolicy
+          labelsFromPath:
+            name:
+            - metadata
+            - name
+            namespace:
+            - metadata
+            - namespace
+          metrics:
+          - name: "labels"
+            help: "Kubernetes labels converted to Prometheus labels."
+            each:
+              type: Info
+              info:
+                path: [metadata]
+                labelsFromPath:
+                  "*": [labels]
+          - name: "created"
+            help: "created timestamp"
+            each:
+              type: Gauge
+              gauge:
+                path: [metadata, creationTimestamp]
+          - name: "deleted"
+            help: "deletion timestamp"
+            each:
+              type: Gauge
+              gauge:
+                path: [metadata, deletionTimestamp]
+          - name: "target_info"
+            help: "Target references that the backendtlspolicy wants to be attached to"
+            each:
+              type: Info
+              info:
+                path: [spec, targetRef]
+                labelsFromPath:
+                  target_group: ["group"]
+                  target_kind: ["kind"]
+                  target_name: ["name"]
+                  target_namespace: ["namespace"]
 kind: ConfigMap
 metadata:
   name: custom-resource-state
@@ -43677,6 +43836,8 @@ spec:
           name: grafana-tcproutes
         - mountPath: /grafana-dashboard-definitions/0/grafana-udproutes
           name: grafana-udproutes
+        - mountPath: /grafana-dashboard-definitions/0/grafana-tlspolicy
+          name: grafana-tlspolicy
       nodeSelector:
         kubernetes.io/os: linux
       securityContext:
@@ -43791,6 +43952,10 @@ spec:
           defaultMode: 420
           name: grafana-tlsroutes-fg5726f7k9
         name: grafana-tlsroutes
+      - configMap:
+          defaultMode: 420
+          name: grafana-tlspolicy
+        name: grafana-tlspolicy
       - configMap:
           defaultMode: 420
           name: grafana-tcproutes-d7tt7t272g

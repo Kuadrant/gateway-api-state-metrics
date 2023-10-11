@@ -1,0 +1,386 @@
+{
+   "editable": false,
+   "links": [
+      {
+         "asDropdown": false,
+         "includeVars": true,
+         "keepTime": true,
+         "tags": [
+            "gateway-api-state"
+         ],
+         "targetBlank": false,
+         "title": "Gateway Dashboards",
+         "type": "dashboards"
+      }
+   ],
+   "panels": [
+      {
+         "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 0
+         },
+         "id": 1,
+         "title": "TLSPolicy",
+         "type": "row"
+      },
+      {
+         "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+         },
+         "description": "Total number of TLSPolicy across all clusters",
+         "gridPos": {
+            "h": 3,
+            "w": 2,
+            "x": 0,
+            "y": 1
+         },
+         "id": 2,
+         "pluginVersion": "v10.0.0",
+         "targets": [
+            {
+               "datasource": {
+                  "type": "prometheus",
+                  "uid": "$datasource"
+               },
+               "expr": "count(gatewayapi_tlspolicy_status)",
+               "instant": true
+            }
+         ],
+         "title": "Total",
+         "type": "stat"
+      },
+      {
+         "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+         },
+         "description": "Total TLSPolicy with an Ready state",
+         "gridPos": {
+            "h": 3,
+            "w": 2,
+            "x": 2,
+            "y": 1
+         },
+         "id": 3,
+         "pluginVersion": "v10.0.0",
+         "targets": [
+            {
+               "datasource": {
+                  "type": "prometheus",
+                  "uid": "$datasource"
+               },
+               "expr": "count(gatewayapi_tlspolicy_status{type=\"Ready\"})",
+               "instant": true
+            }
+         ],
+         "title": "Ready",
+         "type": "stat"
+      },
+      {
+         "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+         },
+         "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 4,
+            "y": 1
+         },
+         "id": 4,
+         "pluginVersion": "v10.0.0",
+         "targets": [
+            {
+               "datasource": {
+                  "type": "prometheus",
+                  "uid": "$datasource"
+               },
+               "expr": "gatewayapi_tlspolicy_target_info",
+               "format": "table",
+               "instant": true,
+               "range": false
+            }
+         ],
+         "title": "TLSPolicy",
+         "transformations": [
+            {
+               "id": "filterFieldsByName",
+               "options": {
+                  "include": {
+                     "names": [
+                        "name",
+                        "target_kind",
+                        "target_name"
+                     ]
+                  }
+               }
+            },
+            {
+               "id": "organize",
+               "options": {
+                  "renameByName": {
+                     "name": "Name",
+                     "target_kind": "Target Kind",
+                     "target_name": "Target Name"
+                  }
+               }
+            }
+         ],
+         "type": "table"
+      },
+      {
+         "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 2
+         },
+         "id": 5,
+         "title": "RateLimitPolicy",
+         "type": "row"
+      },
+      {
+         "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+         },
+         "description": "Total number of RateLimitPolicy across all clusters",
+         "gridPos": {
+            "h": 3,
+            "w": 2,
+            "x": 0,
+            "y": 3
+         },
+         "id": 6,
+         "pluginVersion": "v10.0.0",
+         "targets": [
+            {
+               "datasource": {
+                  "type": "prometheus",
+                  "uid": "$datasource"
+               },
+               "expr": "count(gatewayapi_ratelimitpolicy_status)",
+               "instant": true
+            }
+         ],
+         "title": "Total",
+         "type": "stat"
+      },
+      {
+         "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+         },
+         "description": "Total RateLimitPolicy with an Available state",
+         "gridPos": {
+            "h": 3,
+            "w": 2,
+            "x": 2,
+            "y": 3
+         },
+         "id": 7,
+         "pluginVersion": "v10.0.0",
+         "targets": [
+            {
+               "datasource": {
+                  "type": "prometheus",
+                  "uid": "$datasource"
+               },
+               "expr": "count(gatewayapi_ratelimitpolicy_status{type=\"Available\"})",
+               "instant": true
+            }
+         ],
+         "title": "Available",
+         "type": "stat"
+      },
+      {
+         "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+         },
+         "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 4,
+            "y": 7
+         },
+         "id": 8,
+         "pluginVersion": "v10.0.0",
+         "targets": [
+            {
+               "datasource": {
+                  "type": "prometheus",
+                  "uid": "$datasource"
+               },
+               "expr": "gatewayapi_ratelimitpolicy_target_info",
+               "format": "table",
+               "instant": true,
+               "range": false
+            }
+         ],
+         "title": "RateLimitPolicy",
+         "transformations": [
+            {
+               "id": "filterFieldsByName",
+               "options": {
+                  "include": {
+                     "names": [
+                        "name",
+                        "target_kind",
+                        "target_name"
+                     ]
+                  }
+               }
+            },
+            {
+               "id": "organize",
+               "options": {
+                  "renameByName": {
+                     "name": "Name",
+                     "target_kind": "Target Kind",
+                     "target_name": "Target Name"
+                  }
+               }
+            }
+         ],
+         "type": "table"
+      },
+      {
+         "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 8
+         },
+         "id": 9,
+         "title": "BackendTLSPolicy",
+         "type": "row"
+      },
+      {
+         "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+         },
+         "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 4,
+            "y": 9
+         },
+         "id": 10,
+         "pluginVersion": "v10.0.0",
+         "targets": [
+            {
+               "datasource": {
+                  "type": "prometheus",
+                  "uid": "$datasource"
+               },
+               "expr": "gatewayapi_backendtlspolicy_target_info",
+               "format": "table",
+               "instant": true,
+               "range": false
+            }
+         ],
+         "title": "BackendTLSPolicy",
+         "transformations": [
+            {
+               "id": "filterFieldsByName",
+               "options": {
+                  "include": {
+                     "names": [
+                        "name",
+                        "target_kind",
+                        "target_name"
+                     ]
+                  }
+               }
+            },
+            {
+               "id": "organize",
+               "options": {
+                  "renameByName": {
+                     "name": "Name",
+                     "target_kind": "Target Kind",
+                     "target_name": "Target Name"
+                  }
+               }
+            }
+         ],
+         "type": "table"
+      }
+   ],
+   "schemaVersion": 36,
+   "style": "dark",
+   "tags": [
+      "gateway-api",
+      "gateway-api-state"
+   ],
+   "templating": {
+      "list": [
+         {
+            "label": "Data Source",
+            "name": "datasource",
+            "query": "prometheus",
+            "type": "datasource"
+         },
+         {
+            "datasource": {
+               "type": "prometheus",
+               "uid": "${datasource}"
+            },
+            "includeAll": true,
+            "label": "TLSPolicy",
+            "multi": true,
+            "name": "tlspolicy",
+            "query": {
+               "query": "label_values(gatewayapi_tlspolicy_created, name)",
+               "refId": "StandardVariableQuery"
+            },
+            "regex": "/(.*)/",
+            "type": "query"
+         },
+         {
+            "datasource": {
+               "type": "prometheus",
+               "uid": "${datasource}"
+            },
+            "includeAll": true,
+            "label": "RateLimitPolicy",
+            "multi": true,
+            "name": "ratelimitpolicy",
+            "query": {
+               "query": "label_values(gatewayapi_ratelimitpolicy_created, name)",
+               "refId": "StandardVariableQuery"
+            },
+            "regex": "/(.*)/",
+            "type": "query"
+         },
+         {
+            "datasource": {
+               "type": "prometheus",
+               "uid": "${datasource}"
+            },
+            "includeAll": true,
+            "label": "BackendTLSPolicy",
+            "multi": true,
+            "name": "backendtlspolicy",
+            "query": {
+               "query": "label_values(gatewayapi_backendtlspolicy_created, name)",
+               "refId": "StandardVariableQuery"
+            },
+            "regex": "/(.*)/",
+            "type": "query"
+         }
+      ]
+   },
+   "time": {
+      "from": "now-1h",
+      "to": "now"
+   },
+   "timezone": "utc",
+   "title": "Gateway API State / Policies",
+   "uid": "gatewayapipolicies"
+}

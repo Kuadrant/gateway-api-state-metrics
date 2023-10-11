@@ -277,4 +277,27 @@ local var = import './variables.libsonnet';
       },
     }),
   ]),
+
+  policyPanel(title, h, w, x, y, expr):
+    self.table(title, h, w, x, y, expr)
+    + g.panel.table.queryOptions.withTransformations([
+      g.panel.table.transformation.withId('filterFieldsByName')
+      + g.panel.table.transformation.withOptions({
+        include: {
+          names: [
+            'name',
+            'target_kind',
+            'target_name',
+          ],
+        },
+      }),
+    g.panel.table.transformation.withId('organize')
+    + g.panel.table.transformation.withOptions({
+      renameByName: {
+        name: 'Name',
+        target_kind: 'Target Kind',
+        target_name: 'Target Name',
+      },
+    }),
+    ]),
 }

@@ -21,6 +21,18 @@
     - tcproutes
     - tlsroutes
     - udproutes
+    - backendtlspolicies
+    verbs:
+    - list
+    - watch
+- op: add
+  path: /rules/-
+  value:
+    apiGroups:
+    - "kuadrant.io"
+    resources:
+    - tlspolicies
+    - ratelimitpolicies
     verbs:
     - list
     - watch
