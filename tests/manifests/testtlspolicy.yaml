@@ -1,0 +1,21 @@
+apiVersion: kuadrant.io/v1alpha1
+kind: TLSPolicy
+metadata:
+  name: testtlspolicy1
+  namespace: default
+spec:
+  targetRef:
+    name: testgateway1
+    group: gateway.networking.k8s.io
+    kind: Gateway
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: selfsigned-cluster-issuer
+status:
+  conditions:
+  - lastTransitionTime: "2023-08-21T22:53:08Z"
+    message: Gateway is TLS Enabled
+    reason: GatewayTLSEnabled
+    status: "True"
+    type: Ready

@@ -1,0 +1,15 @@
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: BackendTLSPolicy
+metadata:
+  name: testbackendtlspolicy1
+spec:
+  targetRef:
+    group: ""
+    kind: Service
+    name: testname1
+  tls:
+    caCertRefs:
+    - group: ""
+      name: "grafana"
+      kind: "ConfigMap"
+    hostname: grafana.example.com
