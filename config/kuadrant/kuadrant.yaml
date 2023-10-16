@@ -1,0 +1,89 @@
+apiVersion: kuadrant.io/v1alpha1
+kind: TLSPolicy
+metadata:
+  name: external
+  namespace: istio-system
+spec:
+  targetRef:
+    name: external
+    group: gateway.networking.k8s.io
+    kind: Gateway
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: selfsigned-cluster-issuer
+status:
+  conditions:
+  - lastTransitionTime: "2023-08-21T22:53:08Z"
+    message: Gateway is TLS Enabled
+    reason: GatewayTLSEnabled
+    status: "True"
+    type: Ready
+---
+apiVersion: kuadrant.io/v1alpha1
+kind: TLSPolicy
+metadata:
+  name: internal
+  namespace: istio-system
+spec:
+  targetRef:
+    name: internal
+    group: gateway.networking.k8s.io
+    kind: Gateway
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: selfsigned-cluster-issuer
+status:
+  conditions:
+  - lastTransitionTime: "2023-08-21T22:53:08Z"
+    message: Gateway is TLS Enabled
+    reason: GatewayTLSEnabled
+    status: "True"
+    type: Ready
+---
+apiVersion: kuadrant.io/v1beta2
+kind: RateLimitPolicy
+metadata:
+  name: rlp-www
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    name: www
+  limits:
+    "global":
+      rates:
+      - limit: 5
+        duration: 10
+        unit: second
+status:
+  conditions:
+  - lastTransitionTime: "2023-08-21T22:53:08Z"
+    message: HTTPRoute is ratelimited
+    reason: HTTPRouteProtected
+    status: "True"
+    type: Available
+---
+apiVersion: kuadrant.io/v1beta2
+kind: RateLimitPolicy
+metadata:
+  name: rlp-cdn
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    name: cdn
+  limits:
+    "global":
+      rates:
+      - limit: 5
+        duration: 10
+        unit: second
+status:
+  conditions:
+  - lastTransitionTime: "2023-08-21T22:53:08Z"
+    message: HTTPRoute is ratelimited
+    reason: HTTPRouteProtected
+    status: "True"
+    type: Available

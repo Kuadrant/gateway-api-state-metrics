@@ -12,16 +12,10 @@
   path: /rules/-
   value:
     apiGroups:
-    - "gateway.networking.k8s.io"
+    - "kuadrant.io"
     resources:
-    - gateways
-    - gatewayclasses
-    - httproutes
-    - grpcroutes
-    - tcproutes
-    - tlsroutes
-    - udproutes
-    - backendtlspolicies
+    - tlspolicies
+    - ratelimitpolicies
     verbs:
     - list
     - watch

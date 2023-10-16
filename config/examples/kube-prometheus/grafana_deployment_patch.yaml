@@ -36,10 +36,10 @@
 - op: add
   path: /spec/template/spec/volumes/-
   value:
-    name: grafana-tlspolicy
+    name: grafana-policies
     configMap:
      defaultMode: 420
-     name: grafana-tlspolicy
+     name: grafana-policies
 - op: add
   path: /spec/template/spec/volumes/-
   value:
@@ -92,5 +92,5 @@
 - op: add
   path: /spec/template/spec/containers/0/volumeMounts/-
   value:
-    name: grafana-tlspolicy
-    mountPath: /grafana-dashboard-definitions/0/grafana-tlspolicy
+    name: grafana-policies
+    mountPath: /grafana-dashboard-definitions/0/grafana-policies

@@ -147,11 +147,3 @@ rules:
   verbs:
   - list
   - watch
-- apiGroups:
-  - "kuadrant.io"
-  resources:
-  - tlspolicies
-  - ratelimitpolicies
-  verbs:
-  - list
-  - watch
