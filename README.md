@@ -1,5 +1,7 @@
 # Gateway API State Metrics
 
+"Standard metrics and dashboards for Gateway API resources"
+
 [Kube State Metrics](https://github.com/kubernetes/kube-state-metrics) `CustomResourceState` configurations for [Gateway API](https://gateway-api.sigs.k8s.io/) resources.
 
 The contents of this repository are intended to be used with kube-state-metrics.
