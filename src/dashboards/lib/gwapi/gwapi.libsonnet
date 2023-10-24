@@ -278,7 +278,7 @@ local var = import './variables.libsonnet';
     }),
   ]),
 
-  policyPanel(title, h, w, x, y, expr):
+  policyPanel(title, h, w, x, y, expr, linkTitle="", linkUrl=""):
     self.table(title, h, w, x, y, expr)
     + g.panel.table.queryOptions.withTransformations([
       g.panel.table.transformation.withId('filterFieldsByName')
@@ -299,5 +299,22 @@ local var = import './variables.libsonnet';
         target_name: 'Target Name',
       },
     }),
-    ]),
+    ])
+    + g.panel.table.standardOptions.withOverrides((if linkTitle != "" && linkUrl != "" then [
+      g.panel.table.fieldOverride.byName.new('Target Kind')
+      + g.panel.table.fieldOverride.byName.withProperty(
+        'custom.displayMode',
+        'color-text'
+      )
+      + g.panel.table.fieldOverride.byName.withProperty(
+        'links',
+        [
+          {
+            title: linkTitle,
+            url: linkUrl,
+          },
+        ]
+      ),
+    ]else [])
+    ),
 }

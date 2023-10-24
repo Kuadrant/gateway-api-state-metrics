@@ -41515,29 +41515,7 @@ data:
                 "uid": "$datasource"
              },
              "fieldConfig": {
-                "overrides": [
-                   {
-                      "matcher": {
-                         "id": "byName",
-                         "options": "Target Kind"
-                      },
-                      "properties": [
-                         {
-                            "id": "custom.displayMode",
-                            "value": "color-text"
-                         },
-                         {
-                            "id": "links",
-                            "value": [
-                               {
-                                  "title": "BackendTLSPolicy Details",
-                                  "url": "/d/gatewayapipolicies/gateway-api-state-policies?var-backendtlspolicy=${__value.text}"
-                               }
-                            ]
-                         }
-                      ]
-                   }
-                ]
+                "overrides": [ ]
              },
              "gridPos": {
                 "h": 6,
@@ -41661,7 +41639,7 @@ data:
     }
 kind: ConfigMap
 metadata:
-  name: grafana-policies-c2dmf9dm7k
+  name: grafana-policies-7kt676htbd
   namespace: monitoring
 
 ---
@@ -44416,7 +44394,7 @@ spec:
         name: grafana-tlsroutes
       - configMap:
           defaultMode: 420
-          name: grafana-policies-c2dmf9dm7k
+          name: grafana-policies-7kt676htbd
         name: grafana-policies
       - configMap:
           defaultMode: 420

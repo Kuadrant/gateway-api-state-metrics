@@ -315,29 +315,7 @@
             "uid": "$datasource"
          },
          "fieldConfig": {
-            "overrides": [
-               {
-                  "matcher": {
-                     "id": "byName",
-                     "options": "Target Kind"
-                  },
-                  "properties": [
-                     {
-                        "id": "custom.displayMode",
-                        "value": "color-text"
-                     },
-                     {
-                        "id": "links",
-                        "value": [
-                           {
-                              "title": "BackendTLSPolicy Details",
-                              "url": "/d/gatewayapipolicies/gateway-api-state-policies?var-backendtlspolicy=${__value.text}"
-                           }
-                        ]
-                     }
-                  ]
-               }
-            ]
+            "overrides": [ ]
          },
          "gridPos": {
             "h": 6,

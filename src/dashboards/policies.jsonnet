@@ -17,5 +17,5 @@ gwapi.dashboard('Policies', 'gatewayapipolicies', [
   gwapi.stat('Available', 3, 2, 2, 3, 'Total RateLimitPolicy with an Available state', 'count(gatewayapi_ratelimitpolicy_status{type="Available", name=~"${ratelimitpolicy}"})'),
   gwapi.policyPanel('RateLimitPolicy',6,10,4,7,'gatewayapi_ratelimitpolicy_target_info{name=~"${ratelimitpolicy}"}', 'RateLimitPolicy Details', '/d/gatewayapihttproutes/gateway-api-state-httproutes?var-ratelimitpolicy=${__value.text}'),
   gwapi.row('BackendTLSPolicy', 1, 24, 0, 8),
-  gwapi.policyPanel('BackendTLSPolicy',6,10,4,9,'gatewayapi_backendtlspolicy_target_info{name=~"${backendtlspolicy}"}', 'BackendTLSPolicy Details', '/d/gatewayapipolicies/gateway-api-state-policies?var-backendtlspolicy=${__value.text}'),
+  gwapi.policyPanel('BackendTLSPolicy',6,10,4,9,'gatewayapi_backendtlspolicy_target_info{name=~"${backendtlspolicy}"}'),
 ])
