@@ -41245,7 +41245,7 @@ data:
                       "type": "prometheus",
                       "uid": "$datasource"
                    },
-                   "expr": "count(gatewayapi_tlspolicy_status)",
+                   "expr": "count(gatewayapi_tlspolicy_status{name=~\"${tlspolicy}\"})",
                    "instant": true
                 }
              ],
@@ -41272,7 +41272,7 @@ data:
                       "type": "prometheus",
                       "uid": "$datasource"
                    },
-                   "expr": "count(gatewayapi_tlspolicy_status{type=\"Ready\"})",
+                   "expr": "count(gatewayapi_tlspolicy_status{type=\"Ready\", name=~\"${tlspolicy}\"})",
                    "instant": true
                 }
              ],
@@ -41283,6 +41283,31 @@ data:
              "datasource": {
                 "type": "prometheus",
                 "uid": "$datasource"
+             },
+             "fieldConfig": {
+                "overrides": [
+                   {
+                      "matcher": {
+                         "id": "byName",
+                         "options": "Target Kind"
+                      },
+                      "properties": [
+                         {
+                            "id": "custom.displayMode",
+                            "value": "color-text"
+                         },
+                         {
+                            "id": "links",
+                            "value": [
+                               {
+                                  "title": "TLSPolicy Details",
+                                  "url": "/d/gatewayapigateways/gateway-api-state-gateways?var-tlspolicy=${__value.text}"
+                               }
+                            ]
+                         }
+                      ]
+                   }
+                ]
              },
              "gridPos": {
                 "h": 6,
@@ -41298,7 +41323,7 @@ data:
                       "type": "prometheus",
                       "uid": "$datasource"
                    },
-                   "expr": "gatewayapi_tlspolicy_target_info",
+                   "expr": "gatewayapi_tlspolicy_target_info{name=~\"${tlspolicy}\"}",
                    "format": "table",
                    "instant": true,
                    "range": false
@@ -41362,7 +41387,7 @@ data:
                       "type": "prometheus",
                       "uid": "$datasource"
                    },
-                   "expr": "count(gatewayapi_ratelimitpolicy_status)",
+                   "expr": "count(gatewayapi_ratelimitpolicy_status{name=~\"${ratelimitpolicy}\"})",
                    "instant": true
                 }
              ],
@@ -41389,7 +41414,7 @@ data:
                       "type": "prometheus",
                       "uid": "$datasource"
                    },
-                   "expr": "count(gatewayapi_ratelimitpolicy_status{type=\"Available\"})",
+                   "expr": "count(gatewayapi_ratelimitpolicy_status{type=\"Available\", name=~\"${ratelimitpolicy}\"})",
                    "instant": true
                 }
              ],
@@ -41400,6 +41425,31 @@ data:
              "datasource": {
                 "type": "prometheus",
                 "uid": "$datasource"
+             },
+             "fieldConfig": {
+                "overrides": [
+                   {
+                      "matcher": {
+                         "id": "byName",
+                         "options": "Target Kind"
+                      },
+                      "properties": [
+                         {
+                            "id": "custom.displayMode",
+                            "value": "color-text"
+                         },
+                         {
+                            "id": "links",
+                            "value": [
+                               {
+                                  "title": "RateLimitPolicy Details",
+                                  "url": "/d/gatewayapihttproutes/gateway-api-state-httproutes?var-ratelimitpolicy=${__value.text}"
+                               }
+                            ]
+                         }
+                      ]
+                   }
+                ]
              },
              "gridPos": {
                 "h": 6,
@@ -41415,7 +41465,7 @@ data:
                       "type": "prometheus",
                       "uid": "$datasource"
                    },
-                   "expr": "gatewayapi_ratelimitpolicy_target_info",
+                   "expr": "gatewayapi_ratelimitpolicy_target_info{name=~\"${ratelimitpolicy}\"}",
                    "format": "table",
                    "instant": true,
                    "range": false
@@ -41464,6 +41514,31 @@ data:
                 "type": "prometheus",
                 "uid": "$datasource"
              },
+             "fieldConfig": {
+                "overrides": [
+                   {
+                      "matcher": {
+                         "id": "byName",
+                         "options": "Target Kind"
+                      },
+                      "properties": [
+                         {
+                            "id": "custom.displayMode",
+                            "value": "color-text"
+                         },
+                         {
+                            "id": "links",
+                            "value": [
+                               {
+                                  "title": "BackendTLSPolicy Details",
+                                  "url": "/d/gatewayapipolicies/gateway-api-state-policies?var-backendtlspolicy=${__value.text}"
+                               }
+                            ]
+                         }
+                      ]
+                   }
+                ]
+             },
              "gridPos": {
                 "h": 6,
                 "w": 10,
@@ -41478,7 +41553,7 @@ data:
                       "type": "prometheus",
                       "uid": "$datasource"
                    },
-                   "expr": "gatewayapi_backendtlspolicy_target_info",
+                   "expr": "gatewayapi_backendtlspolicy_target_info{name=~\"${backendtlspolicy}\"}",
                    "format": "table",
                    "instant": true,
                    "range": false
@@ -41586,7 +41661,7 @@ data:
     }
 kind: ConfigMap
 metadata:
-  name: grafana-policies-bggb44htkm
+  name: grafana-policies-c2dmf9dm7k
   namespace: monitoring
 
 ---
@@ -44341,7 +44416,7 @@ spec:
         name: grafana-tlsroutes
       - configMap:
           defaultMode: 420
-          name: grafana-policies-bggb44htkm
+          name: grafana-policies-c2dmf9dm7k
         name: grafana-policies
       - configMap:
           defaultMode: 420
