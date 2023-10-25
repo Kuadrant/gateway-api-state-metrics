@@ -31,3 +31,7 @@ configMapGenerator:
   namespace: monitoring
   files:
   - ./udproutes.json
+- name: grafana-policies
+  namespace: monitoring
+  files:
+  - ./policies.json

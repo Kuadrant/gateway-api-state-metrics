@@ -36,6 +36,13 @@
 - op: add
   path: /spec/template/spec/volumes/-
   value:
+    name: grafana-policies
+    configMap:
+     defaultMode: 420
+     name: grafana-policies
+- op: add
+  path: /spec/template/spec/volumes/-
+  value:
     name: grafana-tcproutes
     configMap:
      defaultMode: 420
@@ -82,3 +89,8 @@
   value:
     name: grafana-udproutes
     mountPath: /grafana-dashboard-definitions/0/grafana-udproutes
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts/-
+  value:
+    name: grafana-policies
+    mountPath: /grafana-dashboard-definitions/0/grafana-policies

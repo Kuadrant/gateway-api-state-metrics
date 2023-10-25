@@ -130,6 +130,7 @@ trap finish EXIT
 
 # create Gateway API CRDs
 kubectl create -f ./config/gateway-api/crd/standard/
+kubectl create -f ./config/kuadrant/crd/
 
 # create gateway-api customresourcestatemetrics configmap
 kubectl create configmap custom-resource-state --from-file=./config/default/custom-resource-state.yaml --dry-run=client -o yaml | kubectl -n kube-system apply -f -
@@ -143,6 +144,8 @@ kubectl create -f ./config/examples/kube-state-metrics/cluster-role-binding.yaml
 kubectl create -f ./config/examples/kube-state-metrics/deployment.yaml
 
 kubectl create -f ./config/examples/kube-state-metrics/service.yaml
+
+kubectl patch clusterrole kube-state-metrics --type=json -p "$(cat ./config/kuadrant/clusterrole-patch.yaml)"
 
 # Create test Gateway API resources
 kubectl create -f ./tests/manifests/

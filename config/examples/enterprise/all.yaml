@@ -625,6 +625,38 @@ status:
     - group: gateway.networking.k8s.io
       kind: GRPCRoute
 ---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: BackendTLSPolicy
+metadata:
+  name: btp-grafana
+spec:
+  targetRef:
+    group: ""
+    kind: Service
+    name: grafana-service
+  tls:
+    caCertRefs:
+    - group: ""
+      name: "grafana"
+      kind: "ConfigMap"
+    hostname: grafana.example.com
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: BackendTLSPolicy
+metadata:
+  name: btp-kubernetes
+spec:
+  targetRef:
+    group: ""
+    kind: Service
+    name: kubernetes
+  tls:
+    caCertRefs:
+    - group: ""
+      name: "kubernetes"
+      kind: "ConfigMap"
+    hostname: kubernetes.example.com
+---
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: HTTPRoute
 metadata:

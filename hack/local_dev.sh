@@ -12,6 +12,12 @@ kubectl replace --subresource=status -f ./config/examples/enterprise/all.yaml
 kubectl apply --server-side -f ./config/examples/kube-prometheus/bundle_crd.yaml
 kubectl apply -f ./config/examples/kube-prometheus/bundle.yaml
 
+echo "Setting up kuadrant"
+kubectl apply -f ./config/kuadrant/crd/
+kubectl patch clusterrole kube-state-metrics --type=json -p "$(cat ./config/kuadrant/clusterrole-patch.yaml)"
+kubectl apply -f ./config/kuadrant/kuadrant.yaml
+kubectl replace --subresource=status -f ./config/kuadrant/kuadrant.yaml
+
 echo "Installing grafana-operator"
 helm upgrade -i grafana-operator oci://ghcr.io/grafana-operator/helm-charts/grafana-operator --version v5.4.1
 

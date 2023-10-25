@@ -143,6 +143,7 @@ rules:
   - tcproutes
   - tlsroutes
   - udproutes
+  - backendtlspolicies
   verbs:
   - list
   - watch

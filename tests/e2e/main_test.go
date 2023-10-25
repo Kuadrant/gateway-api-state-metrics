@@ -86,6 +86,9 @@ func TestGatewayMetricsAvailable(t *testing.T) {
 	testTCPRoute(t, gatewayapiMetrics)
 	testUDPRoute(t, gatewayapiMetrics)
 	testTLSRoute(t, gatewayapiMetrics)
+	testBackendTLSPolicy(t, gatewayapiMetrics)
+	testRateLimitPolicy(t, gatewayapiMetrics)
+	testTLSPolicy(t, gatewayapiMetrics)
 }
 
 func testGatewayClasses(t *testing.T, metrics map[string][][]string) {
@@ -479,6 +482,110 @@ func testUDPRoute(t *testing.T, metrics map[string][][]string) {
 	expectEqual(t, udproute1ParentStatusInfo1Labels["parent_kind"], "Gateway", "gatewayapi_udproute_status_parent_info__1 parent_kind")
 	expectEqual(t, udproute1ParentStatusInfo1Labels["parent_namespace"], "default", "gatewayapi_udproute_status_parent_info__1 parent_namespace")
 	expectEqual(t, udproute1ParentStatusInfo1Labels["parent_name"], "testgateway1", "gatewayapi_udproute_status_parent_info__1 parent_name")
+}
+
+func testBackendTLSPolicy(t *testing.T, metrics map[string][][]string) {
+	// gatewayapi_backendtlspolicy_created
+	backendtlspolicyCreated := metrics["gatewayapi_backendtlspolicy_created"]
+	backendtlspolicy1Created := backendtlspolicyCreated[0]
+	expectValidTimestampInPast(t, backendtlspolicy1Created[3], "gatewayapi_backendtlspolicy_created__1 value")
+	backendtlspolicy1CreatedLabels := parseLabels(string(backendtlspolicy1Created[2]))
+	expectEqual(t, backendtlspolicy1CreatedLabels["customresource_group"], "gateway.networking.k8s.io", "gatewayapi_backendtlspolicy_created__1 customresource_group")
+	expectEqual(t, backendtlspolicy1CreatedLabels["customresource_kind"], "BackendTLSPolicy", "gatewayapi_backendtlspolicy_created__1 customresource_kind")
+	expectEqual(t, backendtlspolicy1CreatedLabels["customresource_version"], "v1alpha2", "gatewayapi_backendtlspolicy_created__1 customresource_version")
+	expectEqual(t, backendtlspolicy1CreatedLabels["name"], "testbackendtlspolicy1", "gatewayapi_backendtlspolicy_created__1 name")
+	expectEqual(t, backendtlspolicy1CreatedLabels["namespace"], "default", "gatewayapi_backendtlspolicy_created__1 namespace")
+
+	//gatewayapi_backendtlspolicy_target_info
+	backendtlspolicyParentInfo := metrics["gatewayapi_backendtlspolicy_target_info"]
+	backendtlspolicy1ParentInfo1 := backendtlspolicyParentInfo[0]
+	expectEqual(t, backendtlspolicy1ParentInfo1[3], "1", "gatewayapi_backendtlspolicy_target_info__1 value")
+	backendtlspolicy1ParentInfo1Labels := parseLabels(string(backendtlspolicy1ParentInfo1[2]))
+	expectEqual(t, backendtlspolicy1ParentInfo1Labels["customresource_group"], "gateway.networking.k8s.io", "gatewayapi_backendtlspolicy_target_info__1 customresource_group")
+	expectEqual(t, backendtlspolicy1ParentInfo1Labels["customresource_kind"], "BackendTLSPolicy", "gatewayapi_backendtlspolicy_target_info__1 customresource_kind")
+	expectEqual(t, backendtlspolicy1ParentInfo1Labels["customresource_version"], "v1alpha2", "gatewayapi_backendtlspolicy_target_info__1 customresource_version")
+	expectEqual(t, backendtlspolicy1ParentInfo1Labels["name"], "testbackendtlspolicy1", "gatewayapi_backendtlspolicy_target_info__1 name")
+	expectEqual(t, backendtlspolicy1ParentInfo1Labels["namespace"], "default", "gatewayapi_backendtlspolicy_target_info__1 namespace")
+	expectEqual(t, backendtlspolicy1ParentInfo1Labels["target_group"], "", "gatewayapi_backendtlspolicy_target_info__1 target_group")
+	expectEqual(t, backendtlspolicy1ParentInfo1Labels["target_kind"], "Service", "gatewayapi_backendtlspolicy_target_info__1 target_kind")
+}
+
+func testRateLimitPolicy(t *testing.T, metrics map[string][][]string) {
+	// gatewayapi_ratelimitpolicy_created
+	ratelimitpolicyCreated := metrics["gatewayapi_ratelimitpolicy_created"]
+	ratelimitpolicy1Created := ratelimitpolicyCreated[0]
+	expectValidTimestampInPast(t, ratelimitpolicy1Created[3], "gatewayapi_ratelimitpolicy_created__1 value")
+	ratelimitpolicy1CreatedLabels := parseLabels(string(ratelimitpolicy1Created[2]))
+	expectEqual(t, ratelimitpolicy1CreatedLabels["customresource_group"], "kuadrant.io", "gatewayapi_ratelimitpolicy_created__1 customresource_group")
+	expectEqual(t, ratelimitpolicy1CreatedLabels["customresource_kind"], "RateLimitPolicy", "gatewayapi_ratelimitpolicy_created__1 customresource_kind")
+	expectEqual(t, ratelimitpolicy1CreatedLabels["customresource_version"], "v1beta2", "gatewayapi_ratelimitpolicy_created__1 customresource_version")
+	expectEqual(t, ratelimitpolicy1CreatedLabels["name"], "testratelimitpolicy1", "gatewayapi_ratelimitpolicy_created__1 name")
+	expectEqual(t, ratelimitpolicy1CreatedLabels["namespace"], "default", "gatewayapi_ratelimitpolicy_created__1 namespace")
+
+	//gatewayapi_ratelimitpolicy_target_info
+	ratelimitpolicyParentInfo := metrics["gatewayapi_ratelimitpolicy_target_info"]
+	ratelimitpolicy1ParentInfo1 := ratelimitpolicyParentInfo[0]
+	expectEqual(t, ratelimitpolicy1ParentInfo1[3], "1", "gatewayapi_ratelimitpolicy_target_info__1 value")
+	ratelimitpolicy1ParentInfo1Labels := parseLabels(string(ratelimitpolicy1ParentInfo1[2]))
+	expectEqual(t, ratelimitpolicy1ParentInfo1Labels["customresource_group"], "kuadrant.io", "gatewayapi_ratelimitpolicy_target_info__1 customresource_group")
+	expectEqual(t, ratelimitpolicy1ParentInfo1Labels["customresource_kind"], "RateLimitPolicy", "gatewayapi_ratelimitpolicy_target_info__1 customresource_kind")
+	expectEqual(t, ratelimitpolicy1ParentInfo1Labels["customresource_version"], "v1beta2", "gatewayapi_ratelimitpolicy_target_info__1 customresource_version")
+	expectEqual(t, ratelimitpolicy1ParentInfo1Labels["name"], "testratelimitpolicy1", "gatewayapi_ratelimitpolicy_target_info__1 name")
+	expectEqual(t, ratelimitpolicy1ParentInfo1Labels["namespace"], "default", "gatewayapi_ratelimitpolicy_target_info__1 namespace")
+	expectEqual(t, ratelimitpolicy1ParentInfo1Labels["target_group"], "gateway.networking.k8s.io", "gatewayapi_ratelimitpolicy_target_info__1 target_group")
+	expectEqual(t, ratelimitpolicy1ParentInfo1Labels["target_kind"], "HTTPRoute", "gatewayapi_ratelimitpolicy_target_info__1 target_kind")
+	expectEqual(t, ratelimitpolicy1ParentInfo1Labels["target_name"], "testname1", "gatewayapi_ratelimitpolicy_target_info__1 target_name")
+
+	//gatewayapi_ratelimitpolicy_status
+	ratelimitpolicyStatus := metrics["gatewayapi_ratelimitpolicy_status"]
+	ratelimitpolicy1Status1 := ratelimitpolicyStatus[0]
+	expectEqual(t, ratelimitpolicy1Status1[3], "1", "gatewayapi_ratelimitpolicy_status__1 value")
+	ratelimitpolicy1Status1Labels := parseLabels(string(ratelimitpolicy1Status1[2]))
+	expectEqual(t, ratelimitpolicy1Status1Labels["customresource_group"], "kuadrant.io", "gatewayapi_ratelimitpolicy_status__1 customresource_group")
+	expectEqual(t, ratelimitpolicy1Status1Labels["customresource_kind"], "RateLimitPolicy", "gatewayapi_ratelimitpolicy_status__1 customresource_kind")
+	expectEqual(t, ratelimitpolicy1Status1Labels["customresource_version"], "v1beta2", "gatewayapi_ratelimitpolicy_status__1 customresource_version")
+	expectEqual(t, ratelimitpolicy1Status1Labels["name"], "testratelimitpolicy1", "gatewayapi_ratelimitpolicy_status__1 name")
+	expectEqual(t, ratelimitpolicy1Status1Labels["namespace"], "default", "gatewayapi_ratelimitpolicy_status__1 namespace")
+	expectEqual(t, ratelimitpolicy1Status1Labels["type"], "Available", "gatewayapi_ratelimitpolicy_status__1 type")
+}
+
+func testTLSPolicy(t *testing.T, metrics map[string][][]string) {
+	// gatewayapi_tlspolicy_created
+	tlspolicyCreated := metrics["gatewayapi_tlspolicy_created"]
+	tlspolicy1Created := tlspolicyCreated[0]
+	expectValidTimestampInPast(t, tlspolicy1Created[3], "gatewayapi_tlspolicy_created__1 value")
+	tlspolicy1CreatedLabels := parseLabels(string(tlspolicy1Created[2]))
+	expectEqual(t, tlspolicy1CreatedLabels["customresource_group"], "kuadrant.io", "gatewayapi_tlspolicy_created__1 customresource_group")
+	expectEqual(t, tlspolicy1CreatedLabels["customresource_kind"], "TLSPolicy", "gatewayapi_tlspolicy_created__1 customresource_kind")
+	expectEqual(t, tlspolicy1CreatedLabels["customresource_version"], "v1alpha1", "gatewayapi_tlspolicy_created__1 customresource_version")
+	expectEqual(t, tlspolicy1CreatedLabels["name"], "testtlspolicy1", "gatewayapi_tlspolicy_created__1 name")
+	expectEqual(t, tlspolicy1CreatedLabels["namespace"], "default", "gatewayapi_tlspolicy_created__1 namespace")
+
+	//gatewayapi_tlspolicy_target_info
+	tlspolicyParentInfo := metrics["gatewayapi_tlspolicy_target_info"]
+	tlspolicy1ParentInfo1 := tlspolicyParentInfo[0]
+	expectEqual(t, tlspolicy1ParentInfo1[3], "1", "gatewayapi_tlspolicy_target_info__1 value")
+	tlspolicy1ParentInfo1Labels := parseLabels(string(tlspolicy1ParentInfo1[2]))
+	expectEqual(t, tlspolicy1ParentInfo1Labels["customresource_group"], "kuadrant.io", "gatewayapi_tlspolicy_target_info__1 customresource_group")
+	expectEqual(t, tlspolicy1ParentInfo1Labels["customresource_kind"], "TLSPolicy", "gatewayapi_tlspolicy_target_info__1 customresource_kind")
+	expectEqual(t, tlspolicy1ParentInfo1Labels["customresource_version"], "v1alpha1", "gatewayapi_tlspolicy_target_info__1 customresource_version")
+	expectEqual(t, tlspolicy1ParentInfo1Labels["name"], "testtlspolicy1", "gatewayapi_tlspolicy_target_info__1 name")
+	expectEqual(t, tlspolicy1ParentInfo1Labels["namespace"], "default", "gatewayapi_tlspolicy_target_info__1 namespace")
+	expectEqual(t, tlspolicy1ParentInfo1Labels["target_group"], "gateway.networking.k8s.io", "gatewayapi_tlspolicy_target_info__1 target_group")
+	expectEqual(t, tlspolicy1ParentInfo1Labels["target_kind"], "Gateway", "gatewayapi_tlspolicy_target_info__1 target_kind")
+	expectEqual(t, tlspolicy1ParentInfo1Labels["target_name"], "testgateway1", "gatewayapi_tlspolicy_target_info__1 target_name")
+
+	//gatewayapi_tlspolicy_status
+	tlspolicyStatus := metrics["gatewayapi_tlspolicy_status"]
+	tlspolicy1Status1 := tlspolicyStatus[0]
+	expectEqual(t, tlspolicy1Status1[3], "1", "gatewayapi_tlspolicy_status__1 value")
+	tlspolicy1Status1Labels := parseLabels(string(tlspolicy1Status1[2]))
+	expectEqual(t, tlspolicy1Status1Labels["customresource_group"], "kuadrant.io", "gatewayapi_tlspolicy_status__1 customresource_group")
+	expectEqual(t, tlspolicy1Status1Labels["customresource_kind"], "TLSPolicy", "gatewayapi_tlspolicy_status__1 customresource_kind")
+	expectEqual(t, tlspolicy1Status1Labels["customresource_version"], "v1alpha1", "gatewayapi_tlspolicy_status__1 customresource_version")
+	expectEqual(t, tlspolicy1Status1Labels["name"], "testtlspolicy1", "gatewayapi_tlspolicy_status__1 name")
+	expectEqual(t, tlspolicy1Status1Labels["namespace"], "default", "gatewayapi_tlspolicy_status__1 namespace")
+	expectEqual(t, tlspolicy1Status1Labels["type"], "Ready", "gatewayapi_tlspolicy_status__1 type")
 }
 
 func parseLabels(labelsRaw string) map[string]string {
