@@ -87,3 +87,81 @@ status:
     reason: HTTPRouteProtected
     status: "True"
     type: Available
+---
+apiVersion: kuadrant.io/v1beta2
+kind: AuthPolicy
+metadata:
+  name: auth-internal-protection
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    name: auth-internal
+  rules:
+    authentication:
+      "keycloak-users":
+        jwt:
+          issuerUrl: http://keycloak.example.com
+      "k8s-service-accounts":
+        kubernetesTokenReview:
+          audiences:
+          - https://kubernetes.example.com
+        overrides:
+          "sub":
+            selector: auth.identity.user.username
+    authorization:
+      "k8s-rbac":
+        kubernetesSubjectAccessReview:
+          user:
+            selector: auth.identity.sub
+    response:
+      success:
+        dynamicMetadata:
+          "identity":
+            json:
+              properties:
+                "userid":
+                  selector: auth.identity.sub
+status:
+  conditions:
+  - lastTransitionTime: "2023-08-21T22:53:08Z"
+    message: HTTPRoute is protected
+    reason: HTTPRouteProtected
+    status: "True"
+    type: Available
+---
+apiVersion: kuadrant.io/v1beta2
+kind: AuthPolicy
+metadata:
+  name: accounts
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    name: accounts
+  rules:
+    authentication:
+      "api-key-users":
+        apiKey:
+          selector:
+            matchLabels:
+              app: accounts
+          allNamespaces: true
+        credentials:
+          authorizationHeader:
+            prefix: APIKEY
+    response:
+      success:
+        dynamicMetadata:
+          "identity":
+            json:
+              properties:
+                "userid":
+                  selector: auth.identity.metadata.annotations.secret\.kuadrant\.io/user-id
+status:
+  conditions:
+  - lastTransitionTime: "2023-08-21T22:53:08Z"
+    message: HTTPRoute is protected
+    reason: HTTPRouteProtected
+    status: "True"
+    type: Available
