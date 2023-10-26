@@ -1,0 +1,35 @@
+apiVersion: kuadrant.io/v1beta2
+kind: AuthPolicy
+metadata:
+  name: testauthpolicy1
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    name: testgateway1
+  rules:
+    authentication:
+      "api-key-users":
+        apiKey:
+          selector:
+            matchLabels:
+              app: testauthpolicy1
+          allNamespaces: true
+        credentials:
+          authorizationHeader:
+            prefix: APIKEY
+    response:
+      success:
+        dynamicMetadata:
+          "identity":
+            json:
+              properties:
+                "userid":
+                  selector: auth.identity.metadata.annotations.secret\.kuadrant\.io/user-id
+status:
+  conditions:
+  - lastTransitionTime: "2023-08-21T22:53:08Z"
+    message: HTTPRoute is protected
+    reason: HTTPRouteProtected
+    status: "True"
+    type: Available

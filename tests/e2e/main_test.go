@@ -588,6 +588,45 @@ func testTLSPolicy(t *testing.T, metrics map[string][][]string) {
 	expectEqual(t, tlspolicy1Status1Labels["type"], "Ready", "gatewayapi_tlspolicy_status__1 type")
 }
 
+func testAuthPolicy(t *testing.T, metrics map[string][][]string) {
+	// gatewayapi_authpolicy_created
+	authpolicyCreated := metrics["gatewayapi_authpolicy_created"]
+	authpolicy1Created := authpolicyCreated[0]
+	expectValidTimestampInPast(t, authpolicy1Created[3], "gatewayapi_authpolicy_created__1 value")
+	authpolicy1CreatedLabels := parseLabels(string(authpolicy1Created[2]))
+	expectEqual(t, authpolicy1CreatedLabels["customresource_group"], "kuadrant.io", "gatewayapi_authpolicy_created__1 customresource_group")
+	expectEqual(t, authpolicy1CreatedLabels["customresource_kind"], "AuthPolicy", "gatewayapi_authpolicy_created__1 customresource_kind")
+	expectEqual(t, authpolicy1CreatedLabels["customresource_version"], "v1beta2", "gatewayapi_authpolicy_created__1 customresource_version")
+	expectEqual(t, authpolicy1CreatedLabels["name"], "testauthpolicy1", "gatewayapi_authpolicy_created__1 name")
+	expectEqual(t, authpolicy1CreatedLabels["namespace"], "default", "gatewayapi_authpolicy_created__1 namespace")
+
+	//gatewayapi_authpolicy_target_info
+	authpolicyParentInfo := metrics["gatewayapi_authpolicy_target_info"]
+	authpolicy1ParentInfo1 := authpolicyParentInfo[0]
+	expectEqual(t, authpolicy1ParentInfo1[3], "1", "gatewayapi_authpolicy_target_info__1 value")
+	authpolicy1ParentInfo1Labels := parseLabels(string(authpolicy1ParentInfo1[2]))
+	expectEqual(t, authpolicy1ParentInfo1Labels["customresource_group"], "kuadrant.io", "gatewayapi_authpolicy_target_info__1 customresource_group")
+	expectEqual(t, authpolicy1ParentInfo1Labels["customresource_kind"], "AuthPolicy", "gatewayapi_authpolicy_target_info__1 customresource_kind")
+	expectEqual(t, authpolicy1ParentInfo1Labels["customresource_version"], "v1beta2", "gatewayapi_authpolicy_target_info__1 customresource_version")
+	expectEqual(t, authpolicy1ParentInfo1Labels["name"], "testauthpolicy1", "gatewayapi_authpolicy_target_info__1 name")
+	expectEqual(t, authpolicy1ParentInfo1Labels["namespace"], "default", "gatewayapi_authpolicy_target_info__1 namespace")
+	expectEqual(t, authpolicy1ParentInfo1Labels["target_group"], "gateway.networking.k8s.io", "gatewayapi_authpolicy_target_info__1 target_group")
+	expectEqual(t, authpolicy1ParentInfo1Labels["target_kind"], "HTTPRoute", "gatewayapi_authpolicy_target_info__1 target_kind")
+	expectEqual(t, authpolicy1ParentInfo1Labels["target_name"], "testgateway1", "gatewayapi_authpolicy_target_info__1 target_name")
+
+	//gatewayapi_authpolicy_status
+	authpolicyStatus := metrics["gatewayapi_authpolicy_status"]
+	authpolicy1Status1 := authpolicyStatus[0]
+	expectEqual(t, authpolicy1Status1[3], "1", "gatewayapi_authpolicy_status__1 value")
+	authpolicy1Status1Labels := parseLabels(string(authpolicy1Status1[2]))
+	expectEqual(t, authpolicy1Status1Labels["customresource_group"], "kuadrant.io", "gatewayapi_authpolicy_status__1 customresource_group")
+	expectEqual(t, authpolicy1Status1Labels["customresource_kind"], "AuthPolicy", "gatewayapi_authpolicy_status__1 customresource_kind")
+	expectEqual(t, authpolicy1Status1Labels["customresource_version"], "v1beta2", "gatewayapi_authpolicy_status__1 customresource_version")
+	expectEqual(t, authpolicy1Status1Labels["name"], "testauthpolicy1", "gatewayapi_authpolicy_status__1 name")
+	expectEqual(t, authpolicy1Status1Labels["namespace"], "default", "gatewayapi_authpolicy_status__1 namespace")
+	expectEqual(t, authpolicy1Status1Labels["type"], "Available", "gatewayapi_authpolicy_status__1 type")
+}
+
 func parseLabels(labelsRaw string) map[string]string {
 	// simple label parsing assuming no special chars/escaping
 	// fmt.Printf("labelsRaw=%s\n", labelsRaw)

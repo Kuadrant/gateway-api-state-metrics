@@ -608,3 +608,56 @@ spec:
               target_kind: ["kind"]
               target_name: ["name"]
               target_namespace: ["namespace"]
+    - groupVersionKind:
+        group: kuadrant.io
+        kind: "AuthPolicy"
+        version: "v1beta2"
+      metricNamePrefix: gatewayapi_authpolicy
+      labelsFromPath:
+        name:
+        - metadata
+        - name
+        namespace:
+        - metadata
+        - namespace
+      metrics:
+      - name: "labels"
+        help: "Kubernetes labels converted to Prometheus labels."
+        each:
+          type: Info
+          info:
+            path: [metadata]
+            labelsFromPath:
+              "*": [labels]
+      - name: "created"
+        help: "created timestamp"
+        each:
+          type: Gauge
+          gauge:
+            path: [metadata, creationTimestamp]
+      - name: "deleted"
+        help: "deletion timestamp"
+        each:
+          type: Gauge
+          gauge:
+            path: [metadata, deletionTimestamp]
+      - name: "target_info"
+        help: "Target references that the authpolicy wants to be attached to"
+        each:
+          type: Info
+          info:
+            path: [spec, targetRef]
+            labelsFromPath:
+              target_group: ["group"]
+              target_kind: ["kind"]
+              target_name: ["name"]
+              target_namespace: ["namespace"]
+      - name: "status"
+        help: "status condition"
+        each:
+          type: Gauge
+          gauge:
+            path: [status, conditions]
+            labelsFromPath:
+              type: ["type"]
+            valueFrom: ["status"]

@@ -89,7 +89,7 @@
                {
                   "matcher": {
                      "id": "byName",
-                     "options": "Target Kind"
+                     "options": "Target Name"
                   },
                   "properties": [
                      {
@@ -100,8 +100,8 @@
                         "id": "links",
                         "value": [
                            {
-                              "title": "TLSPolicy Details",
-                              "url": "/d/gatewayapigateways/gateway-api-state-gateways?var-tlspolicy=${__value.text}"
+                              "title": "Gateway Details",
+                              "url": "/d/gatewayapigateways/gateway-api-state-gateways?var-gateway=${__value.text}"
                            }
                         ]
                      }
@@ -231,7 +231,7 @@
                {
                   "matcher": {
                      "id": "byName",
-                     "options": "Target Kind"
+                     "options": "Target Name"
                   },
                   "properties": [
                      {
@@ -242,8 +242,8 @@
                         "id": "links",
                         "value": [
                            {
-                              "title": "RateLimitPolicy Details",
-                              "url": "/d/gatewayapihttproutes/gateway-api-state-httproutes?var-ratelimitpolicy=${__value.text}"
+                              "title": "HTTPRoute Details",
+                              "url": "/d/gatewayapihttproutes/gateway-api-state-httproutes?var-httproute=${__value.text}"
                            }
                         ]
                      }
@@ -306,6 +306,148 @@
             "y": 8
          },
          "id": 9,
+         "title": "AuthPolicy",
+         "type": "row"
+      },
+      {
+         "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+         },
+         "description": "Total number of AuthPolicy across all clusters",
+         "gridPos": {
+            "h": 3,
+            "w": 2,
+            "x": 0,
+            "y": 9
+         },
+         "id": 10,
+         "pluginVersion": "v10.0.0",
+         "targets": [
+            {
+               "datasource": {
+                  "type": "prometheus",
+                  "uid": "$datasource"
+               },
+               "expr": "count(gatewayapi_authpolicy_status{name=~\"${authpolicy}\"})",
+               "instant": true
+            }
+         ],
+         "title": "Total",
+         "type": "stat"
+      },
+      {
+         "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+         },
+         "description": "Total AuthPolicy with an Available state",
+         "gridPos": {
+            "h": 3,
+            "w": 2,
+            "x": 2,
+            "y": 9
+         },
+         "id": 11,
+         "pluginVersion": "v10.0.0",
+         "targets": [
+            {
+               "datasource": {
+                  "type": "prometheus",
+                  "uid": "$datasource"
+               },
+               "expr": "count(gatewayapi_authpolicy_status{type=\"Available\", name=~\"${authpolicy}\"})",
+               "instant": true
+            }
+         ],
+         "title": "Available",
+         "type": "stat"
+      },
+      {
+         "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+         },
+         "fieldConfig": {
+            "overrides": [
+               {
+                  "matcher": {
+                     "id": "byName",
+                     "options": "Target Name"
+                  },
+                  "properties": [
+                     {
+                        "id": "custom.displayMode",
+                        "value": "color-text"
+                     },
+                     {
+                        "id": "links",
+                        "value": [
+                           {
+                              "title": "HTTPRoute Details",
+                              "url": "/d/gatewayapihttproutes/gateway-api-state-httproutes?var-httproute=${__value.text}"
+                           }
+                        ]
+                     }
+                  ]
+               }
+            ]
+         },
+         "gridPos": {
+            "h": 6,
+            "w": 10,
+            "x": 4,
+            "y": 9
+         },
+         "id": 12,
+         "pluginVersion": "v10.0.0",
+         "targets": [
+            {
+               "datasource": {
+                  "type": "prometheus",
+                  "uid": "$datasource"
+               },
+               "expr": "gatewayapi_authpolicy_target_info{name=~\"${authpolicy}\"}",
+               "format": "table",
+               "instant": true,
+               "range": false
+            }
+         ],
+         "title": "AuthPolicy",
+         "transformations": [
+            {
+               "id": "filterFieldsByName",
+               "options": {
+                  "include": {
+                     "names": [
+                        "name",
+                        "target_kind",
+                        "target_name"
+                     ]
+                  }
+               }
+            },
+            {
+               "id": "organize",
+               "options": {
+                  "renameByName": {
+                     "name": "Name",
+                     "target_kind": "Target Kind",
+                     "target_name": "Target Name"
+                  }
+               }
+            }
+         ],
+         "type": "table"
+      },
+      {
+         "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 10
+         },
+         "id": 13,
          "title": "BackendTLSPolicy",
          "type": "row"
       },
@@ -321,9 +463,9 @@
             "h": 6,
             "w": 10,
             "x": 4,
-            "y": 9
+            "y": 10
          },
-         "id": 10,
+         "id": 14,
          "pluginVersion": "v10.0.0",
          "targets": [
             {
@@ -406,6 +548,22 @@
             "name": "ratelimitpolicy",
             "query": {
                "query": "label_values(gatewayapi_ratelimitpolicy_created, name)",
+               "refId": "StandardVariableQuery"
+            },
+            "regex": "/(.*)/",
+            "type": "query"
+         },
+         {
+            "datasource": {
+               "type": "prometheus",
+               "uid": "${datasource}"
+            },
+            "includeAll": true,
+            "label": "AuthPolicy",
+            "multi": true,
+            "name": "authpolicy",
+            "query": {
+               "query": "label_values(gatewayapi_authpolicy_created, name)",
                "refId": "StandardVariableQuery"
             },
             "regex": "/(.*)/",
