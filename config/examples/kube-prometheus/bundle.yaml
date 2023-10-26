@@ -41342,7 +41342,7 @@ data:
                    {
                       "matcher": {
                          "id": "byName",
-                         "options": "Target Kind"
+                         "options": "Target Name"
                       },
                       "properties": [
                          {
@@ -41353,8 +41353,8 @@ data:
                             "id": "links",
                             "value": [
                                {
-                                  "title": "TLSPolicy Details",
-                                  "url": "/d/gatewayapigateways/gateway-api-state-gateways?var-tlspolicy=${__value.text}"
+                                  "title": "Gateway Details",
+                                  "url": "/d/gatewayapigateways/gateway-api-state-gateways?var-gateway=${__value.text}"
                                }
                             ]
                          }
@@ -41484,7 +41484,7 @@ data:
                    {
                       "matcher": {
                          "id": "byName",
-                         "options": "Target Kind"
+                         "options": "Target Name"
                       },
                       "properties": [
                          {
@@ -41495,8 +41495,8 @@ data:
                             "id": "links",
                             "value": [
                                {
-                                  "title": "RateLimitPolicy Details",
-                                  "url": "/d/gatewayapihttproutes/gateway-api-state-httproutes?var-ratelimitpolicy=${__value.text}"
+                                  "title": "HTTPRoute Details",
+                                  "url": "/d/gatewayapihttproutes/gateway-api-state-httproutes?var-httproute=${__value.text}"
                                }
                             ]
                          }
@@ -41626,7 +41626,7 @@ data:
                    {
                       "matcher": {
                          "id": "byName",
-                         "options": "Target Kind"
+                         "options": "Target Name"
                       },
                       "properties": [
                          {
@@ -41637,8 +41637,8 @@ data:
                             "id": "links",
                             "value": [
                                {
-                                  "title": "AuthPolicy Details",
-                                  "url": "/d/gatewayapihttproutes/gateway-api-state-httproutes?var-authpolicy=${__value.text}"
+                                  "title": "HTTPRoute Details",
+                                  "url": "/d/gatewayapihttproutes/gateway-api-state-httproutes?var-httproute=${__value.text}"
                                }
                             ]
                          }
@@ -41850,7 +41850,7 @@ data:
     }
 kind: ConfigMap
 metadata:
-  name: grafana-policies-6cd8tt22hh
+  name: grafana-policies-tc54tb8694
   namespace: monitoring
 
 ---
@@ -44605,7 +44605,7 @@ spec:
         name: grafana-tlsroutes
       - configMap:
           defaultMode: 420
-          name: grafana-policies-6cd8tt22hh
+          name: grafana-policies-tc54tb8694
         name: grafana-policies
       - configMap:
           defaultMode: 420

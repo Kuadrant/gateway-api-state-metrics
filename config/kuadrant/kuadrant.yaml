@@ -91,12 +91,12 @@ status:
 apiVersion: kuadrant.io/v1beta2
 kind: AuthPolicy
 metadata:
-  name: auth-internal-protection
+  name: dashboards-protection
 spec:
   targetRef:
     group: gateway.networking.k8s.io
     kind: HTTPRoute
-    name: auth-internal
+    name: dashboards
   rules:
     authentication:
       "keycloak-users":

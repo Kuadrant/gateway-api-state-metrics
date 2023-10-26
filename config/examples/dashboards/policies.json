@@ -89,7 +89,7 @@
                {
                   "matcher": {
                      "id": "byName",
-                     "options": "Target Kind"
+                     "options": "Target Name"
                   },
                   "properties": [
                      {
@@ -100,8 +100,8 @@
                         "id": "links",
                         "value": [
                            {
-                              "title": "TLSPolicy Details",
-                              "url": "/d/gatewayapigateways/gateway-api-state-gateways?var-tlspolicy=${__value.text}"
+                              "title": "Gateway Details",
+                              "url": "/d/gatewayapigateways/gateway-api-state-gateways?var-gateway=${__value.text}"
                            }
                         ]
                      }
@@ -231,7 +231,7 @@
                {
                   "matcher": {
                      "id": "byName",
-                     "options": "Target Kind"
+                     "options": "Target Name"
                   },
                   "properties": [
                      {
@@ -242,8 +242,8 @@
                         "id": "links",
                         "value": [
                            {
-                              "title": "RateLimitPolicy Details",
-                              "url": "/d/gatewayapihttproutes/gateway-api-state-httproutes?var-ratelimitpolicy=${__value.text}"
+                              "title": "HTTPRoute Details",
+                              "url": "/d/gatewayapihttproutes/gateway-api-state-httproutes?var-httproute=${__value.text}"
                            }
                         ]
                      }
@@ -373,7 +373,7 @@
                {
                   "matcher": {
                      "id": "byName",
-                     "options": "Target Kind"
+                     "options": "Target Name"
                   },
                   "properties": [
                      {
@@ -384,8 +384,8 @@
                         "id": "links",
                         "value": [
                            {
-                              "title": "AuthPolicy Details",
-                              "url": "/d/gatewayapihttproutes/gateway-api-state-httproutes?var-authpolicy=${__value.text}"
+                              "title": "HTTPRoute Details",
+                              "url": "/d/gatewayapihttproutes/gateway-api-state-httproutes?var-httproute=${__value.text}"
                            }
                         ]
                      }
