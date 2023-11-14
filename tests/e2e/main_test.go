@@ -588,6 +588,45 @@ func testTLSPolicy(t *testing.T, metrics map[string][][]string) {
 	expectEqual(t, tlspolicy1Status1Labels["type"], "Ready", "gatewayapi_tlspolicy_status__1 type")
 }
 
+func testDNSPolicy(t *testing.T, metrics map[string][][]string) {
+	// gatewayapi_dnspolicy_created
+	dnspolicyCreated := metrics["gatewayapi_dnspolicy_created"]
+	dnspolicy1Created := dnspolicyCreated[0]
+	expectValidTimestampInPast(t, dnspolicy1Created[3], "gatewayapi_dnspolicy_created__1 value")
+	dnspolicy1CreatedLabels := parseLabels(string(dnspolicy1Created[2]))
+	expectEqual(t, dnspolicy1CreatedLabels["customresource_group"], "kuadrant.io", "gatewayapi_dnspolicy_created__1 customresource_group")
+	expectEqual(t, dnspolicy1CreatedLabels["customresource_kind"], "DNSPolicy", "gatewayapi_dnspolicy_created__1 customresource_kind")
+	expectEqual(t, dnspolicy1CreatedLabels["customresource_version"], "v1alpha1", "gatewayapi_dnspolicy_created__1 customresource_version")
+	expectEqual(t, dnspolicy1CreatedLabels["name"], "testdnspolicy1", "gatewayapi_dnspolicy_created__1 name")
+	expectEqual(t, dnspolicy1CreatedLabels["namespace"], "default", "gatewayapi_dnspolicy_created__1 namespace")
+
+	//gatewayapi_dnspolicy_target_info
+	dnspolicyParentInfo := metrics["gatewayapi_dnspolicy_target_info"]
+	dnspolicy1ParentInfo1 := dnspolicyParentInfo[0]
+	expectEqual(t, dnspolicy1ParentInfo1[3], "1", "gatewayapi_dnspolicy_target_info__1 value")
+	dnspolicy1ParentInfo1Labels := parseLabels(string(dnspolicy1ParentInfo1[2]))
+	expectEqual(t, dnspolicy1ParentInfo1Labels["customresource_group"], "kuadrant.io", "gatewayapi_dnspolicy_target_info__1 customresource_group")
+	expectEqual(t, dnspolicy1ParentInfo1Labels["customresource_kind"], "DNSPolicy", "gatewayapi_dnspolicy_target_info__1 customresource_kind")
+	expectEqual(t, dnspolicy1ParentInfo1Labels["customresource_version"], "v1alpha1", "gatewayapi_dnspolicy_target_info__1 customresource_version")
+	expectEqual(t, dnspolicy1ParentInfo1Labels["name"], "testdnspolicy1", "gatewayapi_dnspolicy_target_info__1 name")
+	expectEqual(t, dnspolicy1ParentInfo1Labels["namespace"], "default", "gatewayapi_dnspolicy_target_info__1 namespace")
+	expectEqual(t, dnspolicy1ParentInfo1Labels["target_group"], "gateway.networking.k8s.io", "gatewayapi_dnspolicy_target_info__1 target_group")
+	expectEqual(t, dnspolicy1ParentInfo1Labels["target_kind"], "Gateway", "gatewayapi_dnspolicy_target_info__1 target_kind")
+	expectEqual(t, dnspolicy1ParentInfo1Labels["target_name"], "testgateway1", "gatewayapi_dnspolicy_target_info__1 target_name")
+
+	//gatewayapi_dnspolicy_status
+	dnspolicyStatus := metrics["gatewayapi_dnspolicy_status"]
+	dnspolicy1Status1 := dnspolicyStatus[0]
+	expectEqual(t, dnspolicy1Status1[3], "1", "gatewayapi_dnspolicy_status__1 value")
+	dnspolicy1Status1Labels := parseLabels(string(dnspolicy1Status1[2]))
+	expectEqual(t, dnspolicy1Status1Labels["customresource_group"], "kuadrant.io", "gatewayapi_dnspolicy_status__1 customresource_group")
+	expectEqual(t, dnspolicy1Status1Labels["customresource_kind"], "DNSPolicy", "gatewayapi_dnspolicy_status__1 customresource_kind")
+	expectEqual(t, dnspolicy1Status1Labels["customresource_version"], "v1alpha1", "gatewayapi_dnspolicy_status__1 customresource_version")
+	expectEqual(t, dnspolicy1Status1Labels["name"], "testdnspolicy1", "gatewayapi_dnspolicy_status__1 name")
+	expectEqual(t, dnspolicy1Status1Labels["namespace"], "default", "gatewayapi_dnspolicy_status__1 namespace")
+	expectEqual(t, dnspolicy1Status1Labels["type"], "Ready", "gatewayapi_dnspolicy_status__1 type")
+}
+
 func testAuthPolicy(t *testing.T, metrics map[string][][]string) {
 	// gatewayapi_authpolicy_created
 	authpolicyCreated := metrics["gatewayapi_authpolicy_created"]

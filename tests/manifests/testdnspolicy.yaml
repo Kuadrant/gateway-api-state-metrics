@@ -1,0 +1,18 @@
+apiVersion: kuadrant.io/v1alpha1
+kind: DNSPolicy
+metadata:
+  name: testdnspolicy1
+  namespace: default
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: Gateway
+    name: testgateway1
+status:
+  conditions:
+  - lastTransitionTime: "2023-11-13T17:11:41Z"
+    message: Gateway is DNS Enabled
+    reason: GatewayDNSEnabled
+    status: "True"
+    type: Ready
+  observedGeneration: 1
