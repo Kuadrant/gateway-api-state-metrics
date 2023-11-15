@@ -42,6 +42,25 @@ status:
     status: "True"
     type: Ready
 ---
+apiVersion: kuadrant.io/v1alpha1
+kind: DNSPolicy
+metadata:
+  name: external
+  namespace: istio-system
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: Gateway
+    name: external
+status:
+  conditions:
+  - lastTransitionTime: "2023-11-13T17:11:41Z"
+    message: Gateway is DNS Enabled
+    reason: GatewayDNSEnabled
+    status: "True"
+    type: Ready
+  observedGeneration: 1
+---
 apiVersion: kuadrant.io/v1beta2
 kind: RateLimitPolicy
 metadata:

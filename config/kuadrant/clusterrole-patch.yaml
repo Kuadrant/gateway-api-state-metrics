@@ -15,6 +15,7 @@
     - "kuadrant.io"
     resources:
     - tlspolicies
+    - dnspolicies
     - ratelimitpolicies
     - authpolicies
     verbs:
