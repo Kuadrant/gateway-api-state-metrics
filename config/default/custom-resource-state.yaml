@@ -53,6 +53,7 @@ spec:
               protocol: ["protocol"]
               hostname: ["hostname"]
               tls_mode: ["tls","mode"]
+              allowed_routes_namespaces_from: ["allowedRoutes", "namespaces", "from"]
       - name: "status"
         help: "status condition"
         each:

@@ -89,6 +89,7 @@ gwapi.dashboard('Gateways', 'gatewayapigateways', [
           'port',
           'protocol',
           'tls_mode',
+          'allowed_routes_namespaces_from',
           'Value',
         ],
       },
@@ -109,6 +110,7 @@ gwapi.dashboard('Gateways', 'gatewayapigateways', [
         port: 6,
         protocol: 7,
         tls_mode: 8,
+        allowed_routes_namespaces_from: 10
       },
       renameByName: {
         Value: '',
@@ -122,6 +124,7 @@ gwapi.dashboard('Gateways', 'gatewayapigateways', [
         prometheus: '',
         protocol: 'Protocol',
         tls_mode: 'TLS Mode',
+        allowed_routes_namespaces_from: 'Allowed Routes NS'
       },
     }),
   ]),
