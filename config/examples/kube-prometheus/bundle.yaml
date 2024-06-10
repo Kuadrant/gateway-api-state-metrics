@@ -1038,6 +1038,7 @@ data:
                   protocol: ["protocol"]
                   hostname: ["hostname"]
                   tls_mode: ["tls","mode"]
+                  allowed_routes_namespaces_from: ["allowedRoutes", "namespaces", "from"]
           - name: "status"
             help: "status condition"
             each:
@@ -38672,6 +38673,7 @@ data:
                             "port",
                             "protocol",
                             "tls_mode",
+                            "allowed_routes_namespaces_from",
                             "Value"
                          ]
                       }
@@ -38685,6 +38687,7 @@ data:
                       },
                       "indexByName": {
                          "Value": 9,
+                         "allowed_routes_namespaces_from": 10,
                          "customresource_kind": 0,
                          "customresource_version": 1,
                          "hostname": 5,
@@ -38697,6 +38700,7 @@ data:
                       },
                       "renameByName": {
                          "Value": "",
+                         "allowed_routes_namespaces_from": "Allowed Routes NS",
                          "customresource_kind": "Kind",
                          "customresource_version": "Version",
                          "hostname": "Hostname",
@@ -39706,7 +39710,7 @@ data:
     }
 kind: ConfigMap
 metadata:
-  name: grafana-gateways-6465t79fc4
+  name: grafana-gateways-dh56k7246b
   namespace: monitoring
 
 ---
@@ -44585,7 +44589,7 @@ spec:
         name: grafana-gatewayclasses
       - configMap:
           defaultMode: 420
-          name: grafana-gateways-6465t79fc4
+          name: grafana-gateways-dh56k7246b
         name: grafana-gateways
       - configMap:
           defaultMode: 420

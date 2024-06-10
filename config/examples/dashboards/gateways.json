@@ -350,6 +350,7 @@
                         "port",
                         "protocol",
                         "tls_mode",
+                        "allowed_routes_namespaces_from",
                         "Value"
                      ]
                   }
@@ -363,6 +364,7 @@
                   },
                   "indexByName": {
                      "Value": 9,
+                     "allowed_routes_namespaces_from": 10,
                      "customresource_kind": 0,
                      "customresource_version": 1,
                      "hostname": 5,
@@ -375,6 +377,7 @@
                   },
                   "renameByName": {
                      "Value": "",
+                     "allowed_routes_namespaces_from": "Allowed Routes NS",
                      "customresource_kind": "Kind",
                      "customresource_version": "Version",
                      "hostname": "Hostname",
