@@ -5,7 +5,7 @@
 [Kube State Metrics](https://github.com/kubernetes/kube-state-metrics) `CustomResourceState` configurations for [Gateway API](https://gateway-api.sigs.k8s.io/) resources.
 
 The contents of this repository are intended to be used with kube-state-metrics.
-To use the CustomResourceState, see the [configuration information](https://github.com/kubernetes/kube-state-metrics/blob/main/docs/customresourcestate-metrics.md#configuration) for how to
+To use the CustomResourceState, see the [configuration information](https://github.com/kubernetes/kube-state-metrics/blob/main/docs/metrics/extend/customresourcestate-metrics.md#configuration) for how to
 configure an existing or separate kube-state-metrics instance with a custom
 resource configuration.
 
