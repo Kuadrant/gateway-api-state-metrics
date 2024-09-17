@@ -715,3 +715,42 @@ spec:
             labelsFromPath:
               type: ["type"]
             valueFrom: ["status"]
+    - groupVersionKind:
+        group: kuadrant.io
+        kind: "DNSRecord"
+        version: "v1alpha1"
+      metricNamePrefix: kuadrant_dnsrecord
+      labelsFromPath:
+        name:
+        - metadata
+        - name
+        namespace:
+        - metadata
+        - namespace
+        rootDomain:
+        - spec
+        - rootHost
+      metrics:
+      - name: "created"
+        help: "created timestamp"
+        each:
+          type: Gauge
+          gauge:
+            path: [metadata, creationTimestamp]
+      - name: "status_root_domain_owners"
+        help: "root domain owners (the ids of controllers managing this root domain)"
+        each:
+          type: Info
+          info:
+            path: [status, domainOwners]
+            labelsFromPath:
+              owner: []
+      - name: "status"
+        help: "status condition"
+        each:
+          type: Gauge
+          gauge:
+            path: [status, conditions]
+            labelsFromPath:
+              type: ["type"]
+            valueFrom: ["status"]

@@ -214,24 +214,24 @@
         group: kuadrant.io
         kind: "DNSRecord"
         version: "v1alpha1"
-      metricNamePrefix: kuadrant_dnsrecord            
+      metricNamePrefix: kuadrant_dnsrecord
       labelsFromPath:
         name:
         - metadata
         - name
         namespace:
         - metadata
-        - namespace 
+        - namespace
         rootDomain:
         - spec
-        - rootHost     
+        - rootHost
       metrics:
       - name: "created"
         help: "created timestamp"
         each:
           type: Gauge
           gauge:
-            path: [metadata, creationTimestamp]      
+            path: [metadata, creationTimestamp]
       - name: "status_root_domain_owners"
         help: "root domain owners (the ids of controllers managing this root domain)"
         each:
