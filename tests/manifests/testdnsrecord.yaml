@@ -1,0 +1,129 @@
+apiVersion: kuadrant.io/v1alpha1
+kind: DNSRecord
+metadata:
+  name: testdnsrecord1
+  namespace: default
+spec:
+  endpoints:
+  - dnsName: 15cku8-29fy65.klb.test.cb.hcpapps.net
+    recordTTL: 60
+    recordType: A
+    targets:
+    - 172.18.0.17
+  - dnsName: eu.klb.test.cb.hcpapps.net
+    providerSpecific:
+    - name: weight
+      value: "120"
+    recordTTL: 60
+    recordType: CNAME
+    setIdentifier: 15cku8-29fy65.klb.test.cb.hcpapps.net
+    targets:
+    - 15cku8-29fy65.klb.test.cb.hcpapps.net
+  - dnsName: klb.test.cb.hcpapps.net
+    providerSpecific:
+    - name: geo-code
+      value: EU
+    recordTTL: 300
+    recordType: CNAME
+    setIdentifier: EU
+    targets:
+    - eu.klb.test.cb.hcpapps.net
+  - dnsName: klb.test.cb.hcpapps.net
+    providerSpecific:
+    - name: geo-code
+      value: '*'
+    recordTTL: 300
+    recordType: CNAME
+    setIdentifier: default
+    targets:
+    - eu.klb.test.cb.hcpapps.net
+  - dnsName: test.cb.hcpapps.net
+    recordTTL: 300
+    recordType: CNAME
+    targets:
+    - klb.test.cb.hcpapps.net
+  providerRef:
+    name: my-aws-credentials
+  rootHost: test.cb.hcpapps.net
+status:
+  conditions:
+  - lastTransitionTime: "2024-09-18T07:41:17Z"
+    message: Provider ensured the dns record
+    observedGeneration: 1
+    reason: ProviderSuccess
+    status: "True"
+    type: Ready
+  domainOwners:
+  - k4ww8e00
+  - mvg80cg8
+  endpoints:
+  - dnsName: 15cku8-29fy65.klb.test.cb.hcpapps.net
+    labels:
+      owner: k4ww8e00
+    recordTTL: 60
+    recordType: A
+    targets:
+    - 172.18.0.17
+  - dnsName: eu.klb.test.cb.hcpapps.net
+    labels:
+      owner: k4ww8e00
+    providerSpecific:
+    - name: alias
+      value: "false"
+    - name: aws/weight
+      value: "120"
+    recordTTL: 60
+    recordType: CNAME
+    setIdentifier: 15cku8-29fy65.klb.test.cb.hcpapps.net
+    targets:
+    - 15cku8-29fy65.klb.test.cb.hcpapps.net
+  - dnsName: klb.test.cb.hcpapps.net
+    labels:
+      owner: k4ww8e00&&mvg80cg8
+    providerSpecific:
+    - name: alias
+      value: "false"
+    - name: aws/geolocation-continent-code
+      value: EU
+    recordTTL: 300
+    recordType: CNAME
+    setIdentifier: EU
+    targets:
+    - eu.klb.test.cb.hcpapps.net
+  - dnsName: klb.test.cb.hcpapps.net
+    labels:
+      owner: k4ww8e00&&mvg80cg8
+    providerSpecific:
+    - name: alias
+      value: "false"
+    - name: aws/geolocation-country-code
+      value: '*'
+    recordTTL: 300
+    recordType: CNAME
+    setIdentifier: default
+    targets:
+    - eu.klb.test.cb.hcpapps.net
+  - dnsName: test.cb.hcpapps.net
+    labels:
+      owner: k4ww8e00&&mvg80cg8
+    providerSpecific:
+    - name: alias
+      value: "false"
+    recordTTL: 300
+    recordType: CNAME
+    targets:
+    - klb.test.cb.hcpapps.net
+  healthCheck:
+    conditions:
+    - lastTransitionTime: "2024-09-18T08:59:31Z"
+      message: all 0 probes synced successfully
+      observedGeneration: 1
+      reason: AllProbesSynced
+      status: "True"
+      type: healthProbesSynced
+  observedGeneration: 1
+  ownerID: k4ww8e00
+  queuedAt: "2024-09-18T08:59:21Z"
+  validFor: 10m40s
+  zoneDomainName: cb.hcpapps.net
+  zoneID: /hostedzone/Z020652020A1X1WYHNUQ0
