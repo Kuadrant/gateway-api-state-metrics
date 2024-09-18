@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Download Kustomize
       run: |
         curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
@@ -56,3 +56,20 @@ jobs:
             echo "::error:: Bundles comparison failed. Please run 'make generate-bundles' and check in changes."
             exit 1
           fi
+
+  check-kuadrant-custom-resource-state:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Execute generation script
+      run: ./hack/gen_kuadrant_custom_resource_state.sh
+
+    - name: Check for changes in generated file
+      run: |
+        if ! git diff --exit-code ./config/kuadrant/custom-resource-state.yaml; then
+          echo "The generated file ./config/kuadrant/custom-resource-state.yaml has changes."
+          echo "Please run './hack/gen_kuadrant_custom_resource_state.sh' locally and check in the changes."
+          exit 1
+        fi

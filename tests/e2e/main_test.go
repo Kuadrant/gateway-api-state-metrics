@@ -89,6 +89,35 @@ func TestGatewayMetricsAvailable(t *testing.T) {
 	testBackendTLSPolicy(t, gatewayapiMetrics)
 	testRateLimitPolicy(t, gatewayapiMetrics)
 	testTLSPolicy(t, gatewayapiMetrics)
+	testAuthPolicy(t, gatewayapiMetrics)
+	testDNSPolicy(t, gatewayapiMetrics)
+}
+
+func TestKuadrantMetricsAvailable(t *testing.T) {
+	buf := &bytes.Buffer{}
+
+	err := framework.KsmClient.Metrics(buf)
+	if err != nil {
+		t.Fatalf("failed to get metrics from kube-state-metrics: %v", err)
+	}
+
+	re := regexp.MustCompile(`^(kuadrant_.*){(.*)}\s+(.*)`)
+	scanner := bufio.NewScanner(buf)
+	kuadrantMetrics := map[string][][]string{}
+	for scanner.Scan() {
+		// fmt.Printf("checking metric text=%s\n", scanner.Text())
+		params := re.FindStringSubmatch(scanner.Text())
+		// fmt.Printf("params=%v\n", params)
+		if len(params) < 4 {
+			continue
+		}
+		if kuadrantMetrics[params[1]] == nil {
+			kuadrantMetrics[params[1]] = [][]string{}
+		}
+		fmt.Printf("Adding matched metric params=%v\n", params)
+		kuadrantMetrics[params[1]] = append(kuadrantMetrics[params[1]], params)
+	}
+	testDNSRecord(t, kuadrantMetrics)
 }
 
 func testGatewayClasses(t *testing.T, metrics map[string][][]string) {
@@ -664,6 +693,53 @@ func testAuthPolicy(t *testing.T, metrics map[string][][]string) {
 	expectEqual(t, authpolicy1Status1Labels["name"], "testauthpolicy1", "gatewayapi_authpolicy_status__1 name")
 	expectEqual(t, authpolicy1Status1Labels["namespace"], "default", "gatewayapi_authpolicy_status__1 namespace")
 	expectEqual(t, authpolicy1Status1Labels["type"], "Available", "gatewayapi_authpolicy_status__1 type")
+}
+
+func testDNSRecord(t *testing.T, metrics map[string][][]string) {
+	// kuadrant_dnsrecord_created
+	dnsrecordCreated := metrics["kuadrant_dnsrecord_created"]
+	dnsrecord1Created := dnsrecordCreated[0]
+	expectValidTimestampInPast(t, dnsrecord1Created[3], "kuadrant_dnsrecord_created__1 value")
+	dnsrecord1CreatedLabels := parseLabels(string(dnsrecord1Created[2]))
+	expectEqual(t, dnsrecord1CreatedLabels["customresource_group"], "kuadrant.io", "kuadrant_dnsrecord_created__1 customresource_group")
+	expectEqual(t, dnsrecord1CreatedLabels["customresource_kind"], "DNSRecord", "kuadrant_dnsrecord_created__1 customresource_kind")
+	expectEqual(t, dnsrecord1CreatedLabels["customresource_version"], "v1alpha1", "kuadrant_dnsrecord_created__1 customresource_version")
+	expectEqual(t, dnsrecord1CreatedLabels["name"], "testdnsrecord1", "kuadrant_dnsrecord_created__1 name")
+	expectEqual(t, dnsrecord1CreatedLabels["namespace"], "default", "kuadrant_dnsrecord_created__1 namespace")
+
+	//kuadrant_dnsrecord_status
+	dnsrecordStatus := metrics["kuadrant_dnsrecord_status"]
+	dnsrecord1Status1 := dnsrecordStatus[0]
+	expectEqual(t, dnsrecord1Status1[3], "1", "kuadrant_dnsrecord_status__1 value")
+	dnsrecord1Status1Labels := parseLabels(string(dnsrecord1Status1[2]))
+	expectEqual(t, dnsrecord1Status1Labels["customresource_group"], "kuadrant.io", "kuadrant_dnsrecord_status__1 customresource_group")
+	expectEqual(t, dnsrecord1Status1Labels["customresource_kind"], "DNSRecord", "kuadrant_dnsrecord_status__1 customresource_kind")
+	expectEqual(t, dnsrecord1Status1Labels["customresource_version"], "v1alpha1", "kuadrant_dnsrecord_status__1 customresource_version")
+	expectEqual(t, dnsrecord1Status1Labels["name"], "testdnsrecord1", "kuadrant_dnsrecord_status__1 name")
+	expectEqual(t, dnsrecord1Status1Labels["namespace"], "default", "kuadrant_dnsrecord_status__1 namespace")
+	expectEqual(t, dnsrecord1Status1Labels["type"], "Ready", "kuadrant_dnsrecord_status__1 type")
+
+	//kuadrant_dnsrecord_status_root_domain_owners
+	dnsrecordStatusRootDomainOwners := metrics["kuadrant_dnsrecord_status_root_domain_owners"]
+	dnsrecord1StatusRootDomainOwners1 := dnsrecordStatusRootDomainOwners[0]
+	expectEqual(t, dnsrecord1StatusRootDomainOwners1[3], "1", "kuadrant_dnsrecord_status_root_domain_owners__1 value")
+	dnsrecord1StatusRootDomainOwners1Labels := parseLabels(string(dnsrecord1StatusRootDomainOwners1[2]))
+	expectEqual(t, dnsrecord1StatusRootDomainOwners1Labels["customresource_group"], "kuadrant.io", "kuadrant_dnsrecord_status_root_domain_owners__1 customresource_group")
+	expectEqual(t, dnsrecord1StatusRootDomainOwners1Labels["customresource_kind"], "DNSRecord", "kuadrant_dnsrecord_status_root_domain_owners__1 customresource_kind")
+	expectEqual(t, dnsrecord1StatusRootDomainOwners1Labels["customresource_version"], "v1alpha1", "kuadrant_dnsrecord_status_root_domain_owners__1 customresource_version")
+	expectEqual(t, dnsrecord1StatusRootDomainOwners1Labels["name"], "testdnsrecord1", "kuadrant_dnsrecord_status_root_domain_owners__1 name")
+	expectEqual(t, dnsrecord1StatusRootDomainOwners1Labels["namespace"], "default", "kuadrant_dnsrecord_status_root_domain_owners__1 namespace")
+
+	expectedRootDomainOwners := map[int]string{
+		0: "k4ww8e00",
+		1: "mvg80cg8",
+	}
+
+	for i, rootDomainOwner := range dnsrecordStatusRootDomainOwners {
+		rootDomainOwnerInfo := parseLabels(string(rootDomainOwner[0]))
+		rootDomainOwnerName := rootDomainOwnerInfo["owner"]
+		expectEqual(t, rootDomainOwnerName, expectedRootDomainOwners[i], "kuadrant_dnsrecord_status_root_domain_owners__"+strconv.Itoa(i)+" owner")
+	}
 }
 
 func parseLabels(labelsRaw string) map[string]string {

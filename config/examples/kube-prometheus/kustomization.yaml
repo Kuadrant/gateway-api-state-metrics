@@ -5,7 +5,7 @@ resources:
   - github.com/prometheus-operator/kube-prometheus?ref=release-0.11
 # Use the github url instead of the relative path if using this outside the repo
 #  - github.com/kuadrant/gateway-api-state-metrics?ref=<release>
-  - ../../default
+  - ../../kuadrant
 # Include the example dashboars and rules if you want
   - ../dashboards
   - ../rules

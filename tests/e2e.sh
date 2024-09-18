@@ -133,7 +133,7 @@ kubectl create -f ./config/gateway-api/crd/standard/
 kubectl create -f ./config/kuadrant/crd/
 
 # create gateway-api customresourcestatemetrics configmap
-kubectl create configmap custom-resource-state --from-file=./config/default/custom-resource-state.yaml --dry-run=client -o yaml | kubectl -n kube-system apply -f -
+kubectl create configmap custom-resource-state --from-file=./config/kuadrant/custom-resource-state.yaml --dry-run=client -o yaml | kubectl -n kube-system apply -f -
 
 # set up kube-state-metrics manifests
 kubectl create -f ./config/examples/kube-state-metrics/service-account.yaml
@@ -165,7 +165,7 @@ echo "kube-state-metrics is up and running"
 echo "start e2e test for kube-state-metrics"
 KSM_HTTP_METRICS_URL='http://localhost:8001/api/v1/namespaces/kube-system/services/kube-state-metrics:http-metrics/proxy'
 KSM_TELEMETRY_URL='http://localhost:8001/api/v1/namespaces/kube-system/services/kube-state-metrics:telemetry/proxy'
-go test -v ./tests/e2e/main_test.go --ksm-http-metrics-url=${KSM_HTTP_METRICS_URL} --ksm-telemetry-url=${KSM_TELEMETRY_URL}
+go test -mod=readonly -v ./tests/e2e/main_test.go --ksm-http-metrics-url=${KSM_HTTP_METRICS_URL} --ksm-telemetry-url=${KSM_TELEMETRY_URL}
 
 # TODO: re-implement the following test cases in Go with the goal of removing this file.
 echo "access kube-state-metrics metrics endpoint"
