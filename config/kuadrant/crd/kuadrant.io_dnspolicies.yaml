@@ -1,12 +1,18 @@
----
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.10.0
-  creationTimestamp: null
+    controller-gen.kubebuilder.io/version: v0.16.5
+    operatorframework.io/installed-alongside-9c917e148c39eb2c: kuadrant-system/kuadrant-operator.v1.0.0-rc4
+  labels:
+    app: kuadrant
+    gateway.networking.k8s.io/policy: direct
+    olm.managed: "true"
+    operators.coreos.com/kuadrant-operator.kuadrant-system: ""
   name: dnspolicies.kuadrant.io
 spec:
+  conversion:
+    strategy: None
   group: kuadrant.io
   names:
     kind: DNSPolicy
@@ -16,151 +22,161 @@ spec:
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
-    - description: DNSPolicy ready.
-      jsonPath: .status.conditions[?(@.type=="Ready")].status
-      name: Ready
+    - description: DNSPolicy Accepted
+      jsonPath: .status.conditions[?(@.type=="Accepted")].status
+      name: Accepted
+      priority: 2
       type: string
-    name: v1alpha1
+    - description: DNSPolicy Enforced
+      jsonPath: .status.conditions[?(@.type=="Enforced")].status
+      name: Enforced
+      priority: 2
+      type: string
+    - description: Type of the referenced Gateway API resource
+      jsonPath: .spec.targetRef.kind
+      name: TargetRefKind
+      priority: 2
+      type: string
+    - description: Name of the referenced Gateway API resource
+      jsonPath: .spec.targetRef.name
+      name: TargetRefName
+      priority: 2
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1
     schema:
       openAPIV3Schema:
         description: DNSPolicy is the Schema for the dnspolicies API
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation
-              of an object. Servers should convert recognized schemas to the latest
-              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
             type: string
           kind:
-            description: 'Kind is a string value representing the REST resource this
-              object represents. Servers may infer this from the endpoint the client
-              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
             type: string
           metadata:
             type: object
           spec:
             description: DNSPolicySpec defines the desired state of DNSPolicy
             properties:
+              excludeAddresses:
+                description: ExcludeAddresses is a list of addresses (either hostnames,
+                  CIDR or IPAddresses) that DNSPolicy should not use as values in
+                  the configured DNS provider records. The default is to allow all
+                  addresses configured in the Gateway DNSPolicy is targeting
+                items:
+                  type: string
+                maxItems: 20
+                type: array
               healthCheck:
-                description: HealthCheckSpec configures health checks in the DNS provider.
-                  By default this health check will be applied to each unique DNS
-                  A Record for the listeners assigned to the target gateway
+                description: |-
+                  HealthCheckSpec configures health checks in the DNS provider.
+                  By default this health check will be applied to each unique DNS A Record for
+                  the listeners assigned to the target gateway
                 properties:
                   additionalHeadersRef:
+                    description: |-
+                      AdditionalHeadersRef refers to a secret that contains extra headers to send in the probe request, this is primarily useful if an authentication
+                      token is required by the endpoint.
                     properties:
                       name:
                         type: string
                     required:
                     - name
                     type: object
-                  allowInsecureCertificates:
-                    type: boolean
-                  endpoint:
-                    type: string
-                  expectedResponses:
-                    items:
-                      type: integer
-                    type: array
                   failureThreshold:
+                    description: FailureThreshold is a limit of consecutive failures
+                      that must occur for a host to be considered unhealthy
                     type: integer
+                    x-kubernetes-validations:
+                    - message: Failure threshold must be greater than 0
+                      rule: self > 0
                   interval:
+                    description: Interval defines how frequently this probe should
+                      execute
+                    type: string
+                  path:
+                    description: |-
+                      Path is the path to append to the host to reach the expected health check.
+                      Must start with "?" or "/", contain only valid URL characters and end with alphanumeric char or "/". For example "/" or "/healthz" are common
+                    pattern: ^(?:\?|\/)[\w\-.~:\/?#\[\]@!$&'()*+,;=]+(?:[a-zA-Z0-9]|\/){1}$
                     type: string
                   port:
+                    description: Port to connect to the host on. Must be either 80,
+                      443 or 1024-49151
                     type: integer
+                    x-kubernetes-validations:
+                    - message: Only ports 80, 443, 1024-49151 are allowed
+                      rule: self in [80, 443] || (self >= 1024 && self <= 49151)
                   protocol:
-                    description: HealthProtocol represents the protocol to use when
-                      making a health check request
+                    description: Protocol to use when connecting to the host, valid
+                      values are "HTTP" or "HTTPS"
                     type: string
+                    x-kubernetes-validations:
+                    - message: Only HTTP or HTTPS protocols are allowed
+                      rule: self in ['HTTP','HTTPS']
                 type: object
               loadBalancing:
                 properties:
+                  defaultGeo:
+                    description: defaultGeo specifies if this is the default geo for
+                      providers that support setting a default catch all geo endpoint
+                      such as Route53.
+                    type: boolean
                   geo:
-                    properties:
-                      defaultGeo:
-                        description: "defaultGeo is the country/continent/region code
-                          to use when no other can be determined for a dns target
-                          cluster. \n The values accepted are determined by the target
-                          dns provider, please refer to the appropriate docs below.
-                          \n Route53: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-values-geo.html"
-                        type: string
-                    type: object
-                  weighted:
-                    properties:
-                      custom:
-                        items:
-                          properties:
-                            selector:
-                              description: 'Label selector used by MGC to match resource
-                                storing custom weight attribute values e.g. kuadrant.io/lb-attribute-custom-weight:
-                                AWS'
-                              properties:
-                                matchExpressions:
-                                  description: matchExpressions is a list of label
-                                    selector requirements. The requirements are ANDed.
-                                  items:
-                                    description: A label selector requirement is a
-                                      selector that contains values, a key, and an
-                                      operator that relates the key and values.
-                                    properties:
-                                      key:
-                                        description: key is the label key that the
-                                          selector applies to.
-                                        type: string
-                                      operator:
-                                        description: operator represents a key's relationship
-                                          to a set of values. Valid operators are
-                                          In, NotIn, Exists and DoesNotExist.
-                                        type: string
-                                      values:
-                                        description: values is an array of string
-                                          values. If the operator is In or NotIn,
-                                          the values array must be non-empty. If the
-                                          operator is Exists or DoesNotExist, the
-                                          values array must be empty. This array is
-                                          replaced during a strategic merge patch.
-                                        items:
-                                          type: string
-                                        type: array
-                                    required:
-                                    - key
-                                    - operator
-                                    type: object
-                                  type: array
-                                matchLabels:
-                                  additionalProperties:
-                                    type: string
-                                  description: matchLabels is a map of {key,value}
-                                    pairs. A single {key,value} in the matchLabels
-                                    map is equivalent to an element of matchExpressions,
-                                    whose key field is "key", the operator is "In",
-                                    and the values array contains only "value". The
-                                    requirements are ANDed.
-                                  type: object
-                              type: object
-                              x-kubernetes-map-type: atomic
-                            weight:
-                              minimum: 0
-                              type: integer
-                          required:
-                          - selector
-                          type: object
-                        type: array
-                      defaultWeight:
-                        default: 120
-                        description: "defaultWeight is the record weight to use when
-                          no other can be determined for a dns target cluster. \n
-                          The maximum value accepted is determined by the target dns
-                          provider, please refer to the appropriate docs below. \n
-                          Route53: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy-weighted.html"
-                        minimum: 0
-                        type: integer
-                    type: object
+                    description: |-
+                      geo value to apply to geo endpoints.
+
+                      The values accepted are determined by the target dns provider, please refer to the appropriate docs below.
+
+                      Route53: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-values-geo.html
+                      Google: https://cloud.google.com/compute/docs/regions-zones
+                      Azure: https://learn.microsoft.com/en-us/azure/traffic-manager/traffic-manager-geographic-regions
+                    minLength: 2
+                    type: string
+                  weight:
+                    default: 120
+                    description: |-
+                      weight value to apply to weighted endpoints.
+
+                      The maximum value accepted is determined by the target dns provider, please refer to the appropriate docs below.
+
+                      Route53: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy-weighted.html
+                      Google: https://cloud.google.com/dns/docs/overview/
+                      Azure: https://learn.microsoft.com/en-us/azure/traffic-manager/traffic-manager-routing-methods#weighted-traffic-routing-method
+                    type: integer
+                required:
+                - defaultGeo
+                - geo
+                - weight
                 type: object
+              providerRefs:
+                description: providerRefs is a list of references to provider secrets.
+                  Max is one but intention is to allow this to be more in the future
+                items:
+                  properties:
+                    name:
+                      minLength: 1
+                      type: string
+                  required:
+                  - name
+                  type: object
+                maxItems: 1
+                minItems: 1
+                type: array
               targetRef:
-                description: PolicyTargetReference identifies an API object to apply
-                  policy to. This should be used as part of Policy resources that
-                  can target Gateway API resources. For more information on how this
-                  policy attachment model works, and a sample Policy resource, refer
-                  to the policy attachment documentation for Gateway API.
+                description: targetRef identifies an API object to apply policy to.
                 properties:
                   group:
                     description: Group is the group of the target resource.
@@ -178,68 +194,76 @@ spec:
                     maxLength: 253
                     minLength: 1
                     type: string
-                  namespace:
-                    description: Namespace is the namespace of the referent. When
-                      unspecified, the local namespace is inferred. Even when policy
-                      targets a resource in a different namespace, it MUST only apply
-                      to traffic originating from the same namespace as the policy.
-                    maxLength: 63
+                  sectionName:
+                    description: |-
+                      SectionName is the name of a section within the target resource. When
+                      unspecified, this targetRef targets the entire resource. In the following
+                      resources, SectionName is interpreted as the following:
+
+                      * Gateway: Listener name
+                      * HTTPRoute: HTTPRouteRule name
+                      * Service: Port name
+
+                      If a SectionName is specified, but does not exist on the targeted object,
+                      the Policy must fail to attach, and the policy implementation should record
+                      a `ResolvedRefs` or similar Condition in the Policy's status.
+                    maxLength: 253
                     minLength: 1
-                    pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                    pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
                     type: string
                 required:
                 - group
                 - kind
                 - name
                 type: object
+                x-kubernetes-validations:
+                - message: Invalid targetRef.group. The only supported value is 'gateway.networking.k8s.io'
+                  rule: self.group == 'gateway.networking.k8s.io'
+                - message: Invalid targetRef.kind. The only supported values are 'Gateway'
+                  rule: self.kind == 'Gateway'
             required:
+            - providerRefs
             - targetRef
             type: object
           status:
             description: DNSPolicyStatus defines the observed state of DNSPolicy
             properties:
               conditions:
-                description: "conditions are any conditions associated with the policy
-                  \n If configuring the policy fails, the \"Failed\" condition will
-                  be set with a reason and message describing the cause of the failure."
+                description: |-
+                  conditions are any conditions associated with the policy
+
+                  If configuring the policy fails, the "Failed" condition will be set with a
+                  reason and message describing the cause of the failure.
                 items:
-                  description: "Condition contains details for one aspect of the current
-                    state of this API Resource. --- This struct is intended for direct
-                    use as an array at the field path .status.conditions.  For example,
-                    \n type FooStatus struct{ // Represents the observations of a
-                    foo's current state. // Known .status.conditions.type are: \"Available\",
-                    \"Progressing\", and \"Degraded\" // +patchMergeKey=type // +patchStrategy=merge
-                    // +listType=map // +listMapKey=type Conditions []metav1.Condition
-                    `json:\"conditions,omitempty\" patchStrategy:\"merge\" patchMergeKey:\"type\"
-                    protobuf:\"bytes,1,rep,name=conditions\"` \n // other fields }"
+                  description: Condition contains details for one aspect of the current
+                    state of this API Resource.
                   properties:
                     lastTransitionTime:
-                      description: lastTransitionTime is the last time the condition
-                        transitioned from one status to another. This should be when
-                        the underlying condition changed.  If that is not known, then
-                        using the time when the API field changed is acceptable.
+                      description: |-
+                        lastTransitionTime is the last time the condition transitioned from one status to another.
+                        This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                       format: date-time
                       type: string
                     message:
-                      description: message is a human readable message indicating
-                        details about the transition. This may be an empty string.
+                      description: |-
+                        message is a human readable message indicating details about the transition.
+                        This may be an empty string.
                       maxLength: 32768
                       type: string
                     observedGeneration:
-                      description: observedGeneration represents the .metadata.generation
-                        that the condition was set based upon. For instance, if .metadata.generation
-                        is currently 12, but the .status.conditions[x].observedGeneration
-                        is 9, the condition is out of date with respect to the current
-                        state of the instance.
+                      description: |-
+                        observedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
                       format: int64
                       minimum: 0
                       type: integer
                     reason:
-                      description: reason contains a programmatic identifier indicating
-                        the reason for the condition's last transition. Producers
-                        of specific condition types may define expected values and
-                        meanings for this field, and whether the values are considered
-                        a guaranteed API. The value should be a CamelCase string.
+                      description: |-
+                        reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                        Producers of specific condition types may define expected values and meanings for this field,
+                        and whether the values are considered a guaranteed API.
+                        The value should be a CamelCase string.
                         This field may not be empty.
                       maxLength: 1024
                       minLength: 1
@@ -254,10 +278,6 @@ spec:
                       type: string
                     type:
                       description: type of condition in CamelCase or in foo.example.com/CamelCase.
-                        --- Many .condition.type values are consistent across resources
-                        like Available, but because arbitrary conditions can be useful
-                        (see .node.status.conditions), the ability to deconflict is
-                        important. The regex it matches is (dns1123SubdomainFmt/)?(qualifiedNameFmt)
                       maxLength: 316
                       pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
                       type: string
@@ -273,46 +293,36 @@ spec:
                 properties:
                   conditions:
                     items:
-                      description: "Condition contains details for one aspect of the
-                        current state of this API Resource. --- This struct is intended
-                        for direct use as an array at the field path .status.conditions.
-                        \ For example, \n type FooStatus struct{ // Represents the
-                        observations of a foo's current state. // Known .status.conditions.type
-                        are: \"Available\", \"Progressing\", and \"Degraded\" // +patchMergeKey=type
-                        // +patchStrategy=merge // +listType=map // +listMapKey=type
-                        Conditions []metav1.Condition `json:\"conditions,omitempty\"
-                        patchStrategy:\"merge\" patchMergeKey:\"type\" protobuf:\"bytes,1,rep,name=conditions\"`
-                        \n // other fields }"
+                      description: Condition contains details for one aspect of the
+                        current state of this API Resource.
                       properties:
                         lastTransitionTime:
-                          description: lastTransitionTime is the last time the condition
-                            transitioned from one status to another. This should be
-                            when the underlying condition changed.  If that is not
-                            known, then using the time when the API field changed
-                            is acceptable.
+                          description: |-
+                            lastTransitionTime is the last time the condition transitioned from one status to another.
+                            This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
                           format: date-time
                           type: string
                         message:
-                          description: message is a human readable message indicating
-                            details about the transition. This may be an empty string.
+                          description: |-
+                            message is a human readable message indicating details about the transition.
+                            This may be an empty string.
                           maxLength: 32768
                           type: string
                         observedGeneration:
-                          description: observedGeneration represents the .metadata.generation
-                            that the condition was set based upon. For instance, if
-                            .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration
-                            is 9, the condition is out of date with respect to the
-                            current state of the instance.
+                          description: |-
+                            observedGeneration represents the .metadata.generation that the condition was set based upon.
+                            For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                            with respect to the current state of the instance.
                           format: int64
                           minimum: 0
                           type: integer
                         reason:
-                          description: reason contains a programmatic identifier indicating
-                            the reason for the condition's last transition. Producers
-                            of specific condition types may define expected values
-                            and meanings for this field, and whether the values are
-                            considered a guaranteed API. The value should be a CamelCase
-                            string. This field may not be empty.
+                          description: |-
+                            reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                            Producers of specific condition types may define expected values and meanings for this field,
+                            and whether the values are considered a guaranteed API.
+                            The value should be a CamelCase string.
+                            This field may not be empty.
                           maxLength: 1024
                           minLength: 1
                           pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
@@ -327,10 +337,6 @@ spec:
                           type: string
                         type:
                           description: type of condition in CamelCase or in foo.example.com/CamelCase.
-                            --- Many .condition.type values are consistent across
-                            resources like Available, but because arbitrary conditions
-                            can be useful (see .node.status.conditions), the ability
-                            to deconflict is important. The regex it matches is (dns1123SubdomainFmt/)?(qualifiedNameFmt)
                           maxLength: 316
                           pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
                           type: string
@@ -342,13 +348,153 @@ spec:
                       - type
                       type: object
                     type: array
+                  probes:
+                    items:
+                      properties:
+                        conditions:
+                          items:
+                            description: Condition contains details for one aspect
+                              of the current state of this API Resource.
+                            properties:
+                              lastTransitionTime:
+                                description: |-
+                                  lastTransitionTime is the last time the condition transitioned from one status to another.
+                                  This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+                                format: date-time
+                                type: string
+                              message:
+                                description: |-
+                                  message is a human readable message indicating details about the transition.
+                                  This may be an empty string.
+                                maxLength: 32768
+                                type: string
+                              observedGeneration:
+                                description: |-
+                                  observedGeneration represents the .metadata.generation that the condition was set based upon.
+                                  For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                                  with respect to the current state of the instance.
+                                format: int64
+                                minimum: 0
+                                type: integer
+                              reason:
+                                description: |-
+                                  reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                                  Producers of specific condition types may define expected values and meanings for this field,
+                                  and whether the values are considered a guaranteed API.
+                                  The value should be a CamelCase string.
+                                  This field may not be empty.
+                                maxLength: 1024
+                                minLength: 1
+                                pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                                type: string
+                              status:
+                                description: status of the condition, one of True,
+                                  False, Unknown.
+                                enum:
+                                - "True"
+                                - "False"
+                                - Unknown
+                                type: string
+                              type:
+                                description: type of condition in CamelCase or in
+                                  foo.example.com/CamelCase.
+                                maxLength: 316
+                                pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                                type: string
+                            required:
+                            - lastTransitionTime
+                            - message
+                            - reason
+                            - status
+                            - type
+                            type: object
+                          type: array
+                        host:
+                          type: string
+                        id:
+                          type: string
+                        ipAddress:
+                          type: string
+                        synced:
+                          type: boolean
+                      required:
+                      - host
+                      - id
+                      - ipAddress
+                      type: object
+                    type: array
                 type: object
               observedGeneration:
-                description: observedGeneration is the most recently observed generation
-                  of the DNSPolicy.  When the DNSPolicy is updated, the controller
-                  updates the corresponding configuration. If an update fails, that
-                  failure is recorded in the status condition
+                description: |-
+                  observedGeneration is the most recently observed generation of the
+                  DNSPolicy.  When the DNSPolicy is updated, the controller updates the
+                  corresponding configuration. If an update fails, that failure is
+                  recorded in the status condition
                 format: int64
+                type: integer
+              recordConditions:
+                additionalProperties:
+                  items:
+                    description: Condition contains details for one aspect of the
+                      current state of this API Resource.
+                    properties:
+                      lastTransitionTime:
+                        description: |-
+                          lastTransitionTime is the last time the condition transitioned from one status to another.
+                          This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+                        format: date-time
+                        type: string
+                      message:
+                        description: |-
+                          message is a human readable message indicating details about the transition.
+                          This may be an empty string.
+                        maxLength: 32768
+                        type: string
+                      observedGeneration:
+                        description: |-
+                          observedGeneration represents the .metadata.generation that the condition was set based upon.
+                          For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                          with respect to the current state of the instance.
+                        format: int64
+                        minimum: 0
+                        type: integer
+                      reason:
+                        description: |-
+                          reason contains a programmatic identifier indicating the reason for the condition's last transition.
+                          Producers of specific condition types may define expected values and meanings for this field,
+                          and whether the values are considered a guaranteed API.
+                          The value should be a CamelCase string.
+                          This field may not be empty.
+                        maxLength: 1024
+                        minLength: 1
+                        pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                        type: string
+                      status:
+                        description: status of the condition, one of True, False,
+                          Unknown.
+                        enum:
+                        - "True"
+                        - "False"
+                        - Unknown
+                        type: string
+                      type:
+                        description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                        maxLength: 316
+                        pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                        type: string
+                    required:
+                    - lastTransitionTime
+                    - message
+                    - reason
+                    - status
+                    - type
+                    type: object
+                  type: array
+                type: object
+              totalRecords:
+                description: TotalRecords records the total number of individual DNSRecords
+                  managed by this DNSPolicy
+                format: int32
                 type: integer
             type: object
         type: object
@@ -356,3 +502,22 @@ spec:
     storage: true
     subresources:
       status: {}
+status:
+  acceptedNames:
+    kind: DNSPolicy
+    listKind: DNSPolicyList
+    plural: dnspolicies
+    singular: dnspolicy
+  conditions:
+  - lastTransitionTime: "2024-11-11T15:02:31Z"
+    message: no conflicts found
+    reason: NoConflicts
+    status: "True"
+    type: NamesAccepted
+  - lastTransitionTime: "2024-11-11T15:02:31Z"
+    message: the initial names have been accepted
+    reason: InitialNamesAccepted
+    status: "True"
+    type: Established
+  storedVersions:
+  - v1

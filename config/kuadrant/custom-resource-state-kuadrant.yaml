@@ -1,7 +1,7 @@
     - groupVersionKind:
         group: kuadrant.io
         kind: "TLSPolicy"
-        version: "v1alpha1"
+        version: "v1"
       metricNamePrefix: gatewayapi_tlspolicy
       labelsFromPath:
         name:
@@ -54,7 +54,7 @@
     - groupVersionKind:
         group: kuadrant.io
         kind: "DNSPolicy"
-        version: "v1alpha1"
+        version: "v1"
       metricNamePrefix: gatewayapi_dnspolicy
       labelsFromPath:
         name:
@@ -107,7 +107,7 @@
     - groupVersionKind:
         group: kuadrant.io
         kind: "RateLimitPolicy"
-        version: "v1beta2"
+        version: "v1"
       metricNamePrefix: gatewayapi_ratelimitpolicy
       labelsFromPath:
         name:
@@ -160,7 +160,7 @@
     - groupVersionKind:
         group: kuadrant.io
         kind: "AuthPolicy"
-        version: "v1beta2"
+        version: "v1"
       metricNamePrefix: gatewayapi_authpolicy
       labelsFromPath:
         name:
