@@ -1,9 +1,15 @@
-apiVersion: kuadrant.io/v1alpha1
+apiVersion: kuadrant.io/v1
 kind: DNSPolicy
 metadata:
   name: testdnspolicy1
   namespace: default
 spec:
+  loadBalancing:
+    defaultGeo: true
+    geo: US
+    weight: 120
+  providerRefs:
+    - name: aws-credentials
   targetRef:
     group: gateway.networking.k8s.io
     kind: Gateway

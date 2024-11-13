@@ -1,4 +1,4 @@
-apiVersion: kuadrant.io/v1alpha1
+apiVersion: kuadrant.io/v1
 kind: TLSPolicy
 metadata:
   name: external
@@ -20,7 +20,7 @@ status:
     status: "True"
     type: Ready
 ---
-apiVersion: kuadrant.io/v1alpha1
+apiVersion: kuadrant.io/v1
 kind: TLSPolicy
 metadata:
   name: internal
@@ -42,12 +42,18 @@ status:
     status: "True"
     type: Ready
 ---
-apiVersion: kuadrant.io/v1alpha1
+apiVersion: kuadrant.io/v1
 kind: DNSPolicy
 metadata:
   name: external
   namespace: istio-system
 spec:
+  loadBalancing:
+    defaultGeo: true
+    geo: US
+    weight: 120
+  providerRefs:
+    - name: aws-credentials
   targetRef:
     group: gateway.networking.k8s.io
     kind: Gateway
@@ -61,7 +67,7 @@ status:
     type: Ready
   observedGeneration: 1
 ---
-apiVersion: kuadrant.io/v1beta2
+apiVersion: kuadrant.io/v1
 kind: RateLimitPolicy
 metadata:
   name: rlp-www
@@ -71,11 +77,18 @@ spec:
     kind: HTTPRoute
     name: www
   limits:
-    "global":
+    alice-limit:
       rates:
-      - limit: 5
-        duration: 10
-        unit: second
+        - limit: 5
+          window: 10s
+      when:
+        - predicate: auth.identity.userid == 'alice'
+    bob-limit:
+      rates:
+        - limit: 2
+          window: 10s
+      when:
+        - predicate: auth.identity.userid == 'bob'
 status:
   conditions:
   - lastTransitionTime: "2023-08-21T22:53:08Z"
@@ -84,7 +97,7 @@ status:
     status: "True"
     type: Available
 ---
-apiVersion: kuadrant.io/v1beta2
+apiVersion: kuadrant.io/v1
 kind: RateLimitPolicy
 metadata:
   name: rlp-cdn
@@ -94,11 +107,18 @@ spec:
     kind: HTTPRoute
     name: cdn
   limits:
-    "global":
+    alice-limit:
       rates:
-      - limit: 5
-        duration: 10
-        unit: second
+        - limit: 5
+          window: 10s
+      when:
+        - predicate: auth.identity.userid == 'alice'
+    bob-limit:
+      rates:
+        - limit: 2
+          window: 10s
+      when:
+        - predicate: auth.identity.userid == 'bob'
 status:
   conditions:
   - lastTransitionTime: "2023-08-21T22:53:08Z"
@@ -107,7 +127,7 @@ status:
     status: "True"
     type: Available
 ---
-apiVersion: kuadrant.io/v1beta2
+apiVersion: kuadrant.io/v1
 kind: AuthPolicy
 metadata:
   name: dashboards-protection
@@ -118,29 +138,27 @@ spec:
     name: dashboards
   rules:
     authentication:
-      "keycloak-users":
-        jwt:
-          issuerUrl: http://keycloak.example.com
-      "k8s-service-accounts":
-        kubernetesTokenReview:
-          audiences:
-          - https://kubernetes.example.com
-        overrides:
-          "sub":
-            selector: auth.identity.user.username
-    authorization:
-      "k8s-rbac":
-        kubernetesSubjectAccessReview:
-          user:
-            selector: auth.identity.sub
+      api-key-users:
+        apiKey:
+          allNamespaces: true
+          selector:
+            matchLabels:
+              app: toystore
+        credentials:
+          authorizationHeader:
+            prefix: APIKEY
+        metrics: false
+        priority: 0
     response:
       success:
-        dynamicMetadata:
-          "identity":
+        filters:
+          identity:
             json:
               properties:
-                "userid":
-                  selector: auth.identity.sub
+                userid:
+                  selector: auth.identity.metadata.annotations.secret\.kuadrant\.io/user-id
+            metrics: false
+            priority: 0
 status:
   conditions:
   - lastTransitionTime: "2023-08-21T22:53:08Z"
@@ -149,7 +167,7 @@ status:
     status: "True"
     type: Available
 ---
-apiVersion: kuadrant.io/v1beta2
+apiVersion: kuadrant.io/v1
 kind: AuthPolicy
 metadata:
   name: accounts
@@ -160,23 +178,27 @@ spec:
     name: accounts
   rules:
     authentication:
-      "api-key-users":
+      api-key-users:
         apiKey:
+          allNamespaces: true
           selector:
             matchLabels:
-              app: accounts
-          allNamespaces: true
+              app: toystore
         credentials:
           authorizationHeader:
             prefix: APIKEY
+        metrics: false
+        priority: 0
     response:
       success:
-        dynamicMetadata:
-          "identity":
+        filters:
+          identity:
             json:
               properties:
-                "userid":
+                userid:
                   selector: auth.identity.metadata.annotations.secret\.kuadrant\.io/user-id
+            metrics: false
+            priority: 0
 status:
   conditions:
   - lastTransitionTime: "2023-08-21T22:53:08Z"
