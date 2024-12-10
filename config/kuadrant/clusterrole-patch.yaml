@@ -19,6 +19,7 @@
     - ratelimitpolicies
     - authpolicies
     - dnsrecords
+    - dnshealthcheckprobes
     verbs:
     - list
     - watch
