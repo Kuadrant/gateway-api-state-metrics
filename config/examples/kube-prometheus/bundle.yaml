@@ -1739,6 +1739,25 @@ data:
                 labelsFromPath:
                   type: ["type"]
                 valueFrom: ["status"]
+        - groupVersionKind:
+            group: kuadrant.io
+            kind: "DNSHealthCheckProbe"
+            version: "v1alpha1"
+          metricNamePrefix: kuadrant_dnshealthcheckprobe
+          labelsFromPath:
+            name:
+            - metadata
+            - name
+            namespace:
+            - metadata
+            - namespace
+          metrics:
+          - name: "healthy_status"
+            help: "DNS Probe current status"
+            each:
+              type: Gauge
+              gauge:
+                path: [status, healthy]
 kind: ConfigMap
 metadata:
   name: custom-resource-state
