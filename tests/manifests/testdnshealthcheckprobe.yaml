@@ -1,0 +1,20 @@
+apiVersion: kuadrant.io/v1alpha1
+kind: DNSHealthCheckProbe
+metadata:
+  labels:
+    kuadrant.io/health-probes-owner: testdnsrecord1
+  name: testdnsrecord1-172.32.200.19
+  namespace: default
+spec:
+  address: 172.32.200.19
+  allowInsecureCertificate: false
+  failureThreshold: 3
+  hostname: eu.klb.test.cb.hcpapps.net
+  interval: 30s
+  path: /healthz
+  port: 80
+  protocol: HTTP
+status:
+  healthy: true
+  observedGeneration: 1
+  status: 200

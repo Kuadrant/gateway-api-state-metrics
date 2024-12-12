@@ -118,6 +118,7 @@ func TestKuadrantMetricsAvailable(t *testing.T) {
 		kuadrantMetrics[params[1]] = append(kuadrantMetrics[params[1]], params)
 	}
 	testDNSRecord(t, kuadrantMetrics)
+	testDNSHealthCheckProbe(t, kuadrantMetrics)
 }
 
 func testGatewayClasses(t *testing.T, metrics map[string][][]string) {
@@ -740,6 +741,12 @@ func testDNSRecord(t *testing.T, metrics map[string][][]string) {
 		rootDomainOwnerName := rootDomainOwnerInfo["owner"]
 		expectEqual(t, rootDomainOwnerName, expectedRootDomainOwners[i], "kuadrant_dnsrecord_status_root_domain_owners__"+strconv.Itoa(i)+" owner")
 	}
+}
+
+func testDNSHealthCheckProbe(t *testing.T, metrics map[string][][]string) {
+	probeHealthyMetric := metrics["kuadrant_dnshealthcheckprobe_healthy_status"]
+	probeHealthyMetric1 := probeHealthyMetric[0]
+	expectEqual(t, probeHealthyMetric1[3], "1", "kuadrant_dnshealthcheckprobe_healthy_status__1 value")
 }
 
 func parseLabels(labelsRaw string) map[string]string {
