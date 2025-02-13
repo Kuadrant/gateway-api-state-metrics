@@ -12,6 +12,9 @@ on:
     branches:
     - main
     - release*
+  merge_group:
+    types: [checks_requested]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -73,3 +76,15 @@ jobs:
           echo "Please run './hack/gen_kuadrant_custom_resource_state.sh' locally and check in the changes."
           exit 1
         fi
+
+  required-checks:
+    name: continuous-integration Required Checks
+    # This check adds a list of checks to one job to simplify adding settings to the repo.
+    # If a new check is added in this file, and it should be retested on entry to the merge queue,
+    # it needs to be added to the list below aka needs: [ existing check 1, existing check 2, new check ].
+    needs: [ ci-e2e-tests, check-bundles, check-kuadrant-custom-resource-state]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo '${{ toJSON(needs) }}' | jq -e 'all(.[]; .result == "success" or .result == "skipped")'
