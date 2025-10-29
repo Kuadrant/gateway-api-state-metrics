@@ -41,6 +41,7 @@ spec:
           type: Gauge
           gauge:
             path: [metadata, deletionTimestamp]
+            nilIsZero: true
       - name: "listener_info"
         help: "Gateway listener information"
         each:
@@ -118,6 +119,7 @@ spec:
           type: Gauge
           gauge:
             path: [metadata, deletionTimestamp]
+            nilIsZero: true
       - name: "status"
         help: "status condition"
         each:
@@ -168,6 +170,7 @@ spec:
           type: Gauge
           gauge:
             path: [metadata, deletionTimestamp]
+            nilIsZero: true
       - name: "hostname_info"
         help: "Hostname information"
         each:
@@ -236,6 +239,7 @@ spec:
           type: Gauge
           gauge:
             path: [metadata, deletionTimestamp]
+            nilIsZero: true
       - name: "hostname_info"
         help: "Hostname information"
         each:
@@ -304,6 +308,7 @@ spec:
           type: Gauge
           gauge:
             path: [metadata, deletionTimestamp]
+            nilIsZero: true
       - name: "parent_info"
         help: "Parent references that the tcproute wants to be attached to"
         each:
@@ -364,6 +369,7 @@ spec:
           type: Gauge
           gauge:
             path: [metadata, deletionTimestamp]
+            nilIsZero: true
       - name: "hostname_info"
         help: "Hostname information"
         each:
@@ -432,6 +438,7 @@ spec:
           type: Gauge
           gauge:
             path: [metadata, deletionTimestamp]
+            nilIsZero: true
       - name: "parent_info"
         help: "Parent references that the udproute wants to be attached to"
         each:
@@ -492,6 +499,7 @@ spec:
           type: Gauge
           gauge:
             path: [metadata, deletionTimestamp]
+            nilIsZero: true
       - name: "target_info"
         help: "Target references that the backendtlspolicy wants to be attached to"
         each:
