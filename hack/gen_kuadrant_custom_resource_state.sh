@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 # Paths to the input files and the output file
 file1="./config/default/custom-resource-state.yaml"

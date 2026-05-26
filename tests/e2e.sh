@@ -17,8 +17,7 @@
 # This file was copied from https://github.com/kubernetes/kube-state-metrics/blob/main/tests/e2e.sh
 # and modified to run gateway api metrics tests
 
-set -e
-set -o pipefail
+set -euo pipefail
 
 case $(uname -m) in
 	aarch64)	ARCH="arm64";;
@@ -27,11 +26,11 @@ case $(uname -m) in
 esac
 
 NODE_IMAGE_NAME="docker.io/kindest/node"
-KUBERNETES_VERSION=${KUBERNETES_VERSION:-"v1.27.0"}
+KUBERNETES_VERSION=${KUBERNETES_VERSION:-"v1.32.2"}
 KUBE_STATE_METRICS_LOG_DIR=./log
 E2E_SETUP_KIND=${E2E_SETUP_KIND:-}
 E2E_SETUP_KUBECTL=${E2E_SETUP_KUBECTL:-}
-KIND_VERSION=v0.19.0
+KIND_VERSION=v0.31.0
 SUDO=${SUDO:-}
 KUBE_STATE_METRICS_IMAGE_NAME=registry.k8s.io/kube-state-metrics/kube-state-metrics
 KUBE_STATE_METRICS_IMAGE_TAG=v2.18.0
@@ -48,15 +47,23 @@ function finish() {
 }
 
 function setup_kind() {
-    curl -sLo kind "https://kind.sigs.k8s.io/dl/${KIND_VERSION}/kind-${OS}-${ARCH}" \
-        && chmod +x kind \
-        && ${SUDO} mv kind /usr/local/bin/
+    curl -sLo kind "https://kind.sigs.k8s.io/dl/${KIND_VERSION}/kind-${OS}-${ARCH}"
+    curl -sLo kind-checksum.txt "https://kind.sigs.k8s.io/dl/${KIND_VERSION}/kind-${OS}-${ARCH}.sha256sum"
+    sha256sum -c kind-checksum.txt
+    rm kind-checksum.txt
+    chmod +x kind
+    ${SUDO} mv kind /usr/local/bin/
 }
 
 function setup_kubectl() {
-    curl -sLo kubectl https://dl.k8s.io/release/"$(curl -sL https://dl.k8s.io/release/stable.txt)"/bin/"${OS}"/"${ARCH}"/kubectl \
-        && chmod +x kubectl \
-        && ${SUDO} mv kubectl /usr/local/bin/
+    local version
+    version="$(curl -sL https://dl.k8s.io/release/stable.txt)"
+    curl -sLo kubectl "https://dl.k8s.io/release/${version}/bin/${OS}/${ARCH}/kubectl"
+    curl -sLo kubectl.sha256 "https://dl.k8s.io/release/${version}/bin/${OS}/${ARCH}/kubectl.sha256"
+    echo "$(cat kubectl.sha256)  kubectl" | sha256sum -c -
+    rm kubectl.sha256
+    chmod +x kubectl
+    ${SUDO} mv kubectl /usr/local/bin/
 }
 
 [[ -n "${E2E_SETUP_KIND}" ]] && setup_kind
