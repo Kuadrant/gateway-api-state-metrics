@@ -44719,7 +44719,7 @@ spec:
         - --telemetry-port=8082
         - --custom-resource-state-config-file
         - /custom-resource-state/custom-resource-state.yaml
-        image: registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.9.2
+        image: registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.18.0
         name: kube-state-metrics
         resources:
           limits:
