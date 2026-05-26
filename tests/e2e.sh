@@ -47,21 +47,23 @@ function finish() {
 }
 
 function setup_kind() {
-    curl -sLo kind "https://kind.sigs.k8s.io/dl/${KIND_VERSION}/kind-${OS}-${ARCH}"
-    local expected_hash
-    expected_hash=$(curl -sL "https://kind.sigs.k8s.io/dl/${KIND_VERSION}/kind-${OS}-${ARCH}.sha256sum" | awk '{print $1}')
-    echo "${expected_hash}  kind" | sha256sum -c -
-    chmod +x kind
-    ${SUDO} mv kind /usr/local/bin/
+    local kind_file="kind-${OS}-${ARCH}"
+    curl -sLo "${kind_file}" "https://kind.sigs.k8s.io/dl/${KIND_VERSION}/${kind_file}"
+    curl -sLo "${kind_file}.sha256sum" "https://kind.sigs.k8s.io/dl/${KIND_VERSION}/${kind_file}.sha256sum"
+    sha256sum --strict -c "${kind_file}.sha256sum"
+    chmod +x "${kind_file}"
+    ${SUDO} mv "${kind_file}" /usr/local/bin/kind
 }
 
 function setup_kubectl() {
-    local version
-    version="$(curl -sL https://dl.k8s.io/release/stable.txt)"
-    curl -sLo kubectl "https://dl.k8s.io/release/${version}/bin/${OS}/${ARCH}/kubectl"
+    curl -sLo kubectl "https://dl.k8s.io/release/${KUBERNETES_VERSION}/bin/${OS}/${ARCH}/kubectl"
     local expected_hash
-    expected_hash=$(curl -sL "https://dl.k8s.io/release/${version}/bin/${OS}/${ARCH}/kubectl.sha256")
-    echo "${expected_hash}  kubectl" | sha256sum -c -
+    expected_hash=$(curl -sL "https://dl.k8s.io/release/${KUBERNETES_VERSION}/bin/${OS}/${ARCH}/kubectl.sha256")
+    if [[ -z "${expected_hash}" ]]; then
+        echo "ERROR: Failed to fetch kubectl checksum for ${KUBERNETES_VERSION}"
+        exit 1
+    fi
+    echo "${expected_hash}  kubectl" | sha256sum --strict -c -
     chmod +x kubectl
     ${SUDO} mv kubectl /usr/local/bin/
 }

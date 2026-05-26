@@ -33,9 +33,10 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Set up Go 1.x
-      uses: actions/setup-go@v5
+      uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
       with:
         go-version-file: go.mod
+        cache: false
       id: go
 
     - name: End-to-end tests
@@ -54,7 +55,11 @@ jobs:
         curl -sLo kustomize.tar.gz "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2F${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz"
         curl -sLo checksums.txt "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2F${KUSTOMIZE_VERSION}/checksums.txt"
         expected_hash=$(grep "kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz" checksums.txt | awk '{print $1}')
-        echo "${expected_hash}  kustomize.tar.gz" | sha256sum -c -
+        if [[ -z "${expected_hash}" ]]; then
+          echo "ERROR: Failed to extract checksum for kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz"
+          exit 1
+        fi
+        echo "${expected_hash}  kustomize.tar.gz" | sha256sum --strict -c -
         tar xzf kustomize.tar.gz
         mv kustomize /usr/local/bin/
     - name: Compare Bundles
