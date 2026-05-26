@@ -48,9 +48,9 @@ function finish() {
 
 function setup_kind() {
     curl -sLo kind "https://kind.sigs.k8s.io/dl/${KIND_VERSION}/kind-${OS}-${ARCH}"
-    curl -sLo kind-checksum.txt "https://kind.sigs.k8s.io/dl/${KIND_VERSION}/kind-${OS}-${ARCH}.sha256sum"
-    sha256sum -c kind-checksum.txt
-    rm kind-checksum.txt
+    local expected_hash
+    expected_hash=$(curl -sL "https://kind.sigs.k8s.io/dl/${KIND_VERSION}/kind-${OS}-${ARCH}.sha256sum" | awk '{print $1}')
+    echo "${expected_hash}  kind" | sha256sum -c -
     chmod +x kind
     ${SUDO} mv kind /usr/local/bin/
 }
@@ -59,9 +59,9 @@ function setup_kubectl() {
     local version
     version="$(curl -sL https://dl.k8s.io/release/stable.txt)"
     curl -sLo kubectl "https://dl.k8s.io/release/${version}/bin/${OS}/${ARCH}/kubectl"
-    curl -sLo kubectl.sha256 "https://dl.k8s.io/release/${version}/bin/${OS}/${ARCH}/kubectl.sha256"
-    echo "$(cat kubectl.sha256)  kubectl" | sha256sum -c -
-    rm kubectl.sha256
+    local expected_hash
+    expected_hash=$(curl -sL "https://dl.k8s.io/release/${version}/bin/${OS}/${ARCH}/kubectl.sha256")
+    echo "${expected_hash}  kubectl" | sha256sum -c -
     chmod +x kubectl
     ${SUDO} mv kubectl /usr/local/bin/
 }
