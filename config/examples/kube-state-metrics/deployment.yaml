@@ -4,7 +4,7 @@ metadata:
   labels:
     app.kubernetes.io/component: exporter
     app.kubernetes.io/name: kube-state-metrics
-    app.kubernetes.io/version: 2.9.2
+    app.kubernetes.io/version: 2.18.0
   name: kube-state-metrics
   namespace: kube-system
 spec:
@@ -17,7 +17,7 @@ spec:
       labels:
         app.kubernetes.io/component: exporter
         app.kubernetes.io/name: kube-state-metrics
-        app.kubernetes.io/version: 2.9.2
+        app.kubernetes.io/version: 2.18.0
     spec:
       automountServiceAccountToken: true
       volumes:
@@ -26,7 +26,7 @@ spec:
           defaultMode: 420
           name: custom-resource-state
       containers:
-      - image: registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.9.2
+      - image: registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.18.0
         args:
         - --custom-resource-state-config-file
         - /custom-resource-state/custom-resource-state.yaml
