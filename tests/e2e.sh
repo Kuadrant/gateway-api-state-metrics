@@ -17,8 +17,7 @@
 # This file was copied from https://github.com/kubernetes/kube-state-metrics/blob/main/tests/e2e.sh
 # and modified to run gateway api metrics tests
 
-set -e
-set -o pipefail
+set -euo pipefail
 
 case $(uname -m) in
 	aarch64)	ARCH="arm64";;
@@ -27,14 +26,14 @@ case $(uname -m) in
 esac
 
 NODE_IMAGE_NAME="docker.io/kindest/node"
-KUBERNETES_VERSION=${KUBERNETES_VERSION:-"v1.27.0"}
+KUBERNETES_VERSION=${KUBERNETES_VERSION:-"v1.32.2"}
 KUBE_STATE_METRICS_LOG_DIR=./log
 E2E_SETUP_KIND=${E2E_SETUP_KIND:-}
 E2E_SETUP_KUBECTL=${E2E_SETUP_KUBECTL:-}
-KIND_VERSION=v0.19.0
+KIND_VERSION=v0.31.0
 SUDO=${SUDO:-}
 KUBE_STATE_METRICS_IMAGE_NAME=registry.k8s.io/kube-state-metrics/kube-state-metrics
-KUBE_STATE_METRICS_IMAGE_TAG=v2.9.2
+KUBE_STATE_METRICS_IMAGE_TAG=v2.18.0
 
 OS=$(uname -s | awk '{print tolower($0)}')
 OS=${OS:-linux}
@@ -48,15 +47,25 @@ function finish() {
 }
 
 function setup_kind() {
-    curl -sLo kind "https://kind.sigs.k8s.io/dl/${KIND_VERSION}/kind-${OS}-${ARCH}" \
-        && chmod +x kind \
-        && ${SUDO} mv kind /usr/local/bin/
+    local kind_file="kind-${OS}-${ARCH}"
+    curl -sLo "${kind_file}" "https://kind.sigs.k8s.io/dl/${KIND_VERSION}/${kind_file}"
+    curl -sLo "${kind_file}.sha256sum" "https://kind.sigs.k8s.io/dl/${KIND_VERSION}/${kind_file}.sha256sum"
+    sha256sum --strict -c "${kind_file}.sha256sum"
+    chmod +x "${kind_file}"
+    ${SUDO} mv "${kind_file}" /usr/local/bin/kind
 }
 
 function setup_kubectl() {
-    curl -sLo kubectl https://dl.k8s.io/release/"$(curl -sL https://dl.k8s.io/release/stable.txt)"/bin/"${OS}"/"${ARCH}"/kubectl \
-        && chmod +x kubectl \
-        && ${SUDO} mv kubectl /usr/local/bin/
+    curl -sLo kubectl "https://dl.k8s.io/release/${KUBERNETES_VERSION}/bin/${OS}/${ARCH}/kubectl"
+    local expected_hash
+    expected_hash=$(curl -sL "https://dl.k8s.io/release/${KUBERNETES_VERSION}/bin/${OS}/${ARCH}/kubectl.sha256")
+    if [[ -z "${expected_hash}" ]]; then
+        echo "ERROR: Failed to fetch kubectl checksum for ${KUBERNETES_VERSION}"
+        exit 1
+    fi
+    echo "${expected_hash}  kubectl" | sha256sum --strict -c -
+    chmod +x kubectl
+    ${SUDO} mv kubectl /usr/local/bin/
 }
 
 [[ -n "${E2E_SETUP_KIND}" ]] && setup_kind
