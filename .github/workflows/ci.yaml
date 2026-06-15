@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Check out code into the Go module directory
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Set up Go 1.x
       uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
@@ -48,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Download Kustomize
       run: |
         KUSTOMIZE_VERSION=v5.8.1
@@ -73,7 +73,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Execute generation script
       run: ./hack/gen_kuadrant_custom_resource_state.sh
@@ -95,7 +95,7 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - run: echo "$NEEDS_JSON" | jq -e 'all(.[]; .result == "success" or .result == "skipped")'
         env:
           NEEDS_JSON: ${{ toJSON(needs) }}
