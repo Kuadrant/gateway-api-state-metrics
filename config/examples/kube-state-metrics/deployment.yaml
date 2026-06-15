@@ -26,7 +26,7 @@ spec:
           defaultMode: 420
           name: custom-resource-state
       containers:
-      - image: registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.18.0
+      - image: registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.1
         args:
         - --custom-resource-state-config-file
         - /custom-resource-state/custom-resource-state.yaml
